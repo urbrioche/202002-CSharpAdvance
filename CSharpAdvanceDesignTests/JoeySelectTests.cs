@@ -50,7 +50,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelect(urls, (url, index) => $"{index + 1}. {url}");
+            var actual = urls.JoeySelect((url, index) => $"{index + 1}. {url}");
             var expected = new List<string>
             {
                 "1. http://tw.yahoo.com",
@@ -78,19 +78,6 @@ namespace CSharpAdvanceDesignTests
             yield return "https://facebook.com";
             yield return "https://twitter.com";
             yield return "http://github.com";
-        }
-
-        private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, int, string> selector)
-        {
-            var index = 0;
-            var result = new List<string>();
-            foreach (var url in urls)
-            {
-                result.Add(selector(url, index));
-                index++;
-            }
-
-            return result;
         }
     }
 }

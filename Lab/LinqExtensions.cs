@@ -47,5 +47,18 @@ namespace Lab
 
             return result;
         }
+
+        public static IEnumerable<string> JoeySelect(this IEnumerable<string> urls, Func<string, int, string> selector)
+        {
+            var index = 0;
+            var result = new List<string>();
+            foreach (var url in urls)
+            {
+                result.Add(selector(url, index));
+                index++;
+            }
+
+            return result;
+        }
     }
 }
