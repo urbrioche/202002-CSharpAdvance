@@ -6,22 +6,33 @@ namespace Lab
 {
     public static class LinqExtensions
     {
-        public static IEnumerable<string> JoeySelect(this IEnumerable<string> urls, Func<string, string> selector)
+        public static IEnumerable<string> JoeySelect(this IEnumerable<string> source, Func<string, string> selector)
         {
             var result = new List<string>();
-            foreach (var url in urls)
+            foreach (var item in source)
             {
-                result.Add(selector(url));
+                result.Add(selector(item));
             }
 
             return result;
         }
 
-        public static IEnumerable<string> JoeySelect(this IEnumerable<string> urls, Func<string, int, string> selector)
+        public static IEnumerable<string> JoeySelect(this List<Employee> source, Func<Employee, string> selector)
+        {
+            var result = new List<string>();
+            foreach (var item in source)
+            {
+                result.Add(selector(item));
+            }
+
+            return result;
+        }
+
+        public static IEnumerable<string> JoeySelect(this IEnumerable<string> source, Func<string, int, string> selector)
         {
             var index = 0;
             var result = new List<string>();
-            foreach (var url in urls)
+            foreach (var url in source)
             {
                 result.Add(selector(url, index));
                 index++;
@@ -57,17 +68,6 @@ namespace Lab
                 }
 
                 index++;
-            }
-
-            return result;
-        }
-
-        public static IEnumerable<string> JoeySelect(this List<Employee> employees, Func<Employee, string> selector)
-        {
-            var result = new List<string>();
-            foreach (var employee in employees)
-            {
-                result.Add(selector(employee));
             }
 
             return result;
