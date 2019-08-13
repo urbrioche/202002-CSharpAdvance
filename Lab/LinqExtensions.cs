@@ -62,7 +62,7 @@ namespace Lab
             return result;
         }
 
-        public static IEnumerable<string> JoeySelect(List<Employee> employees, Func<Employee, string> selector)
+        public static IEnumerable<string> JoeySelect(this List<Employee> employees, Func<Employee, string> selector)
         {
             var result = new List<string>();
             foreach (var employee in employees)

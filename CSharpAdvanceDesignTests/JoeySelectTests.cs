@@ -66,7 +66,7 @@ namespace CSharpAdvanceDesignTests
         public void get_full_name_of_employees()
         {
             var employees = GetEmployees();
-            var actual = LinqExtensions.JoeySelect(employees, e => $"{e.FirstName} {e.LastName}");
+            var actual = employees.JoeySelect(e => $"{e.FirstName} {e.LastName}");
             var expected = new[]
             {
                 "Joey Chen",
