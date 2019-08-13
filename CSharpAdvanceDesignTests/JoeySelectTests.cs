@@ -62,6 +62,21 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
         }
 
+        [Test]
+        public void get_full_name_of_employees()
+        {
+            var employees = GetEmployees();
+            var actual = JoeySelect(employees, e => $"{e.FirstName} {e.LastName}");
+            var expected = new[]
+            {
+                "Joey Chen",
+                "Tom Li",
+                "David Chen",
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
         private static List<Employee> GetEmployees()
         {
             return new List<Employee>
@@ -78,6 +93,11 @@ namespace CSharpAdvanceDesignTests
             yield return "https://facebook.com";
             yield return "https://twitter.com";
             yield return "http://github.com";
+        }
+
+        private IEnumerable<Employee> JoeySelect(List<Employee> employees, Func<Employee, string> selector)
+        {
+            throw new NotImplementedException();
         }
     }
 }

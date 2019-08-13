@@ -16,6 +16,19 @@ namespace Lab
             return result;
         }
 
+        public static IEnumerable<string> JoeySelect(this IEnumerable<string> urls, Func<string, int, string> selector)
+        {
+            var index = 0;
+            var result = new List<string>();
+            foreach (var url in urls)
+            {
+                result.Add(selector(url, index));
+                index++;
+            }
+
+            return result;
+        }
+
         public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, bool> predicate)
         {
             var result = new List<TSource>();
@@ -42,19 +55,6 @@ namespace Lab
                     result.Add(item);
                 }
 
-                index++;
-            }
-
-            return result;
-        }
-
-        public static IEnumerable<string> JoeySelect(this IEnumerable<string> urls, Func<string, int, string> selector)
-        {
-            var index = 0;
-            var result = new List<string>();
-            foreach (var url in urls)
-            {
-                result.Add(selector(url, index));
                 index++;
             }
 
