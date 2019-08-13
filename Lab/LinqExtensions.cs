@@ -5,6 +5,17 @@ namespace Lab
 {
     public static class LinqExtensions
     {
+        public static IEnumerable<string> JoeySelect(this IEnumerable<string> urls, Func<string, string> selector)
+        {
+            var result = new List<string>();
+            foreach (var url in urls)
+            {
+                result.Add(selector(url));
+            }
+
+            return result;
+        }
+
         public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, bool> predicate)
         {
             var result = new List<TSource>();
