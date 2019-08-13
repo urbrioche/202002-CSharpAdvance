@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lab.Entities;
 
+// ReSharper disable All
 namespace Lab
 {
     public static class LinqExtensions
@@ -35,16 +36,26 @@ namespace Lab
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            var result = new List<TSource>();
-            foreach (var item in source)
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
             {
+                var item = enumerator.Current;
                 if (predicate(item))
                 {
-                    result.Add(item);
+                    yield return item;
                 }
             }
 
-            return result;
+            //var result = new List<TSource>();
+            //foreach (var item in source)
+            //{
+            //    if (predicate(item))
+            //    {
+            //        result.Add(item);
+            //    }
+            //}
+
+            //return result;
         }
 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
