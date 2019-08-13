@@ -97,7 +97,13 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeySelect(List<Employee> employees, Func<Employee, string> selector)
         {
-            throw new NotImplementedException();
+            var result = new List<string>();
+            foreach (var employee in employees)
+            {
+                result.Add(selector(employee));
+            }
+
+            return result;
         }
     }
 }
