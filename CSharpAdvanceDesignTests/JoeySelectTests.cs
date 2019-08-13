@@ -79,13 +79,18 @@ namespace CSharpAdvanceDesignTests
             yield return "http://github.com";
         }
 
+        private static string MySelector(string url, int index)
+        {
+            return $"{index + 1}. {url}";
+        }
+
         private IEnumerable<string> JoeySelectWithIndex(IEnumerable<string> urls)
         {
             var index = 0;
             var result = new List<string>();
             foreach (var url in urls)
             {
-                result.Add($"{index + 1}. {url}");
+                result.Add(MySelector(url, index));
                 index++;
             }
 
