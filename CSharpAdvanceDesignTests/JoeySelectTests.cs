@@ -95,7 +95,7 @@ namespace CSharpAdvanceDesignTests
             yield return "http://github.com";
         }
 
-        private IEnumerable<Employee> JoeySelect(List<Employee> employees, Func<Employee, string> selector)
+        private IEnumerable<string> JoeySelect(List<Employee> employees, Func<Employee, string> selector)
         {
             throw new NotImplementedException();
         }
