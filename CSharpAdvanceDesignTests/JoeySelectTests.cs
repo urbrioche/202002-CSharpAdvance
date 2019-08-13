@@ -52,10 +52,10 @@ namespace CSharpAdvanceDesignTests
             var actual = JoeySelectWithIndex(urls);
             var expected = new List<string>
             {
-                "1. http://tw.yahoo.com:9191",
-                "2. https://facebook.com:9191",
-                "3. https://twitter.com:9191",
-                "4. http://github.com:9191",
+                "1. http://tw.yahoo.com",
+                "2. https://facebook.com",
+                "3. https://twitter.com",
+                "4. http://github.com",
             };
 
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
