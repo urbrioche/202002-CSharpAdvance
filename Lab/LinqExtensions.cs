@@ -32,19 +32,6 @@ namespace Lab
             return result;
         }
 
-        public static IEnumerable<string> JoeySelectForRemove(this List<Employee> source,
-            Func<Employee, string> selector)
-        {
-            return JoeySelect(source, selector);
-            //var result = new List<string>();
-            //foreach (var item in source)
-            //{
-            //    result.Add(selector(item));
-            //}
-
-            //return result;
-        }
-
         public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, bool> predicate)
         {
             var result = new List<TSource>();
