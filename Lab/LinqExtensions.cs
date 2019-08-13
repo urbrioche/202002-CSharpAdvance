@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lab.Entities;
 
 namespace Lab
 {
@@ -56,6 +57,17 @@ namespace Lab
                 }
 
                 index++;
+            }
+
+            return result;
+        }
+
+        public static IEnumerable<string> JoeySelect(List<Employee> employees, Func<Employee, string> selector)
+        {
+            var result = new List<string>();
+            foreach (var employee in employees)
+            {
+                result.Add(selector(employee));
             }
 
             return result;

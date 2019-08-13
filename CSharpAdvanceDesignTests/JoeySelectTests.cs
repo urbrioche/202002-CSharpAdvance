@@ -66,7 +66,7 @@ namespace CSharpAdvanceDesignTests
         public void get_full_name_of_employees()
         {
             var employees = GetEmployees();
-            var actual = JoeySelect(employees, e => $"{e.FirstName} {e.LastName}");
+            var actual = LinqExtensions.JoeySelect(employees, e => $"{e.FirstName} {e.LastName}");
             var expected = new[]
             {
                 "Joey Chen",
@@ -93,17 +93,6 @@ namespace CSharpAdvanceDesignTests
             yield return "https://facebook.com";
             yield return "https://twitter.com";
             yield return "http://github.com";
-        }
-
-        private IEnumerable<string> JoeySelect(List<Employee> employees, Func<Employee, string> selector)
-        {
-            var result = new List<string>();
-            foreach (var employee in employees)
-            {
-                result.Add(selector(employee));
-            }
-
-            return result;
         }
     }
 }
