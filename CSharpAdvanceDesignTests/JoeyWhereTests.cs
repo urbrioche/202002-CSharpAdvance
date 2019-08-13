@@ -111,10 +111,10 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private List<int> JoeyWhereWithIndex(List<int> source, Func<int, int, bool> predicate)
+        private List<TSource> JoeyWhereWithIndex<TSource>(List<TSource> source, Func<TSource, int, bool> predicate)
         {
             var index = 0;
-            var result = new List<int>();
+            var result = new List<TSource>();
             foreach (var item in source)
             {
                 if (predicate(item, index))
