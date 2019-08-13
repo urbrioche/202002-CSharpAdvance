@@ -79,15 +79,15 @@ namespace CSharpAdvanceDesignTests
             var expected = new List<Employee>
             {
                 new Employee {FirstName = "Joey", LastName = "Chen"},
-                new Employee {FirstName = "May", LastName = "Chen"}, 
+                new Employee {FirstName = "May", LastName = "Chen"},
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
+        private List<TSource> JoeyWhere<TSource>(List<TSource> products, Func<TSource, bool> predicate)
         {
-            var result = new List<Product>();
+            var result = new List<TSource>();
             foreach (var product in products)
             {
                 if (predicate(product))
