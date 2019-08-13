@@ -16,28 +16,19 @@ namespace Lab
                 var item = enumerator.Current;
                 yield return selector(item);
             }
-
-            //var result = new List<TResult>();
-            //foreach (var item in source)
-            //{
-            //    result.Add(selector(item));
-            //}
-
-            //return result;
         }
 
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, int, TResult> selector)
         {
             var index = 0;
-            var result = new List<TResult>();
-            foreach (var item in source)
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                result.Add(selector(item, index));
+                var item = enumerator.Current;
+                yield return selector(item, index);
                 index++;
             }
-
-            return result;
         }
 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
@@ -52,35 +43,23 @@ namespace Lab
                     yield return item;
                 }
             }
-
-            //var result = new List<TSource>();
-            //foreach (var item in source)
-            //{
-            //    if (predicate(item))
-            //    {
-            //        result.Add(item);
-            //    }
-            //}
-
-            //return result;
         }
 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
             Func<TSource, int, bool> predicate)
         {
             var index = 0;
-            var result = new List<TSource>();
-            foreach (var item in source)
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
             {
+                var item = enumerator.Current;
                 if (predicate(item, index))
                 {
-                    result.Add(item);
+                    yield return item;
                 }
 
                 index++;
             }
-
-            return result;
         }
     }
 }
