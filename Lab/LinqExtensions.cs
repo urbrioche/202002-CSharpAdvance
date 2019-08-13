@@ -6,9 +6,9 @@ namespace Lab
 {
     public static class LinqExtensions
     {
-        public static IEnumerable<string> JoeySelect(this IEnumerable<string> source, Func<string, string> selector)
+        public static IEnumerable<TResult> JoeySelect<TSource,TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            var result = new List<string>();
+            var result = new List<TResult>();
             foreach (var item in source)
             {
                 result.Add(selector(item));
