@@ -25,7 +25,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhile(cards);
+            var actual = JoeySkipWhile(cards, item => item.Kind != CardKind.Separate);
 
             var expected = new List<Card>
             {
@@ -80,14 +80,14 @@ namespace CSharpAdvanceDesignTests
             }
         }
 
-        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
+        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
         {
             var enumerator = cards.GetEnumerator();
             var isStartingTake = false;
             while (enumerator.MoveNext())
             {
                 var item = enumerator.Current;
-                if (item.Kind == CardKind.Separate || isStartingTake)
+                if (!predicate(item) || isStartingTake)
                 {
                     isStartingTake = true;
                     yield return item;
