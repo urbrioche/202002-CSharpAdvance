@@ -40,7 +40,7 @@ namespace CSharpAdvanceDesignTests
             return default(int?);
         }
 
-        private Employee JoeyFirstOrDefault(IEnumerable<Employee> employees)
+        private TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> employees)
         {
             var enumerator = employees.GetEnumerator();
             if (enumerator.MoveNext())
@@ -48,7 +48,7 @@ namespace CSharpAdvanceDesignTests
                 return enumerator.Current;
             }
 
-            return default(Employee);
+            return default(TSource);
         }
     }
 }
