@@ -29,7 +29,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Tom", LastName = "Li"},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual);
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
         private static IEnumerable<Employee> GetEmployees()
@@ -46,7 +46,23 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees)
         {
-            throw new System.NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+
+                if (index < 2)
+                {
+                    yield return item;
+                }
+                else
+                {
+                    yield break;
+                }
+
+                index++;
+            }
         }
     }
 }
