@@ -24,21 +24,9 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new List<int?>();
 
-            var actual = JoeyFirstOrDefaultForNullableInt(numbers);
+            var actual = JoeyFirstOrDefault(numbers);
 
             Assert.IsNull(actual);
-        }
-
-        private int? JoeyFirstOrDefaultForNullableInt(IEnumerable<int?> numbers)
-        {
-            return JoeyFirstOrDefault(numbers);
-            //var enumerator = numbers.GetEnumerator();
-            //if (enumerator.MoveNext())
-            //{
-            //    return enumerator.Current;
-            //}
-
-            //return default(int?);
         }
 
         private TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> employees)
