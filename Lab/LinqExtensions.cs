@@ -153,5 +153,16 @@ namespace Lab
                 index++;
             }
         }
+
+        public static bool JoeyAll<TSource>(this IEnumerable<TSource> girls, Func<TSource, bool> predicate)
+        {
+            var enumerator = girls.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (!predicate(enumerator.Current)) return false;
+            }
+
+            return true;
+        }
     }
 }
