@@ -31,7 +31,13 @@ namespace CSharpAdvanceDesignTests
 
         private int? JoeyFirstOrDefaultForNullableInt(IEnumerable<int?> numbers)
         {
-            throw new NotImplementedException();
+            var enumerator = numbers.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                return enumerator.Current;
+            }
+
+            return default(int?);
         }
 
         private Employee JoeyFirstOrDefault(IEnumerable<Employee> employees)
