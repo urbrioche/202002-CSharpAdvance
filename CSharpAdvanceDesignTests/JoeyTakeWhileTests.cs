@@ -61,19 +61,20 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Card> JoeyTakeWhileCardPointLessThan4(IEnumerable<Card> cards)
         {
-            var enumerator = cards.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-                if (item.Point < 4)
-                {
-                    yield return item;
-                }
-                else
-                {
-                    yield break;
-                }
-            }
+            return JoeyTakeWhile(cards, c => c.Point < 4);
+            //var enumerator = cards.GetEnumerator();
+            //while (enumerator.MoveNext())
+            //{
+            //    var item = enumerator.Current;
+            //    if (item.Point < 4)
+            //    {
+            //        yield return item;
+            //    }
+            //    else
+            //    {
+            //        yield break;
+            //    }
+            //}
         }
 
         private IEnumerable<Card> JoeyTakeWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
