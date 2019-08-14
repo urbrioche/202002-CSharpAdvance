@@ -61,7 +61,7 @@ namespace CSharpAdvanceDesignTests
         public void skip_5_numbers()
         {
             var numbers = new[] {1, 2, 3};
-            var actual = JoeySkip(numbers, 5);
+            var actual = JoeySkipWithInt(numbers, 5);
 
             var expected = new int[] { };
             expected.ToExpectedObject().ShouldMatch(actual);
@@ -77,6 +77,11 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Mike", LastName = "Chang"},
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
+        }
+
+        private IEnumerable<int> JoeySkipWithInt(IEnumerable<int> numbers, int count)
+        {
+            throw new System.NotImplementedException();
         }
 
         private IEnumerable<Employee> JoeySkip(IEnumerable<Employee> employees, int count)
