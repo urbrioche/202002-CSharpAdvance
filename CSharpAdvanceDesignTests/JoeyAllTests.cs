@@ -23,6 +23,21 @@ namespace CSharpAdvanceDesignTests
             Assert.IsFalse(actual);
         }
 
+        [Test]
+        public void girls_all_married()
+        {
+            var girls = new List<Girl>
+            {
+                new Girl {IsMarried = true},
+                new Girl {IsMarried = true},
+                new Girl {IsMarried = true},
+                new Girl {IsMarried = true},
+            };
+
+            var actual = JoeyAll(girls);
+            Assert.IsTrue(actual);
+        }
+
         private bool JoeyAll(IEnumerable<Girl> girls)
         {
             var enumerator = girls.GetEnumerator();
