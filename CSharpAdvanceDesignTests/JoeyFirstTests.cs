@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -26,7 +27,13 @@ namespace CSharpAdvanceDesignTests
 
         private Girl JoeyFirst(IEnumerable<Girl> girls)
         {
-            throw new System.NotImplementedException();
+            var enumerator = girls.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                return enumerator.Current;
+            }
+
+            throw new InvalidOperationException($"{nameof(girls)} is empty");
         }
     }
 }
