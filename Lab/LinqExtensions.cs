@@ -6,6 +6,27 @@ namespace Lab
 {
     public static class LinqExtensions
     {
+        public static bool JoeyAny<TSource>(this IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            return enumerator.MoveNext();
+        }
+
+        public static bool JoeyAny<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (predicate(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
