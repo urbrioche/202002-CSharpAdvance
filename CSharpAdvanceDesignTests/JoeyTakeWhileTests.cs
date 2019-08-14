@@ -34,6 +34,36 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
+        [Test]
+        public void take_cards_while_card_point_less_than_4()
+        {
+            var cards = new List<Card>
+            {
+                new Card {Kind = CardKind.Normal, Point = 2},
+                new Card {Kind = CardKind.Normal, Point = 3},
+                new Card {Kind = CardKind.Normal, Point = 4},
+                new Card {Kind = CardKind.Separate},
+                new Card {Kind = CardKind.Normal, Point = 5},
+                new Card {Kind = CardKind.Normal, Point = 6},
+            };
+
+            var actual = JoeyTakeWhileCardPointLessThan4(cards);
+
+            var expected = new List<Card>
+            {
+                new Card {Kind = CardKind.Normal, Point = 2},
+                new Card {Kind = CardKind.Normal, Point = 3},
+                new Card {Kind = CardKind.Normal, Point = 4},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        private IEnumerable<Card> JoeyTakeWhileCardPointLessThan4(IEnumerable<Card> cards)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private IEnumerable<Card> JoeyTakeWhile(IEnumerable<Card> cards)
         {
             var enumerator = cards.GetEnumerator();
