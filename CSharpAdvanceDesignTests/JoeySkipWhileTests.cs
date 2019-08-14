@@ -5,6 +5,7 @@ using NUnit.Framework.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -25,7 +26,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhile(cards, item => item.Kind != CardKind.Separate);
+            var actual = cards.JoeySkipWhile(item => item.Kind != CardKind.Separate);
 
             var expected = new List<Card>
             {
@@ -52,7 +53,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhile(cards, card => card.Point < 5);
+            var actual = cards.JoeySkipWhile(card => card.Point < 5);
 
             var expected = new List<Card>
             {
@@ -62,21 +63,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
-        {
-            var enumerator = cards.GetEnumerator();
-            var isStartingTake = false;
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-                if (!predicate(item) || isStartingTake)
-                {
-                    isStartingTake = true;
-                    yield return item;
-                }
-            }
         }
     }
 }

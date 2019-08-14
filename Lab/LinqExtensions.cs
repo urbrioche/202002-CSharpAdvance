@@ -116,5 +116,21 @@ namespace Lab
                 }
             }
         }
+
+        public static IEnumerable<TSource> JoeySkipWhile<TSource>(this IEnumerable<TSource> cards,
+            Func<TSource, bool> predicate)
+        {
+            var enumerator = cards.GetEnumerator();
+            var isStartingTake = false;
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (!predicate(item) || isStartingTake)
+                {
+                    isStartingTake = true;
+                    yield return item;
+                }
+            }
+        }
     }
 }
