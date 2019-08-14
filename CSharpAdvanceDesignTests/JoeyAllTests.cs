@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
-    [Ignore("not yet")]
     [TestFixture]
     public class JoeyAllTests
     {
@@ -13,11 +12,11 @@ namespace CSharpAdvanceDesignTests
         {
             var girls = new List<Girl>
             {
-                new Girl{Age = 20},
-                new Girl{Age = 21},
-                new Girl{Age = 17},
-                new Girl{Age = 18},
-                new Girl{Age = 30},
+                new Girl {Age = 20},
+                new Girl {Age = 21},
+                new Girl {Age = 17},
+                new Girl {Age = 18},
+                new Girl {Age = 30},
             };
 
             var actual = JoeyAll(girls);
