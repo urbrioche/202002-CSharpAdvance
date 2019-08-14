@@ -81,21 +81,22 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<int> JoeySkipWithInt(IEnumerable<int> numbers, int count)
         {
-            var enumerator = numbers.GetEnumerator();
-            var index = 0;
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-                if (index >= count)
-                {
-                    yield return item;
-                }
+            return JoeySkip(numbers, count);
+            //var enumerator = numbers.GetEnumerator();
+            //var index = 0;
+            //while (enumerator.MoveNext())
+            //{
+            //    var item = enumerator.Current;
+            //    if (index >= count)
+            //    {
+            //        yield return item;
+            //    }
 
-                index++;
-            }
+            //    index++;
+            //}
         }
 
-        private IEnumerable<Employee> JoeySkip(IEnumerable<Employee> employees, int count)
+        private IEnumerable<TSource> JoeySkip<TSource>(IEnumerable<TSource> employees, int count)
         {
             var enumerator = employees.GetEnumerator();
             var index = 0;
