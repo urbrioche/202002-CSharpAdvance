@@ -1,7 +1,9 @@
-﻿using Lab.Entities;
+﻿using System;
+using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using ExpectedObjects;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -16,9 +18,41 @@ namespace CSharpAdvanceDesignTests
             Assert.IsNull(actual);
         }
 
-        private Employee JoeyLastOrDefault(IEnumerable<Employee> employees)
+        [Test]
+        public void get_last_employee_who_is_manager()
         {
-            throw new System.NotImplementedException();
+            var employees = new List<Employee>()
+            {
+                new Employee() {FirstName = "Joey", Role = Role.Manager},
+                new Employee() {FirstName = "David", Role = Role.Designer},
+                new Employee() {FirstName = "Tom", Role = Role.Manager},
+                new Employee() {FirstName = "May", Role = Role.Engineer},
+            };
+            var actual = JoeyLastOrDefaultWithCondition(employees);
+            new Employee() {FirstName = "Tom", Role = Role.Manager}.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> employees)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Employee JoeyLastOrDefault(IEnumerable<Employee> source)
+        {
+            var enumerator = source.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+            {
+                return default(Employee);
+            }
+
+            var result = enumerator.Current;
+            while (enumerator.MoveNext())
+            {
+                result = enumerator.Current;
+            }
+
+            return result;
         }
     }
 }
