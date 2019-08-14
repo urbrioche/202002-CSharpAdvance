@@ -4,6 +4,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -23,7 +24,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Normal, Point = 6},
             };
 
-            var actual = JoeyTakeWhile(cards, item => item.Kind != CardKind.Separate);
+            var actual = cards.JoeyTakeWhile(item => item.Kind != CardKind.Separate);
 
             var expected = new List<Card>
             {
@@ -48,7 +49,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Normal, Point = 6},
             };
 
-            var actual = JoeyTakeWhile(cards, c => c.Point < 4);
+            var actual = cards.JoeyTakeWhile(c => c.Point < 4);
 
             var expected = new List<Card>
             {
@@ -57,24 +58,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private IEnumerable<Card> JoeyTakeWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
-        {
-            var enumerator = cards.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-
-                if (predicate(item))
-                {
-                    yield return item;
-                }
-                else
-                {
-                    yield break;
-                }
-            }
         }
     }
 }
