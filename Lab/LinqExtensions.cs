@@ -6,6 +6,17 @@ namespace Lab
 {
     public static class LinqExtensions
     {
+        public static bool JoeyAll<TSource>(this IEnumerable<TSource> girls, Func<TSource, bool> predicate)
+        {
+            var enumerator = girls.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (!predicate(enumerator.Current)) return false;
+            }
+
+            return true;
+        }
+
         public static bool JoeyAny<TSource>(this IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
@@ -25,6 +36,17 @@ namespace Lab
             }
 
             return false;
+        }
+
+        public static TSource JoeyFirst<TSource>(this IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                return enumerator.Current;
+            }
+
+            throw new InvalidOperationException($"{nameof(source)} is empty");
         }
 
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
@@ -152,17 +174,6 @@ namespace Lab
 
                 index++;
             }
-        }
-
-        public static bool JoeyAll<TSource>(this IEnumerable<TSource> girls, Func<TSource, bool> predicate)
-        {
-            var enumerator = girls.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                if (!predicate(enumerator.Current)) return false;
-            }
-
-            return true;
         }
     }
 }

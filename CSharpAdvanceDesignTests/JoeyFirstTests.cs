@@ -3,6 +3,7 @@ using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -19,7 +20,7 @@ namespace CSharpAdvanceDesignTests
                 new Girl() {Age = 30},
             };
 
-            var girl = JoeyFirst(girls);
+            var girl = girls.JoeyFirst();
             var expected = new Girl {Age = 10};
 
             expected.ToExpectedObject().ShouldMatch(girl);
@@ -30,20 +31,9 @@ namespace CSharpAdvanceDesignTests
         {
             var girls = new Girl[] { };
 
-            TestDelegate action = () => JoeyFirst(girls);
+            TestDelegate action = () => girls.JoeyFirst();
 
             Assert.Throws<InvalidOperationException>(action);
-        }
-
-        private Girl JoeyFirst(IEnumerable<Girl> girls)
-        {
-            var enumerator = girls.GetEnumerator();
-            if (enumerator.MoveNext())
-            {
-                return enumerator.Current;
-            }
-
-            throw new InvalidOperationException($"{nameof(girls)} is empty");
         }
     }
 }
