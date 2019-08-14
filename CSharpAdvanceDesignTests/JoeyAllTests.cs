@@ -39,18 +39,12 @@ namespace CSharpAdvanceDesignTests
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyAll(IEnumerable<Girl> girls, Func<Girl, bool> predicate)
+        private bool JoeyAll<TSource>(IEnumerable<TSource> girls, Func<TSource, bool> predicate)
         {
             var enumerator = girls.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                var girl = enumerator.Current;
-                if (predicate(girl))
-                {
-                    continue;
-                }
-
-                return false;
+                if (!predicate(enumerator.Current)) return false;
             }
 
             return true;
