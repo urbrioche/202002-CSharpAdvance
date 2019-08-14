@@ -61,5 +61,42 @@ namespace Lab
                 index++;
             }
         }
+
+        public static IEnumerable<TSource> JoeySkip<TSource>(this IEnumerable<TSource> employees, int count)
+        {
+            var enumerator = employees.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (index >= count)
+                {
+                    yield return item;
+                }
+
+                index++;
+            }
+        }
+
+        public static IEnumerable<TSource> JoeyTake<TSource>(this IEnumerable<TSource> employees, int count)
+        {
+            var enumerator = employees.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+
+                if (index < count)
+                {
+                    yield return item;
+                }
+                else
+                {
+                    yield break;
+                }
+
+                index++;
+            }
+        }
     }
 }

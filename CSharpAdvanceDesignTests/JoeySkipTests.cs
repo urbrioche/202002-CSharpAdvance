@@ -3,6 +3,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -21,7 +22,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
 
-            var actual = JoeySkip(employees, 2);
+            var actual = employees.JoeySkip(2);
 
             var expected = new List<Employee>
             {
@@ -30,7 +31,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
         [Test]
@@ -45,23 +46,22 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
 
-            var actual = JoeySkip(employees, 3);
+            var actual = employees.JoeySkip(3);
 
             var expected = new List<Employee>
             {
-                //new Employee {FirstName = "David", LastName = "Chen"},
                 new Employee {FirstName = "Mike", LastName = "Chang"},
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
         [Test]
         public void skip_5_numbers()
         {
             var numbers = new[] {1, 2, 3};
-            var actual = JoeySkip(numbers, 5);
+            var actual = numbers.JoeySkip(5);
 
             var expected = new int[] { };
             expected.ToExpectedObject().ShouldMatch(actual);
@@ -77,22 +77,6 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Mike", LastName = "Chang"},
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
-        }
-
-        private IEnumerable<TSource> JoeySkip<TSource>(IEnumerable<TSource> employees, int count)
-        {
-            var enumerator = employees.GetEnumerator();
-            var index = 0;
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-                if (index >= count)
-                {
-                    yield return item;
-                }
-
-                index++;
-            }
         }
     }
 }
