@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Lab.Entities;
 
-// ReSharper disable All
 namespace Lab
 {
     public static class LinqExtensions
@@ -28,6 +27,78 @@ namespace Lab
                 var item = enumerator.Current;
                 yield return selector(item, index);
                 index++;
+            }
+        }
+
+        public static IEnumerable<TSource> JoeySkip<TSource>(this IEnumerable<TSource> source, int count)
+        {
+            var enumerator = source.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (index >= count)
+                {
+                    yield return item;
+                }
+
+                index++;
+            }
+        }
+
+        public static IEnumerable<TSource> JoeySkipWhile<TSource>(this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+            var isStartingTake = false;
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (!predicate(item) || isStartingTake)
+                {
+                    isStartingTake = true;
+                    yield return item;
+                }
+            }
+        }
+
+        public static IEnumerable<TSource> JoeyTake<TSource>(this IEnumerable<TSource> source, int count)
+        {
+            var enumerator = source.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+
+                if (index < count)
+                {
+                    yield return item;
+                }
+                else
+                {
+                    yield break;
+                }
+
+                index++;
+            }
+        }
+
+        public static IEnumerable<TSource> JoeyTakeWhile<TSource>(this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+
+                if (predicate(item))
+                {
+                    yield return item;
+                }
+                else
+                {
+                    yield break;
+                }
             }
         }
 
@@ -59,77 +130,6 @@ namespace Lab
                 }
 
                 index++;
-            }
-        }
-
-        public static IEnumerable<TSource> JoeySkip<TSource>(this IEnumerable<TSource> employees, int count)
-        {
-            var enumerator = employees.GetEnumerator();
-            var index = 0;
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-                if (index >= count)
-                {
-                    yield return item;
-                }
-
-                index++;
-            }
-        }
-
-        public static IEnumerable<TSource> JoeyTake<TSource>(this IEnumerable<TSource> employees, int count)
-        {
-            var enumerator = employees.GetEnumerator();
-            var index = 0;
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-
-                if (index < count)
-                {
-                    yield return item;
-                }
-                else
-                {
-                    yield break;
-                }
-
-                index++;
-            }
-        }
-
-        public static IEnumerable<TSource> JoeyTakeWhile<TSource>(this IEnumerable<TSource> cards, Func<TSource, bool> predicate)
-        {
-            var enumerator = cards.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-
-                if (predicate(item))
-                {
-                    yield return item;
-                }
-                else
-                {
-                    yield break;
-                }
-            }
-        }
-
-        public static IEnumerable<TSource> JoeySkipWhile<TSource>(this IEnumerable<TSource> cards,
-            Func<TSource, bool> predicate)
-        {
-            var enumerator = cards.GetEnumerator();
-            var isStartingTake = false;
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-                if (!predicate(item) || isStartingTake)
-                {
-                    isStartingTake = true;
-                    yield return item;
-                }
             }
         }
     }
