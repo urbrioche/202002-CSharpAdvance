@@ -28,20 +28,21 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "Tom", Role = Role.Manager},
                 new Employee() {FirstName = "May", Role = Role.Engineer},
             };
-            var actual = JoeyLastOrDefaultWithCondition(employees);
+            var actual = JoeyLastOrDefault(employees, item => item.Role == Role.Manager);
             new Employee() {FirstName = "Tom", Role = Role.Manager}.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> source)
+        private Employee JoeyLastOrDefault(IEnumerable<Employee> source, Func<Employee, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
 
             var defaultResult = default(Employee);
             while (enumerator.MoveNext())
             {
-                if (enumerator.Current.Role == Role.Manager)
+                var item = enumerator.Current;
+                if (predicate(item))
                 {
-                    defaultResult = enumerator.Current;
+                    defaultResult = item;
                 }
             }
 
