@@ -35,11 +35,12 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<int> MyGroupSum(Account[] accounts, int pageSize, Func<Account, int> selector)
+        private IEnumerable<int> MyGroupSum<TSource>(IEnumerable<TSource> accounts, int pageSize,
+            Func<TSource, int> selector)
         {
             int pageIndex = 0;
 
-            while (pageIndex * pageSize < accounts.Length)
+            while (pageIndex * pageSize < accounts.Count())
             {
                 yield return accounts.Skip(pageIndex * pageSize).Take(pageSize).Sum(selector);
                 pageIndex++;
