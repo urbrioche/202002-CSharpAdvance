@@ -44,7 +44,17 @@ namespace CSharpAdvanceDesignTests
 
         private bool JoeyAnyWithCondition(IEnumerable<int> source)
         {
-            throw new NotImplementedException();
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (item > 91)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool JoeyAny<TSource>(IEnumerable<TSource> source)
