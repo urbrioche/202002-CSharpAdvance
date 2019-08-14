@@ -19,6 +19,21 @@ namespace CSharpAdvanceDesignTests
             Assert.IsNull(actual);
         }
 
+        [Test]
+        public void nullable_of_int_first_or_default()
+        {
+            var numbers = new List<int?>();
+
+            var actual = JoeyFirstOrDefaultForNullableInt(numbers);
+
+            Assert.IsNull(actual);
+        }
+
+        private int? JoeyFirstOrDefaultForNullableInt(IEnumerable<int?> numbers)
+        {
+            throw new NotImplementedException();
+        }
+
         private Employee JoeyFirstOrDefault(IEnumerable<Employee> employees)
         {
             var enumerator = employees.GetEnumerator();
