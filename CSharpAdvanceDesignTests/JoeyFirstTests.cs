@@ -6,7 +6,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeyFirstTests
     {
         [Test]
@@ -14,15 +13,15 @@ namespace CSharpAdvanceDesignTests
         {
             var girls = new[]
             {
-                new Girl(){Age = 10},
-                new Girl(){Age = 20},
-                new Girl(){Age = 30},
+                new Girl() {Age = 10},
+                new Girl() {Age = 20},
+                new Girl() {Age = 30},
             };
 
             var girl = JoeyFirst(girls);
-            var expected = new Girl { Age = 10 };
+            var expected = new Girl {Age = 10};
 
-            expected.ToExpectedObject().ShouldEqual(girl);
+            expected.ToExpectedObject().ShouldMatch(girl);
         }
 
         private Girl JoeyFirst(IEnumerable<Girl> girls)
