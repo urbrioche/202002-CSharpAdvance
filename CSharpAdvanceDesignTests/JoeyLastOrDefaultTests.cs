@@ -32,9 +32,20 @@ namespace CSharpAdvanceDesignTests
             new Employee() {FirstName = "Tom", Role = Role.Manager}.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> employees)
+        private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> source)
         {
-            throw new NotImplementedException();
+            var enumerator = source.GetEnumerator();
+
+            var defaultResult = default(Employee);
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.Role == Role.Manager)
+                {
+                    defaultResult = enumerator.Current;
+                }
+            }
+
+            return defaultResult;
         }
 
         private Employee JoeyLastOrDefault(IEnumerable<Employee> source)
