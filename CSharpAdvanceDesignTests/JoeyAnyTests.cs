@@ -1,6 +1,7 @@
 ﻿using Lab.Entities;
 using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
@@ -33,9 +34,23 @@ namespace CSharpAdvanceDesignTests
             Assert.IsFalse(actual);
         }
 
-        private bool JoeyAny(IEnumerable<Employee> employees)
+        [Test]
+        public void any_number_greater_than_91()
+        {
+            var numbers = new[] {87, 88, 91, 93, 0};
+            var actual = JoeyAnyWithCondition(numbers);
+            Assert.IsTrue(actual);
+        }
+
+        private bool JoeyAnyWithCondition(IEnumerable<int> source)
         {
             throw new NotImplementedException();
+        }
+
+        private bool JoeyAny<TSource>(IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            return enumerator.MoveNext();
         }
     }
 }
