@@ -38,11 +38,11 @@ namespace CSharpAdvanceDesignTests
         public void any_number_greater_than_91()
         {
             var numbers = new[] {87, 88, 91, 93, 0};
-            var actual = JoeyAnyWithCondition(numbers, item => item > 91);
+            var actual = JoeyAny(numbers, item => item > 91);
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyAnyWithCondition(IEnumerable<int> source, Func<int, bool> predicate)
+        private bool JoeyAny<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
