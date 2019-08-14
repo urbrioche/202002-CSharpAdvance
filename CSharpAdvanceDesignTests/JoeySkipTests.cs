@@ -52,7 +52,7 @@ namespace CSharpAdvanceDesignTests
             while (enumerator.MoveNext())
             {
                 var item = enumerator.Current;
-                if (index > 1)
+                if (index >= 2)
                 {
                     yield return item;
                 }
