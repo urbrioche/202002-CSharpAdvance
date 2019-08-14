@@ -56,16 +56,15 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private static IEnumerable<Employee> GetEmployees()
+        [Test]
+        public void take_4_names()
         {
-            return new List<Employee>
-            {
-                new Employee {FirstName = "Joey", LastName = "Chen"},
-                new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "David", LastName = "Chen"},
-                new Employee {FirstName = "Mike", LastName = "Chang"},
-                new Employee {FirstName = "Joseph", LastName = "Yao"},
-            };
+            var names = new[] { "Tom", "Joey", "David" };
+
+            var actual = JoeyTake(names, 3);
+
+            var expected = new[] {"Tom", "Joey", "David"};
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
         private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees, int count)
