@@ -40,7 +40,17 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
         {
-            throw new NotImplementedException();
+            var enumerator = cards.GetEnumerator();
+            var isStartingTake = false;
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (item.Kind == CardKind.Separate || isStartingTake)
+                {
+                    isStartingTake = true;
+                    yield return item;
+                }
+            }
         }
     }
 }
