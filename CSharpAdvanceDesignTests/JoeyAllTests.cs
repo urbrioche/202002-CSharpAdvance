@@ -25,7 +25,19 @@ namespace CSharpAdvanceDesignTests
 
         private bool JoeyAll(IEnumerable<Girl> girls)
         {
-            throw new System.NotImplementedException();
+            var enumerator = girls.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var girl = enumerator.Current;
+                if (girl.Age >= 18)
+                {
+                    continue;
+                }
+
+                return false;
+            }
+
+            return true;
         }
     }
 }
