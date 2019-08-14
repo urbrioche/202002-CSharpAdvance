@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Normal, Point = 6},
             };
 
-            var actual = JoeyTakeWhile(cards);
+            var actual = JoeyTakeWhile(cards, item => item.Kind != CardKind.Separate);
 
             var expected = new List<Card>
             {
@@ -53,7 +54,6 @@ namespace CSharpAdvanceDesignTests
             {
                 new Card {Kind = CardKind.Normal, Point = 2},
                 new Card {Kind = CardKind.Normal, Point = 3},
-                new Card {Kind = CardKind.Normal, Point = 4},
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
@@ -61,17 +61,29 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Card> JoeyTakeWhileCardPointLessThan4(IEnumerable<Card> cards)
         {
-            throw new System.NotImplementedException();
+            var enumerator = cards.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (item.Point < 4)
+                {
+                    yield return item;
+                }
+                else
+                {
+                    yield break;
+                }
+            }
         }
 
-        private IEnumerable<Card> JoeyTakeWhile(IEnumerable<Card> cards)
+        private IEnumerable<Card> JoeyTakeWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
         {
             var enumerator = cards.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var item = enumerator.Current;
 
-                if (item.Kind != CardKind.Separate)
+                if (predicate(item))
                 {
                     yield return item;
                 }
