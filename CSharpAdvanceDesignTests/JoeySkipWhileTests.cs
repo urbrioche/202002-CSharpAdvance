@@ -52,7 +52,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhilePointLessThan5(cards);
+            var actual = JoeySkipWhile(cards, card => card.Point < 5);
 
             var expected = new List<Card>
             {
@@ -62,23 +62,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private IEnumerable<Card> JoeySkipWhilePointLessThan5(IEnumerable<Card> cards)
-        {
-            return JoeySkipWhile(cards, card => card.Point < 5);
-            //var enumerator = cards.GetEnumerator();
-            //var flag = false;
-            //while (enumerator.MoveNext())
-            //{
-            //    var item = enumerator.Current;
-
-            //    if (item.Point >= 5 || flag)
-            //    {
-            //        flag = true;
-            //        yield return item;
-            //    }
-            //}
         }
 
         private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
