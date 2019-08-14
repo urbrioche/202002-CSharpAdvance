@@ -31,13 +31,14 @@ namespace CSharpAdvanceDesignTests
 
         private int? JoeyFirstOrDefaultForNullableInt(IEnumerable<int?> numbers)
         {
-            var enumerator = numbers.GetEnumerator();
-            if (enumerator.MoveNext())
-            {
-                return enumerator.Current;
-            }
+            return JoeyFirstOrDefault(numbers);
+            //var enumerator = numbers.GetEnumerator();
+            //if (enumerator.MoveNext())
+            //{
+            //    return enumerator.Current;
+            //}
 
-            return default(int?);
+            //return default(int?);
         }
 
         private TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> employees)
