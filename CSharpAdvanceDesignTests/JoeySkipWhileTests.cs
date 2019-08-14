@@ -9,7 +9,6 @@ using System.Linq;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeySkipWhileTests
     {
         [Test]
@@ -36,7 +35,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
         private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
