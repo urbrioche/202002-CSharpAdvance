@@ -8,29 +8,6 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class ComboComparer : IComparer<Employee>
-    {
-        public ComboComparer(IComparer<Employee> firstComparer, IComparer<Employee> secondComparer)
-        {
-            FirstComparer = firstComparer;
-            SecondComparer = secondComparer;
-        }
-
-        public IComparer<Employee> FirstComparer { get; private set; }
-        public IComparer<Employee> SecondComparer { get; private set; }
-
-        public int Compare(Employee x, Employee y)
-        {
-            var firstCompareResult = FirstComparer.Compare(x, y);
-            if (firstCompareResult != 0)
-            {
-                return firstCompareResult;
-            }
-
-            return SecondComparer.Compare(x, y);
-        }
-    }
-
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -89,7 +66,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
-            ComboComparer comboComparer)
+            IComparer<Employee> comparer)
         {
             //bubble sort
             var elements = employees.ToList();
@@ -101,7 +78,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var currentElement = elements[i];
 
-                    var finalCompareResult = comboComparer.Compare(currentElement, minElement);
+                    var finalCompareResult = comparer.Compare(currentElement, minElement);
 
                     if (finalCompareResult < 0)
                     {
