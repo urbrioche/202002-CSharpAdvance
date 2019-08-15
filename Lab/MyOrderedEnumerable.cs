@@ -6,7 +6,7 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyOrderedEnumerable<TSource> : IEnumerable<TSource>
+    public class MyOrderedEnumerable<TSource> : IEnumerable<TSource>, IOrderedEnumerable<TSource>
     {
         private readonly IComparer<TSource> _comparer;
         private readonly IEnumerable<TSource> _employees;
@@ -27,13 +27,10 @@ namespace Lab
             return GetEnumerator();
         }
 
-        public MyOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(Func<TSource, TKey> keySelector,
-            IComparer<TKey> comparer)
+        public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer, bool @descending)
         {
-            var nextComparer = new CombineKeyComparer<TSource, TKey>(keySelector, comparer);
-
-            return new MyOrderedEnumerable<TSource>(
-                _employees, new ComboComparer<TSource>(_comparer, nextComparer));
+            return CreateOrderedEnumerable(keySelector, comparer);
         }
 
         public IEnumerator<TSource> GetOrderedEnumerable()
@@ -60,6 +57,15 @@ namespace Lab
                 elements.RemoveAt(index);
                 yield return minElement;
             }
+        }
+
+        private IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer)
+        {
+            var nextComparer = new CombineKeyComparer<TSource, TKey>(keySelector, comparer);
+
+            return new MyOrderedEnumerable<TSource>(
+                _employees, new ComboComparer<TSource>(_comparer, nextComparer));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Lab.Entities;
 
 namespace Lab
@@ -245,11 +246,11 @@ namespace Lab
             }
         }
 
-        public static MyOrderedEnumerable<TSource> JoeyThenBy<TSource, TKey>(
-            this MyOrderedEnumerable<TSource> employees,
+        public static IOrderedEnumerable<TSource> JoeyThenBy<TSource, TKey>(
+            this IOrderedEnumerable<TSource> employees,
             Func<TSource, TKey> keySelector, Comparer<TKey> comparer)
         {
-            return employees.CreateOrderedEnumerable(keySelector, comparer);
+            return employees.CreateOrderedEnumerable(keySelector, comparer, false);
         }
 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
