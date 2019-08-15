@@ -18,6 +18,26 @@ namespace CSharpAdvanceDesignTests
 
         public IComparer<Employee> FirstComparer { get; private set; }
         public IComparer<Employee> SecondComparer { get; private set; }
+
+        public int Compare(Employee currentElement, Employee minElement)
+        {
+            var finalCompareResult = 0;
+            var firstCompareResult = FirstComparer.Compare(currentElement, minElement);
+            if (firstCompareResult < 0)
+            {
+                finalCompareResult = firstCompareResult;
+            }
+            else if (firstCompareResult == 0)
+            {
+                var secondCompareResult = SecondComparer.Compare(currentElement, minElement);
+                if (secondCompareResult < 0)
+                {
+                    finalCompareResult = secondCompareResult;
+                }
+            }
+
+            return finalCompareResult;
+        }
     }
 
     [TestFixture]
@@ -76,26 +96,6 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private static int Compare(ComboComparer comboComparer, Employee currentElement, Employee minElement)
-        {
-            var finalCompareResult = 0;
-            var firstCompareResult = comboComparer.FirstComparer.Compare(currentElement, minElement);
-            if (firstCompareResult < 0)
-            {
-                finalCompareResult = firstCompareResult;
-            }
-            else if (firstCompareResult == 0)
-            {
-                var secondCompareResult = comboComparer.SecondComparer.Compare(currentElement, minElement);
-                if (secondCompareResult < 0)
-                {
-                    finalCompareResult = secondCompareResult;
-                }
-            }
-
-            return finalCompareResult;
-        }
-
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
             ComboComparer comboComparer)
@@ -110,7 +110,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var currentElement = elements[i];
 
-                    var finalCompareResult = Compare(comboComparer, currentElement, minElement);
+                    var finalCompareResult = comboComparer.Compare(currentElement, minElement);
 
                     if (finalCompareResult < 0)
                     {
