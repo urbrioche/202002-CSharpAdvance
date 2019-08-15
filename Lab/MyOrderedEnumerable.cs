@@ -1,16 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Lab.Entities;
 
 namespace Lab
 {
-    public static class MyOrderedEnumerable
+    public class MyOrderedEnumerable : IEnumerable<Employee>
     {
-        public static IEnumerable<Employee> GetOrderedEnumerable(IEnumerable<Employee> employees,
-            IComparer<Employee> comparer)
+        private readonly IComparer<Employee> _comparer;
+        private readonly IEnumerable<Employee> _employees;
+
+        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> comparer)
+        {
+            _employees = employees;
+            _comparer = comparer;
+        }
+
+        public IEnumerator<Employee> GetEnumerator()
+        {
+            return GetOrderedEnumerable();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<Employee> GetOrderedEnumerable()
         {
             //bubble sort
-            var elements = employees.ToList();
+            var elements = _employees.ToList();
             while (elements.Any())
             {
                 var minElement = elements[0];
@@ -19,7 +38,7 @@ namespace Lab
                 {
                     var currentElement = elements[i];
 
-                    var finalCompareResult = comparer.Compare(currentElement, minElement);
+                    var finalCompareResult = _comparer.Compare(currentElement, minElement);
 
                     if (finalCompareResult < 0)
                     {

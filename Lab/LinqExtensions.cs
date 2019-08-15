@@ -139,7 +139,8 @@ namespace Lab
         public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees,
             IComparer<Employee> comparer)
         {
-            return MyOrderedEnumerable.GetOrderedEnumerable(employees, comparer);
+            return new MyOrderedEnumerable(employees,comparer);
+            //return MyOrderedEnumerable.GetOrderedEnumerable();
         }
 
         public static IEnumerable<TSource> JoeyOrderBy<TSource, TKey>(this IEnumerable<TSource> employees,
