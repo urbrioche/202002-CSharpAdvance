@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -9,29 +10,29 @@ namespace CSharpAdvanceDesignTests
     [TestFixture]
     public class JoeyOrderByTests
     {
-        [Test]
-        public void orderBy_lastName()
-        {
-            var employees = new[]
-            {
-                new Employee {FirstName = "Joey", LastName = "Wang"},
-                new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "Joseph", LastName = "Chen"},
-                new Employee {FirstName = "Joey", LastName = "Chen"},
-            };
+        //[Test]
+        //public void orderBy_lastName()
+        //{
+        //    var employees = new[]
+        //    {
+        //        new Employee {FirstName = "Joey", LastName = "Wang"},
+        //        new Employee {FirstName = "Tom", LastName = "Li"},
+        //        new Employee {FirstName = "Joseph", LastName = "Chen"},
+        //        new Employee {FirstName = "Joey", LastName = "Chen"},
+        //    };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees);
+        //    var actual = JoeyOrderByLastNameAndFirstName(employees);
 
-            var expected = new[]
-            {
-                new Employee {FirstName = "Joseph", LastName = "Chen"},
-                new Employee {FirstName = "Joey", LastName = "Chen"},
-                new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "Joey", LastName = "Wang"},
-            };
+        //    var expected = new[]
+        //    {
+        //        new Employee {FirstName = "Joseph", LastName = "Chen"},
+        //        new Employee {FirstName = "Joey", LastName = "Chen"},
+        //        new Employee {FirstName = "Tom", LastName = "Li"},
+        //        new Employee {FirstName = "Joey", LastName = "Wang"},
+        //    };
 
-            expected.ToExpectedObject().ShouldMatch(actual);
-        }
+        //    expected.ToExpectedObject().ShouldMatch(actual);
+        //}
 
         [Test]
         public void orderBy_lastName_and_firstName()
@@ -44,7 +45,10 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees);
+            var actual = JoeyOrderByLastNameAndFirstName(
+                employees,
+                currentElement => currentElement.LastName,
+                Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -57,10 +61,12 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees)
+        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+            IEnumerable<Employee> employees,
+            Func<Employee, string> firstKeySelector,
+            IComparer<string> firstKeyComparer)
         {
             //bubble sort
-            var stringComparer = Comparer<string>.Default;
             var elements = employees.ToList();
             while (elements.Any())
             {
@@ -68,10 +74,24 @@ namespace CSharpAdvanceDesignTests
                 var index = 0;
                 for (int i = 1; i < elements.Count; i++)
                 {
-                    if (stringComparer.Compare(elements[i].LastName, minElement.LastName) < 0)
+                    var currentElement = elements[i];
+
+                    var firstCompareResult =
+                        firstKeyComparer.Compare(firstKeySelector(currentElement), firstKeySelector(minElement));
+                    if (firstCompareResult < 0)
                     {
-                        minElement = elements[i];
+                        minElement = currentElement;
                         index = i;
+                    }
+                    else if (firstCompareResult == 0)
+                    {
+                        var secondCompareResult =
+                            Comparer<string>.Default.Compare(currentElement.FirstName, minElement.FirstName);
+                        if (secondCompareResult < 0)
+                        {
+                            minElement = currentElement;
+                            index = i;
+                        }
                     }
                 }
 
