@@ -6,7 +6,7 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyOrderedEnumerable<TSource> : IEnumerable<TSource>, IOrderedEnumerable<TSource>
+    public class MyOrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
     {
         private readonly IComparer<TSource> _comparer;
         private readonly IEnumerable<TSource> _employees;
