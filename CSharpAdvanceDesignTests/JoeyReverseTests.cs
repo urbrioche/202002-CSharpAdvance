@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System.Collections;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyReverse(IEnumerable<Employee> employees)
         {
-            throw new System.NotImplementedException();
+            return new Stack<Employee>(employees);
         }
     }
 }
