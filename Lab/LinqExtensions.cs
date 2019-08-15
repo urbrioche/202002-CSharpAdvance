@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Lab.Entities;
@@ -287,6 +288,20 @@ namespace Lab
         private static IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
         {
             yield return defaultEmployee;
+        }
+
+        public static IEnumerable<TSource> JoeyOfType<TSource>(this IEnumerable source)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+
+                if (item is TSource x)
+                {
+                    yield return x;
+                }
+            }
         }
     }
 }
