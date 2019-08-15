@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Lab.Entities;
@@ -24,6 +25,12 @@ namespace Lab
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public MyOrderedEnumerable<TSource> ConcatNewComparer<TKey>(Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerator<TSource> GetOrderedEnumerable()

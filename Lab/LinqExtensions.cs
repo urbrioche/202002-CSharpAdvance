@@ -249,7 +249,7 @@ namespace Lab
             this MyOrderedEnumerable<TSource> employees,
             Func<TSource, TKey> keySelector, Comparer<TKey> comparer)
         {
-            throw new NotImplementedException();
+            return employees.ConcatNewComparer(keySelector, comparer);
         }
 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
