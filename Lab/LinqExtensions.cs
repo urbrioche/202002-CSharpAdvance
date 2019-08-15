@@ -374,5 +374,20 @@ namespace Lab
                 }
             }
         }
+
+        public static IEnumerable<int> JoeyIntersect(this IEnumerable<int> first, IEnumerable<int> second)
+        {
+            var hashSet = new HashSet<int>(second);
+            var enumerator = first.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+
+                if (hashSet.Remove(current))
+                {
+                    yield return current;
+                }
+            }
+        }
     }
 }
