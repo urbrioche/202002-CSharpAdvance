@@ -137,6 +137,39 @@ namespace Lab
             return defaultResult;
         }
 
+        public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees,
+            IComparer<Employee> comparer)
+        {
+            //bubble sort
+            var elements = employees.ToList();
+            while (elements.Any())
+            {
+                var minElement = elements[0];
+                var index = 0;
+                for (int i = 1; i < elements.Count; i++)
+                {
+                    var currentElement = elements[i];
+
+                    var finalCompareResult = comparer.Compare(currentElement, minElement);
+
+                    if (finalCompareResult < 0)
+                    {
+                        minElement = currentElement;
+                        index = i;
+                    }
+                }
+
+                elements.RemoveAt(index);
+                yield return minElement;
+            }
+        }
+
+        public static IEnumerable<TSource> JoeyOrderBy<TSource, TKey>(this IEnumerable<TSource> employees,
+            Func<TSource, TKey> keySelector, Comparer<TKey> comparer)
+        {
+            throw new NotImplementedException();
+        }
+
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
@@ -233,6 +266,12 @@ namespace Lab
             }
         }
 
+        public static IEnumerable<TSource> JoeyThenBy<TSource, TKey>(this IEnumerable<TSource> employees,
+            Func<TSource, TKey> keySelector, Comparer<TKey> comparer)
+        {
+            throw new NotImplementedException();
+        }
+
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
@@ -267,33 +306,6 @@ namespace Lab
         private static IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
         {
             yield return defaultEmployee;
-        }
-
-        public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees,
-            IComparer<Employee> comparer)
-        {
-            //bubble sort
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var currentElement = elements[i];
-
-                    var finalCompareResult = comparer.Compare(currentElement, minElement);
-
-                    if (finalCompareResult < 0)
-                    {
-                        minElement = currentElement;
-                        index = i;
-                    }
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
         }
     }
 }
