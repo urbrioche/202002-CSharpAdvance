@@ -314,5 +314,10 @@ namespace Lab
                 yield return (T) item;
             }
         }
+
+        public static IEnumerable<Employee> JoeyReverse(this IEnumerable<Employee> employees)
+        {
+            return new Stack<Employee>(employees);
+        }
     }
 }
