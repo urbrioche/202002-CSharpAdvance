@@ -76,6 +76,26 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
+        private static int Compare(ComboComparer comboComparer, Employee currentElement, Employee minElement)
+        {
+            var finalCompareResult = 0;
+            var firstCompareResult = comboComparer.FirstComparer.Compare(currentElement, minElement);
+            if (firstCompareResult < 0)
+            {
+                finalCompareResult = firstCompareResult;
+            }
+            else if (firstCompareResult == 0)
+            {
+                var secondCompareResult = comboComparer.SecondComparer.Compare(currentElement, minElement);
+                if (secondCompareResult < 0)
+                {
+                    finalCompareResult = secondCompareResult;
+                }
+            }
+
+            return finalCompareResult;
+        }
+
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
             ComboComparer comboComparer)
@@ -90,24 +110,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var currentElement = elements[i];
 
-                    var finalCompareResult = 0;
-                    var firstCompareResult = comboComparer.FirstComparer.Compare(currentElement, minElement);
-                    if (firstCompareResult < 0)
-                    {
-                        finalCompareResult = firstCompareResult;
-                        //minElement = currentElement;
-                        //index = i;
-                    }
-                    else if (firstCompareResult == 0)
-                    {
-                        var secondCompareResult = comboComparer.SecondComparer.Compare(currentElement, minElement);
-                        if (secondCompareResult < 0)
-                        {
-                            finalCompareResult = secondCompareResult;
-                            //minElement = currentElement;
-                            //index = i;
-                        }
-                    }
+                    var finalCompareResult = Compare(comboComparer, currentElement, minElement);
 
                     if (finalCompareResult < 0)
                     {
