@@ -8,7 +8,7 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class ComboComparer
+    public class ComboComparer : IComparer<Employee>
     {
         public ComboComparer(IComparer<Employee> firstComparer, IComparer<Employee> secondComparer)
         {
@@ -19,24 +19,15 @@ namespace CSharpAdvanceDesignTests
         public IComparer<Employee> FirstComparer { get; private set; }
         public IComparer<Employee> SecondComparer { get; private set; }
 
-        public int Compare(Employee currentElement, Employee minElement)
+        public int Compare(Employee x, Employee y)
         {
-            var finalCompareResult = 0;
-            var firstCompareResult = FirstComparer.Compare(currentElement, minElement);
-            if (firstCompareResult < 0)
+            var firstCompareResult = FirstComparer.Compare(x, y);
+            if (firstCompareResult != 0)
             {
-                finalCompareResult = firstCompareResult;
-            }
-            else if (firstCompareResult == 0)
-            {
-                var secondCompareResult = SecondComparer.Compare(currentElement, minElement);
-                if (secondCompareResult < 0)
-                {
-                    finalCompareResult = secondCompareResult;
-                }
+                return firstCompareResult;
             }
 
-            return finalCompareResult;
+            return SecondComparer.Compare(x, y);
         }
     }
 
