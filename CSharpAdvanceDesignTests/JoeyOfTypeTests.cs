@@ -35,7 +35,16 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<TSource> JoeyOfType<TSource>(IEnumerable source)
         {
-            throw new System.NotImplementedException();
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+
+                if (item is TSource x)
+                {
+                    yield return x;
+                }
+            }
         }
     }
 }
