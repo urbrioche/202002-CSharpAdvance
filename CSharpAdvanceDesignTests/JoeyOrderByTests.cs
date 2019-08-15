@@ -90,20 +90,29 @@ namespace CSharpAdvanceDesignTests
                 {
                     var currentElement = elements[i];
 
+                    var finalCompareResult = 0;
                     var firstCompareResult = comboComparer.FirstComparer.Compare(currentElement, minElement);
                     if (firstCompareResult < 0)
                     {
-                        minElement = currentElement;
-                        index = i;
+                        finalCompareResult = firstCompareResult;
+                        //minElement = currentElement;
+                        //index = i;
                     }
                     else if (firstCompareResult == 0)
                     {
                         var secondCompareResult = comboComparer.SecondComparer.Compare(currentElement, minElement);
                         if (secondCompareResult < 0)
                         {
-                            minElement = currentElement;
-                            index = i;
+                            finalCompareResult = secondCompareResult;
+                            //minElement = currentElement;
+                            //index = i;
                         }
+                    }
+
+                    if (finalCompareResult < 0)
+                    {
+                        minElement = currentElement;
+                        index = i;
                     }
                 }
 
