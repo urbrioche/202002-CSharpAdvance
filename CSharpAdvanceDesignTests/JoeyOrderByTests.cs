@@ -17,6 +17,12 @@ namespace CSharpAdvanceDesignTests
 
         public Func<Employee, string> FirstKeySelector { get; private set; }
         public IComparer<string> FirstKeyComparer { get; private set; }
+
+        public int Compare(Employee currentElement, Employee minElement)
+        {
+            return FirstKeyComparer.Compare(FirstKeySelector(currentElement),
+                                            FirstKeySelector(minElement));
+        }
     }
 
     [TestFixture]
@@ -73,12 +79,6 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private static int Compare(CombineKeyComparer combineKeyComparer, Employee currentElement, Employee minElement)
-        {
-            return combineKeyComparer.FirstKeyComparer.Compare(combineKeyComparer.FirstKeySelector(currentElement),
-                                                               combineKeyComparer.FirstKeySelector(minElement));
-        }
-
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
             CombineKeyComparer combineKeyComparer,
@@ -95,7 +95,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var currentElement = elements[i];
 
-                    var firstCompareResult = Compare(combineKeyComparer, currentElement, minElement);
+                    var firstCompareResult = combineKeyComparer.Compare(currentElement, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = currentElement;
