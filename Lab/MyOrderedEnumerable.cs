@@ -5,18 +5,18 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyOrderedEnumerable : IEnumerable<Employee>
+    public class MyOrderedEnumerable<TSource> : IEnumerable<TSource>
     {
-        private readonly IComparer<Employee> _comparer;
-        private readonly IEnumerable<Employee> _employees;
+        private readonly IComparer<TSource> _comparer;
+        private readonly IEnumerable<TSource> _employees;
 
-        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> comparer)
+        public MyOrderedEnumerable(IEnumerable<TSource> employees, IComparer<TSource> comparer)
         {
             _employees = employees;
             _comparer = comparer;
         }
 
-        public IEnumerator<Employee> GetEnumerator()
+        public IEnumerator<TSource> GetEnumerator()
         {
             return GetOrderedEnumerable();
         }
@@ -26,7 +26,7 @@ namespace Lab
             return GetEnumerator();
         }
 
-        public IEnumerator<Employee> GetOrderedEnumerable()
+        public IEnumerator<TSource> GetOrderedEnumerable()
         {
             //bubble sort
             var elements = _employees.ToList();

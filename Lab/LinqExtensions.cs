@@ -139,14 +139,14 @@ namespace Lab
         public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees,
             IComparer<Employee> comparer)
         {
-            return new MyOrderedEnumerable(employees,comparer);
-            //return MyOrderedEnumerable.GetOrderedEnumerable();
+            return new MyOrderedEnumerable<Employee>(employees, comparer);
         }
 
         public static IEnumerable<TSource> JoeyOrderBy<TSource, TKey>(this IEnumerable<TSource> employees,
             Func<TSource, TKey> keySelector, Comparer<TKey> comparer)
         {
-            throw new NotImplementedException();
+            return new MyOrderedEnumerable<TSource>(
+                employees, new CombineKeyComparer<TSource, TKey>(keySelector, comparer));
         }
 
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
