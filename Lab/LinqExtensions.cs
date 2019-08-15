@@ -142,7 +142,7 @@ namespace Lab
             return new MyOrderedEnumerable<Employee>(employees, comparer);
         }
 
-        public static IEnumerable<TSource> JoeyOrderBy<TSource, TKey>(this IEnumerable<TSource> employees,
+        public static MyOrderedEnumerable<TSource> JoeyOrderBy<TSource, TKey>(this IEnumerable<TSource> employees,
             Func<TSource, TKey> keySelector, Comparer<TKey> comparer)
         {
             return new MyOrderedEnumerable<TSource>(
@@ -245,7 +245,8 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeyThenBy<TSource, TKey>(this IEnumerable<TSource> employees,
+        public static MyOrderedEnumerable<TSource> JoeyThenBy<TSource, TKey>(
+            this MyOrderedEnumerable<TSource> employees,
             Func<TSource, TKey> keySelector, Comparer<TKey> comparer)
         {
             throw new NotImplementedException();
