@@ -33,7 +33,24 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<Employee> WhereWithDefault(IEnumerable<Employee> employees, Func<Employee, bool> predicate,
             Employee defaultEmployee)
         {
-            throw new NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+
+            bool hasEmployee = false;
+            while (enumerator.MoveNext())
+            {
+                var employee = enumerator.Current;
+
+                if (predicate(employee))
+                {
+                    hasEmployee = true;
+                    yield return employee;
+                }
+            }
+
+            if (!hasEmployee)
+            {
+                yield return defaultEmployee;
+            }
         }
     }
 }
