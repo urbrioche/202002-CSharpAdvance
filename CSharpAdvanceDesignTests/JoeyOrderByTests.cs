@@ -46,10 +46,12 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var firstComparer = new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default);
-            var secondComparer = new CombineKeyComparer(employee => employee.FirstName, Comparer<string>.Default);
+            var firstComparer =
+                new CombineKeyComparer<Employee, string>(employee => employee.LastName, Comparer<string>.Default);
+            var secondComparer =
+                new CombineKeyComparer<Employee, string>(employee => employee.FirstName, Comparer<string>.Default);
 
-            var actual = JoeyOrderByLastNameAndFirstName(
+            var actual = JoeyOrderBy(
                 employees,
                 new ComboComparer(firstComparer, secondComparer));
 
@@ -76,16 +78,18 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
             };
 
-            var firstKeyComparer = new CombineKeyComparer(element => element.LastName, Comparer<string>.Default);
-            var lastKeyComparer = new CombineKeyComparer(element => element.FirstName, Comparer<string>.Default);
+            var firstKeyComparer =
+                new CombineKeyComparer<Employee, string>(element => element.LastName, Comparer<string>.Default);
+            var lastKeyComparer =
+                new CombineKeyComparer<Employee, string>(element => element.FirstName, Comparer<string>.Default);
 
             var untilNowComparer = new ComboComparer(firstKeyComparer, lastKeyComparer);
 
-            var lastComparer = new CombineKeyComparer(employee => employee.Age, Comparer<int>.Default);
+            var lastComparer = new CombineKeyComparer<Employee, int>(employee => employee.Age, Comparer<int>.Default);
 
-            var comboComparer = new ComboComparer(untilNowComparer, lastComparer);
+            var finalComboComparer = new ComboComparer(untilNowComparer, lastComparer);
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, comboComparer);
+            var actual = JoeyOrderBy(employees, finalComboComparer);
 
             var expected = new[]
             {
@@ -99,7 +103,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+        private IEnumerable<Employee> JoeyOrderBy(
             IEnumerable<Employee> employees,
             IComparer<Employee> comparer)
         {
