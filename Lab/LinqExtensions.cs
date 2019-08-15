@@ -140,28 +140,7 @@ namespace Lab
         public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees,
             IComparer<Employee> comparer)
         {
-            //bubble sort
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var currentElement = elements[i];
-
-                    var finalCompareResult = comparer.Compare(currentElement, minElement);
-
-                    if (finalCompareResult < 0)
-                    {
-                        minElement = currentElement;
-                        index = i;
-                    }
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
+            return GetOrderedEnumerable(employees, comparer);
         }
 
         public static IEnumerable<TSource> JoeyOrderBy<TSource, TKey>(this IEnumerable<TSource> employees,
@@ -306,6 +285,33 @@ namespace Lab
         private static IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
         {
             yield return defaultEmployee;
+        }
+
+        private static IEnumerable<Employee> GetOrderedEnumerable(IEnumerable<Employee> employees,
+            IComparer<Employee> comparer)
+        {
+            //bubble sort
+            var elements = employees.ToList();
+            while (elements.Any())
+            {
+                var minElement = elements[0];
+                var index = 0;
+                for (int i = 1; i < elements.Count; i++)
+                {
+                    var currentElement = elements[i];
+
+                    var finalCompareResult = comparer.Compare(currentElement, minElement);
+
+                    if (finalCompareResult < 0)
+                    {
+                        minElement = currentElement;
+                        index = i;
+                    }
+                }
+
+                elements.RemoveAt(index);
+                yield return minElement;
+            }
         }
     }
 }
