@@ -51,9 +51,7 @@ namespace CSharpAdvanceDesignTests
             var secondComparer =
                 new CombineKeyComparer<Employee, string>(employee => employee.FirstName, Comparer<string>.Default);
 
-            var actual = JoeyOrderBy(
-                employees,
-                new ComboComparer(firstComparer, secondComparer));
+            var actual = employees.JoeyOrderBy(new ComboComparer(firstComparer, secondComparer));
 
             var expected = new[]
             {
@@ -89,7 +87,7 @@ namespace CSharpAdvanceDesignTests
 
             var finalComboComparer = new ComboComparer(untilNowComparer, lastComparer);
 
-            var actual = JoeyOrderBy(employees, finalComboComparer);
+            var actual = employees.JoeyOrderBy(finalComboComparer);
 
             var expected = new[]
             {
@@ -101,34 +99,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private IEnumerable<Employee> JoeyOrderBy(
-            IEnumerable<Employee> employees,
-            IComparer<Employee> comparer)
-        {
-            //bubble sort
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var currentElement = elements[i];
-
-                    var finalCompareResult = comparer.Compare(currentElement, minElement);
-
-                    if (finalCompareResult < 0)
-                    {
-                        minElement = currentElement;
-                        index = i;
-                    }
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
         }
     }
 }
