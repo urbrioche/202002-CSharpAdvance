@@ -2,6 +2,7 @@
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using ExpectedObjects;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -13,27 +14,19 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new int?[] {1, 1, null, 4, 4};
 
-            var actual = JoeyAverage(numbers);
+            var actual = numbers.JoeyAverage();
 
             2.5d.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private double? JoeyAverage(IEnumerable<int?> numbers)
+        [Test]
+        public void average_all_null_value()
         {
-            var enumerator = numbers.GetEnumerator();
-            var result = 0;
-            var count = 0;
-            while (enumerator.MoveNext())
-            {
-                var number = enumerator.Current;
-                if (number.HasValue)
-                {
-                    result += number.Value;
-                    count++;
-                }
-            }
+            var numbers = new int?[] {null, null, null};
 
-            return result / (double) count;
+            var actual = numbers.JoeyAverage();
+
+            Assert.IsNull(actual);
         }
     }
 }

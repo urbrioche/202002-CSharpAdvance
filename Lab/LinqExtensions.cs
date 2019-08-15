@@ -246,5 +246,23 @@ namespace Lab
         {
             yield return defaultEmployee;
         }
+
+        public static double? JoeyAverage(this IEnumerable<int?> numbers)
+        {
+            var enumerator = numbers.GetEnumerator();
+            var result = 0;
+            var count = 0;
+            while (enumerator.MoveNext())
+            {
+                var number = enumerator.Current;
+                if (number.HasValue)
+                {
+                    result += number.Value;
+                    count++;
+                }
+            }
+
+            return result / (double) count;
+        }
     }
 }
