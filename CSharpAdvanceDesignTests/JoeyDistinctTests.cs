@@ -46,16 +46,17 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source,
             IEqualityComparer<TSource> equalityComparer)
         {
-            var enumerator = source.GetEnumerator();
-            var hashSet = new HashSet<TSource>(equalityComparer);
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-                if (hashSet.Add(item))
-                {
-                    yield return item;
-                }
-            }
+            return new HashSet<TSource>(source, equalityComparer);
+            //var enumerator = source.GetEnumerator();
+            //var hashSet = new HashSet<TSource>(equalityComparer);
+            //while (enumerator.MoveNext())
+            //{
+            //    var item = enumerator.Current;
+            //    if (hashSet.Add(item))
+            //    {
+            //        yield return item;
+            //    }
+            //}
         }
     }
 
