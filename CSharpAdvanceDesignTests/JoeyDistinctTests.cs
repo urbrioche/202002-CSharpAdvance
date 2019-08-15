@@ -21,7 +21,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<int> Distinct(IEnumerable<int> numbers)
         {
-            throw new System.NotImplementedException();
+            return new HashSet<int>(numbers);
         }
     }
 }
