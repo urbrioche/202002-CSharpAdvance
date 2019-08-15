@@ -19,9 +19,9 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<int> Distinct(IEnumerable<int> numbers)
+        private IEnumerable<TSource> Distinct<TSource>(IEnumerable<TSource> numbers)
         {
-            return new HashSet<int>(numbers);
+            return new HashSet<TSource>(numbers);
         }
     }
 }
