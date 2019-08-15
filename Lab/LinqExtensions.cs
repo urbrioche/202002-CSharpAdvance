@@ -234,5 +234,17 @@ namespace Lab
                 index++;
             }
         }
+
+        public static IEnumerable<Employee> JoeyDefaultIfEmpty(this IEnumerable<Employee> employees, Employee defaultEmployee)
+        {
+            return !employees.GetEnumerator().MoveNext()
+                ? DefaultIfEmpty(defaultEmployee)
+                : employees;
+        }
+
+        private static IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
+        {
+            yield return defaultEmployee;
+        }
     }
 }

@@ -20,9 +20,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "David", LastName = "Wang", Role = Role.Designer},
             };
 
-            var actual = WhereWithDefault(
-                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer},
-                employees.JoeyWhere(e => e.Role == Role.Manager));
+            var actual = employees.JoeyWhere(e => e.Role == Role.Manager).JoeyDefaultIfEmpty(
+                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
 
             var expected = new List<Employee>
                 {new Employee() {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}};
@@ -40,9 +39,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "May", LastName = "Wang", Role = Role.Manager},
             };
 
-            var actual = WhereWithDefault(
-                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer},
-                employees.JoeyWhere(e => e.Role == Role.Manager));
+            var actual = employees.JoeyWhere(e => e.Role == Role.Manager).JoeyDefaultIfEmpty(
+                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
 
             var expected = new List<Employee>
             {
@@ -51,24 +49,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private IEnumerable<Employee> WhereWithDefault(Employee defaultEmployee, IEnumerable<Employee> employees)
-        {
-            var matchedEnumerator = employees.GetEnumerator();
-            if (!matchedEnumerator.MoveNext())
-            {
-                return DefaultIfEmpty(defaultEmployee);
-            }
-            else
-            {
-                return employees;
-            }
-        }
-
-        private IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
-        {
-            yield return defaultEmployee;
         }
     }
 }
