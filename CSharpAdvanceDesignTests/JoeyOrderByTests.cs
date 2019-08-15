@@ -8,6 +8,18 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class ComboComparer
+    {
+        public ComboComparer(IComparer<Employee> firstComparer, IComparer<Employee> secondComparer)
+        {
+            FirstComparer = firstComparer;
+            SecondComparer = secondComparer;
+        }
+
+        public IComparer<Employee> FirstComparer { get; private set; }
+        public IComparer<Employee> SecondComparer { get; private set; }
+    }
+
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -46,10 +58,12 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
+            var firstComparer = new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default);
+            var secondComparer = new CombineKeyComparer(employee => employee.FirstName, Comparer<string>.Default);
+
             var actual = JoeyOrderByLastNameAndFirstName(
                 employees,
-                new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default),
-                new CombineKeyComparer(employee => employee.FirstName, Comparer<string>.Default));
+                new ComboComparer(firstComparer, secondComparer));
 
             var expected = new[]
             {
@@ -64,8 +78,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
-            IComparer<Employee> firstComparer,
-            IComparer<Employee> secondComparer)
+            ComboComparer comboComparer)
         {
             //bubble sort
             var elements = employees.ToList();
@@ -77,7 +90,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var currentElement = elements[i];
 
-                    var firstCompareResult = firstComparer.Compare(currentElement, minElement);
+                    var firstCompareResult = comboComparer.FirstComparer.Compare(currentElement, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = currentElement;
@@ -85,7 +98,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        var secondCompareResult = secondComparer.Compare(currentElement, minElement);
+                        var secondCompareResult = comboComparer.SecondComparer.Compare(currentElement, minElement);
                         if (secondCompareResult < 0)
                         {
                             minElement = currentElement;
