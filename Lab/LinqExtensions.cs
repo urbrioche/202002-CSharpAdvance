@@ -38,6 +38,34 @@ namespace Lab
             return false;
         }
 
+        public static double? JoeyAverage(this IEnumerable<int?> numbers)
+        {
+            var enumerator = numbers.GetEnumerator();
+            var result = 0;
+            var count = 0;
+            while (enumerator.MoveNext())
+            {
+                var number = enumerator.Current;
+                if (number.HasValue)
+                {
+                    result += number.Value;
+                    count++;
+                }
+            }
+
+            return count == 0
+                ? (double?) null
+                : result / (double) count;
+        }
+
+        public static IEnumerable<Employee> JoeyDefaultIfEmpty(this IEnumerable<Employee> employees,
+            Employee defaultEmployee)
+        {
+            return !employees.GetEnumerator().MoveNext()
+                ? DefaultIfEmpty(defaultEmployee)
+                : employees;
+        }
+
         public static TSource JoeyFirst<TSource>(this IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
@@ -235,34 +263,9 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<Employee> JoeyDefaultIfEmpty(this IEnumerable<Employee> employees, Employee defaultEmployee)
-        {
-            return !employees.GetEnumerator().MoveNext()
-                ? DefaultIfEmpty(defaultEmployee)
-                : employees;
-        }
-
         private static IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
         {
             yield return defaultEmployee;
-        }
-
-        public static double? JoeyAverage(this IEnumerable<int?> numbers)
-        {
-            var enumerator = numbers.GetEnumerator();
-            var result = 0;
-            var count = 0;
-            while (enumerator.MoveNext())
-            {
-                var number = enumerator.Current;
-                if (number.HasValue)
-                {
-                    result += number.Value;
-                    count++;
-                }
-            }
-
-            return result / (double) count;
         }
     }
 }
