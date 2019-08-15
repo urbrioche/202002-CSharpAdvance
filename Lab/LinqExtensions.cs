@@ -303,5 +303,16 @@ namespace Lab
                 }
             }
         }
+
+        public static IEnumerable<T> JoeyCast<T>(this IEnumerable source)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+
+                yield return (T) item;
+            }
+        }
     }
 }

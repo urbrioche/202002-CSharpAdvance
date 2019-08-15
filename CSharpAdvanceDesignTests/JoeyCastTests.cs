@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -15,20 +16,9 @@ namespace CSharpAdvanceDesignTests
         {
             var arrayList = new ArrayList {1, "2", 3};
 
-            void TestDelegate() => JoeyCast<int>(arrayList).ToList();
+            void TestDelegate() => arrayList.JoeyCast<int>().ToList();
 
             Assert.Throws<InvalidCastException>(TestDelegate);
-        }
-
-        private IEnumerable<T> JoeyCast<T>(IEnumerable source)
-        {
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current;
-
-                yield return (T) item;
-            }
         }
     }
 }
