@@ -27,7 +27,7 @@ namespace Lab
             return GetEnumerator();
         }
 
-        public MyOrderedEnumerable<TSource> ConcatNextComparer<TKey>(Func<TSource, TKey> keySelector,
+        public MyOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer)
         {
             var nextComparer = new CombineKeyComparer<TSource, TKey>(keySelector, comparer);

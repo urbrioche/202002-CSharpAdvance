@@ -249,7 +249,7 @@ namespace Lab
             this MyOrderedEnumerable<TSource> employees,
             Func<TSource, TKey> keySelector, Comparer<TKey> comparer)
         {
-            return employees.ConcatNextComparer(keySelector, comparer);
+            return employees.CreateOrderedEnumerable(keySelector, comparer);
         }
 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
