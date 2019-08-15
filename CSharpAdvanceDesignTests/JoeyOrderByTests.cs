@@ -7,6 +7,18 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class CombineKeyComparer
+    {
+        public CombineKeyComparer(Func<Employee, string> firstKeySelector, IComparer<string> firstKeyComparer)
+        {
+            FirstKeySelector = firstKeySelector;
+            FirstKeyComparer = firstKeyComparer;
+        }
+
+        public Func<Employee, string> FirstKeySelector { get; private set; }
+        public IComparer<string> FirstKeyComparer { get; private set; }
+    }
+
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -47,10 +59,8 @@ namespace CSharpAdvanceDesignTests
 
             var actual = JoeyOrderByLastNameAndFirstName(
                 employees,
-                employee => employee.LastName,
-                Comparer<string>.Default,
-                employee => employee.FirstName,
-                Comparer<string>.Default);
+                new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default),
+                employee => employee.FirstName, Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -65,8 +75,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
-            Func<Employee, string> firstKeySelector,
-            IComparer<string> firstKeyComparer,
+            CombineKeyComparer combineKeyComparer,
             Func<Employee, string> secondKeySelector,
             IComparer<string> secondKeyComparer)
         {
@@ -81,7 +90,8 @@ namespace CSharpAdvanceDesignTests
                     var currentElement = elements[i];
 
                     var firstCompareResult =
-                        firstKeyComparer.Compare(firstKeySelector(currentElement), firstKeySelector(minElement));
+                        combineKeyComparer.FirstKeyComparer.Compare(combineKeyComparer.FirstKeySelector(currentElement),
+                                                                    combineKeyComparer.FirstKeySelector(minElement));
                     if (firstCompareResult < 0)
                     {
                         minElement = currentElement;
