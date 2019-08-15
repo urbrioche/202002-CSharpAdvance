@@ -9,18 +9,18 @@ namespace CSharpAdvanceDesignTests
 {
     public class CombineKeyComparer : IComparer<Employee>
     {
-        public CombineKeyComparer(Func<Employee, string> firstKeySelector, IComparer<string> firstKeyComparer)
+        public CombineKeyComparer(Func<Employee, string> keySelector, IComparer<string> keyComparer)
         {
-            FirstKeySelector = firstKeySelector;
-            FirstKeyComparer = firstKeyComparer;
+            KeySelector = keySelector;
+            KeyComparer = keyComparer;
         }
 
-        public Func<Employee, string> FirstKeySelector { get; private set; }
-        public IComparer<string> FirstKeyComparer { get; private set; }
+        public Func<Employee, string> KeySelector { get; private set; }
+        public IComparer<string> KeyComparer { get; private set; }
 
         public int Compare(Employee x, Employee y)
         {
-            return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
+            return KeyComparer.Compare(KeySelector(x), KeySelector(y));
         }
     }
 
@@ -84,6 +84,10 @@ namespace CSharpAdvanceDesignTests
             Func<Employee, string> secondKeySelector,
             IComparer<string> secondKeyComparer)
         {
+            var secondCombineKeyComparer = new CombineKeyComparer(secondKeySelector, secondKeyComparer);
+            secondKeySelector = secondCombineKeyComparer.KeySelector;
+            secondKeyComparer = secondCombineKeyComparer.KeyComparer;
+
             //bubble sort
             var elements = employees.ToList();
             while (elements.Any())
