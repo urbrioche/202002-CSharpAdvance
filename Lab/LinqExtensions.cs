@@ -49,6 +49,65 @@ namespace Lab
             throw new InvalidOperationException($"{nameof(source)} is empty");
         }
 
+        public static TSource JoeyFirstOrDefault<TSource>(this IEnumerable<TSource> employees)
+        {
+            var enumerator = employees.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                return enumerator.Current;
+            }
+
+            return default(TSource);
+        }
+
+        public static TSource JoeyLast<TSource>(this IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException();
+            }
+
+            var result = enumerator.Current;
+            while (enumerator.MoveNext())
+            {
+                result = enumerator.Current;
+            }
+
+            return result;
+        }
+
+        public static Employee JoeyLastOrDefault(this IEnumerable<Employee> source, Func<Employee, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+
+            var defaultResult = default(Employee);
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                if (predicate(item))
+                {
+                    defaultResult = item;
+                }
+            }
+
+            return defaultResult;
+        }
+
+        public static Employee JoeyLastOrDefault(this IEnumerable<Employee> source)
+        {
+            var defaultResult = default(Employee);
+            var enumerator = source.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                defaultResult = enumerator.Current;
+            }
+
+            return defaultResult;
+        }
+
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
@@ -174,35 +233,6 @@ namespace Lab
 
                 index++;
             }
-        }
-
-        public static TSource JoeyFirstOrDefault<TSource>(this IEnumerable<TSource> employees)
-        {
-            var enumerator = employees.GetEnumerator();
-            if (enumerator.MoveNext())
-            {
-                return enumerator.Current;
-            }
-
-            return default(TSource);
-        }
-
-        public static TSource JoeyLast<TSource>(this IEnumerable<TSource> source)
-        {
-            var enumerator = source.GetEnumerator();
-
-            if (!enumerator.MoveNext())
-            {
-                throw new InvalidOperationException();
-            }
-
-            var result = enumerator.Current;
-            while (enumerator.MoveNext())
-            {
-                result = enumerator.Current;
-            }
-
-            return result;
         }
     }
 }
