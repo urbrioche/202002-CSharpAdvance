@@ -51,7 +51,7 @@ namespace CSharpAdvanceDesignTests
             var secondComparer =
                 new CombineKeyComparer<Employee, string>(employee => employee.FirstName, Comparer<string>.Default);
 
-            var actual = employees.JoeyOrderBy(new ComboComparer(firstComparer, secondComparer));
+            var actual = employees.JoeyOrderBy(new ComboComparer<Employee>(firstComparer, secondComparer));
 
             var expected = new[]
             {
@@ -81,11 +81,11 @@ namespace CSharpAdvanceDesignTests
             var lastKeyComparer =
                 new CombineKeyComparer<Employee, string>(element => element.FirstName, Comparer<string>.Default);
 
-            var untilNowComparer = new ComboComparer(firstKeyComparer, lastKeyComparer);
+            var untilNowComparer = new ComboComparer<Employee>(firstKeyComparer, lastKeyComparer);
 
             var lastComparer = new CombineKeyComparer<Employee, int>(employee => employee.Age, Comparer<int>.Default);
 
-            var finalComboComparer = new ComboComparer(untilNowComparer, lastComparer);
+            var finalComboComparer = new ComboComparer<Employee>(untilNowComparer, lastComparer);
 
             var actual = employees.JoeyOrderBy(finalComboComparer);
 
@@ -129,6 +129,5 @@ namespace CSharpAdvanceDesignTests
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
-
     }
 }
