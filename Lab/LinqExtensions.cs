@@ -360,5 +360,19 @@ namespace Lab
                 }
             }
         }
+
+        public static IEnumerable<int> JoeyExcept(this IEnumerable<int> first, IEnumerable<int> second)
+        {
+            var hashSet = new HashSet<int>(second);
+            var enumerator = first.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (hashSet.Add(current))
+                {
+                    yield return current;
+                }
+            }
+        }
     }
 }
