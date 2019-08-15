@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CombineKeyComparer.cs" />
     <Compile Include="ComboComparer.cs" />
+    <Compile Include="EmployeeEqualityComparer.cs" />
     <Compile Include="Entities\Card.cs" />
     <Compile Include="Entities\CardKind.cs" />
     <Compile Include="Entities\CardType.cs" />

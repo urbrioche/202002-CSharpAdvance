@@ -319,5 +319,21 @@ namespace Lab
         {
             return new Stack<Employee>(employees);
         }
+
+        public static IEnumerable<TSource> JoeyDistinct<TSource>(this IEnumerable<TSource> source,
+            IEqualityComparer<TSource> equalityComparer)
+        {
+            return new HashSet<TSource>(source, equalityComparer);
+            //var enumerator = source.GetEnumerator();
+            //var hashSet = new HashSet<TSource>(equalityComparer);
+            //while (enumerator.MoveNext())
+            //{
+            //    var item = enumerator.Current;
+            //    if (hashSet.Add(item))
+            //    {
+            //        yield return item;
+            //    }
+            //}
+        }
     }
 }
