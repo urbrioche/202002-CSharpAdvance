@@ -85,8 +85,6 @@ namespace CSharpAdvanceDesignTests
             IComparer<string> secondKeyComparer)
         {
             var secondCombineKeyComparer = new CombineKeyComparer(secondKeySelector, secondKeyComparer);
-            secondKeySelector = secondCombineKeyComparer.KeySelector;
-            secondKeyComparer = secondCombineKeyComparer.KeyComparer;
 
             //bubble sort
             var elements = employees.ToList();
@@ -107,8 +105,9 @@ namespace CSharpAdvanceDesignTests
                     else if (firstCompareResult == 0)
                     {
                         var secondCompareResult =
-                            secondKeyComparer.Compare(secondKeySelector(currentElement),
-                                                      secondKeySelector(minElement));
+                            secondCombineKeyComparer.KeyComparer.Compare(
+                                secondCombineKeyComparer.KeySelector(currentElement),
+                                secondCombineKeyComparer.KeySelector(minElement));
                         if (secondCompareResult < 0)
                         {
                             minElement = currentElement;
