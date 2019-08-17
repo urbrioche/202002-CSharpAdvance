@@ -31,7 +31,8 @@ namespace CSharpAdvanceDesignTests
                 new Pet() {Name = "QQ", Owner = joey},
             };
 
-            var actual = JoeyJoin(employees, pets, (employee, pet) => Tuple.Create(employee.FirstName, pet.Name), employee1 => employee1, pet1 => pet1.Owner);
+            var actual = JoeyJoin(employees, pets, employee1 => employee1, pet1 => pet1.Owner,
+                                  (employee, pet) => Tuple.Create(employee.FirstName, pet.Name));
 
             var expected = new[]
             {
@@ -44,10 +45,10 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Tuple<string, string>> JoeyJoin(
-            IEnumerable<Employee> employees,
+        private IEnumerable<Tuple<string, string>> JoeyJoin(IEnumerable<Employee> employees,
             IEnumerable<Pet> pets,
-            Func<Employee, Pet, Tuple<string, string>> resultSelector, Func<Employee, Employee> outerKeySelector, Func<Pet, Employee> innerKeySelector)
+            Func<Employee, Employee> outerKeySelector, Func<Pet, Employee> innerKeySelector,
+            Func<Employee, Pet, Tuple<string, string>> resultSelector)
         {
             var employeeEnumerator = employees.GetEnumerator();
             while (employeeEnumerator.MoveNext())
