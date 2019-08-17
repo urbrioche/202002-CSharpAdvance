@@ -20,7 +20,29 @@ namespace CSharpAdvanceDesignTests
 
         private bool JoeySequenceEqual(IEnumerable<int> first, IEnumerable<int> second)
         {
-            throw new NotImplementedException();
+            var firstEnumerator = first.GetEnumerator();
+            var secondEnumerator = second.GetEnumerator();
+
+            while (true)
+            {
+                var hasFirstCurrent = firstEnumerator.MoveNext();
+                var hasSecondCurrent = secondEnumerator.MoveNext();
+
+                if (hasFirstCurrent != hasSecondCurrent)
+                {
+                    return false;
+                }
+
+                if (hasFirstCurrent == false)
+                {
+                    return true;
+                }
+
+                if (firstEnumerator.Current != secondEnumerator.Current)
+                {
+                    return false;
+                }
+            }
         }
     }
 }
