@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -25,7 +26,7 @@ namespace CSharpAdvanceDesignTests
                 new Key() {Type = CardType.Benz, Owner = "Tom"},
             };
 
-            var pairs = JoeyZip(girls, keys);
+            var pairs = JoeyZip(girls, keys, (girl, key) => $"{girl.Name}-{key.Owner}");
 
             var expected = new[]
             {
@@ -36,7 +37,8 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(pairs);
         }
 
-        private IEnumerable<string> JoeyZip(IEnumerable<Girl> girls, IEnumerable<Key> keys)
+        private IEnumerable<string> JoeyZip(IEnumerable<Girl> girls, IEnumerable<Key> keys,
+            Func<Girl, Key, string> resultSelector)
         {
             var girlEnumerator = girls.GetEnumerator();
             var keyEnumerator = keys.GetEnumerator();
@@ -46,7 +48,7 @@ namespace CSharpAdvanceDesignTests
                 var girl = girlEnumerator.Current;
                 var key = keyEnumerator.Current;
 
-                yield return $"{girl.Name}-{key.Owner}";
+                yield return resultSelector(girl, key);
             }
         }
     }
