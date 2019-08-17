@@ -8,9 +8,26 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class MyLookup
+    {
+        public void AddElement(Dictionary<string, List<Employee>> lookup, Employee employee)
+        {
+            if (lookup.ContainsKey(employee.LastName))
+            {
+                lookup[employee.LastName].Add(employee);
+            }
+            else
+            {
+                lookup.Add(employee.LastName, new List<Employee> {employee});
+            }
+        }
+    }
+
     [TestFixture]
     public class JoeyGroupByTests
     {
+        private readonly MyLookup _myLookup = new MyLookup();
+
         [Test]
         public void groupBy_lastName()
         {
@@ -35,18 +52,6 @@ namespace CSharpAdvanceDesignTests
             firstGroup.ToExpectedObject().ShouldMatch(actual.First().ToList());
         }
 
-        private void AddElement(Dictionary<string, List<Employee>> lookup, Employee employee)
-        {
-            if (lookup.ContainsKey(employee.LastName))
-            {
-                lookup[employee.LastName].Add(employee);
-            }
-            else
-            {
-                lookup.Add(employee.LastName, new List<Employee> {employee});
-            }
-        }
-
         private IEnumerable<IGrouping<string, Employee>> JoeyGroupBy(IEnumerable<Employee> employees)
         {
             var lookup = new Dictionary<string, List<Employee>>();
@@ -56,7 +61,7 @@ namespace CSharpAdvanceDesignTests
             {
                 var employee = enumerator.Current;
 
-                AddElement(lookup, employee);
+                _myLookup.AddElement(lookup, employee);
             }
 
             return ConvertToMyGrouping(lookup);
