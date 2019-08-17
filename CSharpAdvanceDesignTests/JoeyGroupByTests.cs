@@ -35,6 +35,18 @@ namespace CSharpAdvanceDesignTests
             firstGroup.ToExpectedObject().ShouldMatch(actual.First().ToList());
         }
 
+        private void AddElement(Dictionary<string, List<Employee>> lookup, Employee employee)
+        {
+            if (lookup.ContainsKey(employee.LastName))
+            {
+                lookup[employee.LastName].Add(employee);
+            }
+            else
+            {
+                lookup.Add(employee.LastName, new List<Employee> {employee});
+            }
+        }
+
         private IEnumerable<IGrouping<string, Employee>> JoeyGroupBy(IEnumerable<Employee> employees)
         {
             var lookup = new Dictionary<string, List<Employee>>();
@@ -44,14 +56,7 @@ namespace CSharpAdvanceDesignTests
             {
                 var employee = enumerator.Current;
 
-                if (lookup.ContainsKey(employee.LastName))
-                {
-                    lookup[employee.LastName].Add(employee);
-                }
-                else
-                {
-                    lookup.Add(employee.LastName, new List<Employee> {employee});
-                }
+                AddElement(lookup, employee);
             }
 
             return ConvertToMyGrouping(lookup);
