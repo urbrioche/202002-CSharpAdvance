@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class MyLookup
+    public class MyLookup : IEnumerable<IGrouping<string, Employee>>
     {
         private readonly Dictionary<string, List<Employee>> _lookup = new Dictionary<string, List<Employee>>();
 
@@ -32,6 +32,16 @@ namespace CSharpAdvanceDesignTests
                 var keyValuePair = enumerator.Current;
                 yield return new MyGrouping(keyValuePair.Key, keyValuePair.Value);
             }
+        }
+
+        public IEnumerator<IGrouping<string, Employee>> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 
@@ -73,7 +83,8 @@ namespace CSharpAdvanceDesignTests
                 myLookup.AddElement(employee);
             }
 
-            return myLookup.ConvertToMyGrouping();
+            return myLookup;
+            //return myLookup.ConvertToMyGrouping();
         }
     }
 
