@@ -1,5 +1,4 @@
-﻿using System;
-using ExpectedObjects;
+﻿using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -39,7 +38,16 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeyZip(IEnumerable<Girl> girls, IEnumerable<Key> keys)
         {
-            throw new NotImplementedException();
+            var girlEnumerator = girls.GetEnumerator();
+            var keyEnumerator = keys.GetEnumerator();
+
+            while (girlEnumerator.MoveNext() && keyEnumerator.MoveNext())
+            {
+                var girl = girlEnumerator.Current;
+                var key = keyEnumerator.Current;
+
+                yield return $"{girl.Name}-{key.Owner}";
+            }
         }
     }
 }
