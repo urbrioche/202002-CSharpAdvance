@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -7,7 +8,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyZipTests
     {
         [Test]
@@ -39,7 +39,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeyZip(IEnumerable<Girl> girls, IEnumerable<Key> keys)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
