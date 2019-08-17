@@ -36,7 +36,7 @@ namespace CSharpAdvanceDesignTests
                 pets,
                 employee => employee,
                 pet => pet.Owner,
-                (employee, pet) => Tuple.Create(employee.FirstName, pet.Name));
+                (employee, pet) => Tuple.Create(employee.FirstName, pet.Name), EqualityComparer<Employee>.Default);
 
             var expected = new[]
             {
@@ -53,7 +53,8 @@ namespace CSharpAdvanceDesignTests
             IEnumerable<Pet> pets,
             Func<Employee, Employee> outerKeySelector,
             Func<Pet, Employee> innerKeySelector,
-            Func<Employee, Pet, Tuple<string, string>> resultSelector)
+            Func<Employee, Pet, Tuple<string, string>> resultSelector,
+            IEqualityComparer<Employee> equalityComparer)
         {
             var employeeEnumerator = employees.GetEnumerator();
             while (employeeEnumerator.MoveNext())
@@ -65,7 +66,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var pet = petEnumerator.Current;
 
-                    if (EqualityComparer<Employee>.Default.Equals(innerKeySelector(pet), outerKeySelector(employee)))
+                    if (equalityComparer.Equals(innerKeySelector(pet), outerKeySelector(employee)))
                         //if (object.Equals(innerKeySelector(pet), outerKeySelector(employee)))
                     {
                         yield return resultSelector(employee, pet);
