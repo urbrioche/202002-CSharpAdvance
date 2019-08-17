@@ -10,8 +10,9 @@ namespace CSharpAdvanceDesignTests
 {
     public class MyLookup
     {
-        public void AddElement(Dictionary<string, List<Employee>> lookup, Employee employee)
+        public void AddElement(Employee employee)
         {
+            Dictionary<string, List<Employee>> lookup = new Dictionary<string, List<Employee>>();
             if (lookup.ContainsKey(employee.LastName))
             {
                 lookup[employee.LastName].Add(employee);
@@ -69,7 +70,7 @@ namespace CSharpAdvanceDesignTests
             {
                 var employee = enumerator.Current;
 
-                _myLookup.AddElement(new Dictionary<string, List<Employee>>(), employee);
+                _myLookup.AddElement(employee);
             }
 
             return _myLookup.ConvertToMyGrouping(new Dictionary<string, List<Employee>>());
