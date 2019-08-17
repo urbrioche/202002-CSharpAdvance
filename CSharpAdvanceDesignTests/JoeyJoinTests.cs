@@ -65,7 +65,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var pet = petEnumerator.Current;
 
-                    if (innerKeySelector(pet) == outerKeySelector(employee))
+                    if (object.Equals(innerKeySelector(pet), outerKeySelector(employee)))
                     {
                         yield return resultSelector(employee, pet);
                     }
