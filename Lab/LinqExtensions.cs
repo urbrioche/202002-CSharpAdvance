@@ -49,9 +49,9 @@ namespace Lab
             return result;
         }
 
-        public static IEnumerable<string> JoeySelect(this IEnumerable<string> urls, Func<string, int, string> selector)
+        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> urls, Func<TSource, int, TResult> selector)
         {
-            var result = new List<string>();
+            var result = new List<TResult>();
 
             int index = 0;
             foreach (var item in urls)
