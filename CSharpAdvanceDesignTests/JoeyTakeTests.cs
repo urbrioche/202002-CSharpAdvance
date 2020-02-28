@@ -56,22 +56,33 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees, int count)
+        [Test]
+        public void take_4_names()
         {
-            var enumerator = employees.GetEnumerator();
+            var names = new[] {"Tom", "Joey", "David"};
+
+            var actual = JoeyTake(names, 4);
+
+            var expected = new[] {"Tom", "Joey", "David"};
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        private IEnumerable<TSource> JoeyTake<TSource>(IEnumerable<TSource> source, int count)
+        {
+            var enumerator = source.GetEnumerator();
             var index = 0;
             while (enumerator.MoveNext())
             {
-                var employee = enumerator.Current;
+                var current = enumerator.Current;
 
                 if (index < count)
                 {
-                    yield return employee;
+                    yield return current;
                 }
                 else
                 {
-                    yield break; 
-                } 
+                    yield break;
+                }
 
                 index++;
             }
