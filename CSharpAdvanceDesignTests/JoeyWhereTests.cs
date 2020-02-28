@@ -103,14 +103,14 @@ namespace CSharpAdvanceDesignTests
             return result;
         }
 
-        private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
+        private List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
         {
-            var result = new List<Product>();
-            foreach (var product in products)
+            var result = new List<TSource>();
+            foreach (var item in source)
             {
-                if (predicate(product))
+                if (predicate(item))
                 {
-                    result.Add(product);
+                    result.Add(item);
                 }
             }
 
