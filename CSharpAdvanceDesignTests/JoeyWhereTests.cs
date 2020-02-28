@@ -3,6 +3,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using System.Linq;
 using ExpectedObjects;
 using Lab;
 
@@ -96,10 +97,10 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void find_positive_number_the_first_one_and_skip_second_one_and_take_others()
         {
-            var numbers = new List<int> {1, 2, 3, 4, -5};
+            var numbers = new List<int> { 1, 2, 3, 4, -5 };
             var actual = numbers.JoeyWhere((number, index) => (index == 0 || index > 1) && number > 0);
 
-            var expected = new List<int> {1, 3, 4};
+            var expected = new List<int> { 1, 3, 4 };
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
@@ -118,11 +119,10 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
+
             var actual = products
                 .JoeyWhere(product => product.Price > 700)
-                .JoeySelect(p => $"{p.Id}-{p.Price}");
-
-            var joey = DelayExecute(products);
+                .JoeySelect(p => $"{p.Id}-{p.Price}"); 
 
             var expected = new[]
             {
