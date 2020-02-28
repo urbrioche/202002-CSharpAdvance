@@ -16,63 +16,48 @@ namespace Lab
                 {
                     yield return enumerator.Current;
                 }
-            } 
-
-            //var result = new List<TSource>();
-            //foreach (var item in source)
-            //{
-            //    if (predicate(item))
-            //    {
-            //        result.Add(item);
-            //    }
-            //}
-
-            //return result;
+            }
         }
 
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
-            var result = new List<TResult>();
-            foreach (var item in source)
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                result.Add(selector(item));
+                var current = enumerator.Current;
+                yield return selector(current);
             }
-
-            return result;
         }
 
-        public static List<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
             Func<TSource, int, bool> predicate)
         {
             var index = 0;
-            var result = new List<TSource>();
-            foreach (var item in source)
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                if (predicate(item, index))
+                var current = enumerator.Current;
+                if (predicate(current, index))
                 {
-                    result.Add(item);
+                    yield return current;
                 }
 
                 index++;
-            }
-
-            return result;
+            } 
         }
 
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> urls,
             Func<TSource, int, TResult> selector)
         {
-            var result = new List<TResult>();
-
             int index = 0;
-            foreach (var item in urls)
+            var enumerator = urls.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                result.Add(selector(item, index));
+                var current = enumerator.Current;
+                yield return selector(current, index);
                 index++;
-            }
-
-            return result;
+            } 
         }
     }
 }
