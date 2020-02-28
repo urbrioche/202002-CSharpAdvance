@@ -57,7 +57,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
 
-            var names = JoeySelectForEmployee(employees, e => $"{e.FirstName} {e.LastName}");
+            var names = JoeySelect(employees, e => $"{e.FirstName} {e.LastName}");
             var expected = new[]
             {
                 "Joey Chen",
@@ -67,17 +67,14 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(names); 
         }
 
-        private List<string> JoeySelectForEmployee(List<Employee> employees, Func<Employee, string> selector)
+        private IEnumerable<TResult> JoeySelect<TSource, TResult>(
+            IEnumerable<TSource> source,
+            Func<TSource, TResult> selector)
         {
-            throw new NotImplementedException();
-        }
-
-        private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> selector)
-        {
-            var result = new List<string>();
-            foreach (var url in urls)
+            var result = new List<TResult>();
+            foreach (var item in source)
             {
-                result.Add(selector(url));
+                result.Add(selector(item));
             }
 
             return result;
@@ -91,7 +88,7 @@ namespace CSharpAdvanceDesignTests
             yield return "http://github.com";
         }
 
-        private static List<Employee> GetEmployees()
+        private static IEnumerable<Employee> GetEmployees()
         {
             return new List<Employee>
             {
