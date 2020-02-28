@@ -77,6 +77,13 @@ namespace CSharpAdvanceDesignTests
 
             var actual = employees.JoeyWhere(e => e.FirstName.Length < 5);
 
+            Console.WriteLine("start foreach");
+
+            foreach (var employee in actual)
+            {
+                Console.WriteLine(employee.FirstName);
+            }
+
             var expected = new List<Employee>
             {
                 new Employee {FirstName = "Joey", LastName = "Chen"},
