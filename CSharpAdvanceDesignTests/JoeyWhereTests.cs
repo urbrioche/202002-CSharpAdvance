@@ -1,9 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -25,7 +27,7 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhere(products, product => product.Price > 200 && product.Price < 500);
+            var actual = products.JoeyWhere(product => product.Price > 200 && product.Price < 500);
 
             var expected = new List<Product>
             {
@@ -52,7 +54,7 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhereCostLessThan30(products);
+            var actual = products.JoeyWhere(product => product.Price > 200 && product.Price < 500 && product.Cost < 30);
 
             var expected = new List<Product>
             {
@@ -62,32 +64,35 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private List<Product> JoeyWhereCostLessThan30(List<Product> products)
+        [Test]
+        public void Find_the_first_name_length_less_than_5()
         {
-            var result = new List<Product>();
-            foreach (var product in products)
+            var employees = new List<Employee>
             {
-                if (product.Price > 200 && product.Price <500 && product.Cost < 30)
-                {
-                    result.Add(product);
-                }
-            }
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"},
+                new Employee {FirstName = "Claire", LastName = "Chen"},
+                new Employee {FirstName = "May", LastName = "Chen"},
+            };
 
-            return result;
+            var actual = employees.JoeyWhere(e => e.FirstName.Length < 5);
+
+            var expected = new List<Employee>
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "May", LastName = "Chen"},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
+        [Test]
+        public void find_positive_number_the_first_one_and_skip_second_one_and_take_others()
         {
-            var result = new List<Product>();
-            foreach (var product in products)
-            {
-                if (predicate(product))
-                {
-                    result.Add(product);
-                }
-            }
-
-            return result;
+            var numbers = new List<int> { 1, 2, 3, 4, -5 };
+            var actual = numbers.JoeyWhere((number, index) => (index == 0 || index > 1) && number > 0);
+            var expected = new List<int> { 1, 3, 4 };
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
     }
 }
