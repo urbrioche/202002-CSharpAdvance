@@ -25,7 +25,8 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhile(cards);
+            var actual = JoeySkipWhile(cards,
+                card => card.Kind == CardKind.Normal);
 
             var expected = new List<Card>
             {
@@ -35,12 +36,23 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
+        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
         {
-            throw new NotImplementedException();
+            var enumerator = cards.GetEnumerator();
+            var isStartTaking = false;
+            while (enumerator.MoveNext())
+            {
+                var card = enumerator.Current;
+
+                if (!predicate(card) || isStartTaking)
+                {
+                    isStartTaking = true;
+                    yield return card;
+                }
+            }
         }
     }
 }
