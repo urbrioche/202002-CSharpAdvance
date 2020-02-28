@@ -30,17 +30,17 @@ namespace CSharpAdvanceDesignTests
             };
 
             //sum of all Saving of each group which 3 Account per group
-            var actual = MyGroupSum(accounts);
+            var actual = MyGroupSum(accounts, 3, account => account.Saving);
 
             var expected = new[] { 60, 150, 240, 210 };
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<int> MyGroupSum(IEnumerable<Account> accounts)
+        private IEnumerable<int> MyGroupSum<TSource>(IEnumerable<TSource> source, int size, Func<TSource, int> selector)
         {
             var result = new List<int>();
-            var enumerator = accounts.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             var sum = 0;
             var count = 0;
 
@@ -48,15 +48,15 @@ namespace CSharpAdvanceDesignTests
 
             while(hasNext)
             {
-                var account = enumerator.Current;
-                if (count < 3)
+                var item = enumerator.Current;
+                if (count < size)
                 {
-                    sum = sum + account.Saving;
+                    sum = sum + selector(item);
                     count++;
                 }
 
                 hasNext = enumerator.MoveNext();
-                if (count == 3 || !hasNext)
+                if (count == size || !hasNext)
                 {
                     result.Add(sum);
                     sum = 0;
