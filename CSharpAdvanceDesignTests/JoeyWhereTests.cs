@@ -76,8 +76,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "May", LastName = "Chen"},
             };
 
-            var actual = JoeyWhereForEmployee(
-                employees, e => e.FirstName.Length < 5);
+            var actual = JoeyWhere(employees, e => e.FirstName.Length < 5);
 
             var expected = new List<Employee>
             {
@@ -86,21 +85,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private List<Employee> JoeyWhereForEmployee(List<Employee> employees,
-            Func<Employee, bool> predicate)
-        {
-            var result = new List<Employee>();
-            foreach (var employee in employees)
-            {
-                if (predicate(employee))
-                {
-                    result.Add(employee);
-                }
-            }
-
-            return result;
         }
 
         private List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
