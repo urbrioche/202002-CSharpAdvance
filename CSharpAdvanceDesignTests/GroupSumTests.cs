@@ -30,7 +30,7 @@ namespace CSharpAdvanceDesignTests
             //sum of all Saving of each group which 3 Account per group
             var actual = MyGroupSum(accounts, 3, x => x.Saving);
 
-            var expected = new[] { 60, 150, 240, 330 };
+            var expected = new[] { 60, 150, 240, 210 };
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
