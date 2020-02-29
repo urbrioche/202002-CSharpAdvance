@@ -4,6 +4,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -21,7 +22,7 @@ namespace CSharpAdvanceDesignTests
         //        new Employee {FirstName = "Joey", LastName = "Chen"},
         //    };
 
-        //    var actual = JoeyOrderByLastName(employees);
+        //    var actual = JoeyOrderByLastNameAndFirstName(employees);
 
         //    var expected = new[]
         //    {
@@ -35,7 +36,7 @@ namespace CSharpAdvanceDesignTests
         //}
 
         [Test]
-        public void orderBy_lastName_firstName()
+        public void orderBy_lastName_and_firstName()
         {
             var employees = new[]
             {
@@ -45,7 +46,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastName(employees, employee => employee.LastName);
+            var actual = JoeyOrderByLastNameAndFirstName(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), employee => employee.FirstName, Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -59,10 +60,12 @@ namespace CSharpAdvanceDesignTests
         }
 
 
-        private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees, Func<Employee, string> firstSelector)
+        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+            IEnumerable<Employee> employees, CombineKeyComparer firstComparer,
+            Func<Employee, string> secondKeySelector,
+            IComparer<string> secondKeyCompare)
         {
             //selection sort
-            var stringComparer = Comparer<string>.Default;
             var elements = employees.ToList();
             while (elements.Any())
             {
@@ -71,14 +74,15 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    if (stringComparer.Compare(firstSelector(employee), firstSelector(minElement)) < 0)
+                    var firstCompareResult = firstComparer.Compare(employee, minElement);
+                    if (firstCompareResult < 0)
                     {
                         minElement = employee;
                         index = i;
                     }
-                    else if (stringComparer.Compare(firstSelector(employee), firstSelector(minElement)) == 0)
+                    else if (firstCompareResult == 0)
                     {
-                        if (stringComparer.Compare(employee.FirstName, minElement.FirstName) < 0)
+                        if (secondKeyCompare.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
                         {
                             minElement = employee;
                             index = i;
