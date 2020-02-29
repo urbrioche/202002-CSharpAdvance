@@ -35,7 +35,7 @@ namespace CSharpAdvanceDesignTests
 
         private bool JoeyAny(IEnumerable<Employee> employees)
         {
-            throw new NotImplementedException();
+            return employees.GetEnumerator().MoveNext();
         }
     }
 }
