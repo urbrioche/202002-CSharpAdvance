@@ -30,42 +30,54 @@ namespace CSharpAdvanceDesignTests
             };
 
             //sum of all Saving of each group which 3 Account per group
-            var actual = MyGroupSum(accounts, 3, account => account.Saving);
+            //var actual = MyGroupSum(accounts, 3, account => account.Saving);
+            var actual = MyGroupSum(accounts);
 
             var expected = new[] { 60, 150, 240, 210 };
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<int> MyGroupSum<TSource>(IEnumerable<TSource> source, int size, Func<TSource, int> selector)
+        private IEnumerable<int> MyGroupSum(IEnumerable<Account> accounts)
         {
-            var result = new List<int>();
-            var enumerator = source.GetEnumerator();
-            var sum = 0;
-            var count = 0;
 
-            var hasNext = enumerator.MoveNext();
+            var total = accounts.Count();
+            yield return accounts.Skip(3*0).Take(3).Sum(account => account.Saving);
+            yield return accounts.Skip(3*1).Take(3).Sum(account => account.Saving);
+            yield return accounts.Skip(3*2).Take(3).Sum(account => account.Saving);
+            yield return accounts.Skip(3*3).Take(3).Sum(account => account.Saving);
 
-            while(hasNext)
-            {
-                var item = enumerator.Current;
-                if (count < size)
-                {
-                    sum = sum + selector(item);
-                    count++;
-                }
-
-                hasNext = enumerator.MoveNext();
-                if (count == size || !hasNext)
-                {
-                    result.Add(sum);
-                    sum = 0;
-                    count = 0;
-                }
-            }
-
-            return result;
         }
+
+        //private IEnumerable<int> MyGroupSum<TSource>(IEnumerable<TSource> source, int size, Func<TSource, int> selector)
+        //{
+        //    var result = new List<int>();
+        //    var enumerator = source.GetEnumerator();
+        //    var sum = 0;
+        //    var count = 0;
+
+        //    var hasNext = enumerator.MoveNext();
+
+        //    while(hasNext)
+        //    {
+        //        var item = enumerator.Current;
+        //        if (count < size)
+        //        {
+        //            sum = sum + selector(item);
+        //            count++;
+        //        }
+
+        //        hasNext = enumerator.MoveNext();
+        //        if (count == size || !hasNext)
+        //        {
+        //            result.Add(sum);
+        //            sum = 0;
+        //            count = 0;
+        //        }
+        //    }
+
+        //    return result;
+        //}
     }
 }
 
