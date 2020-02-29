@@ -1,4 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ExpectedObjects;
+using NUnit.Framework;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -24,11 +28,22 @@ namespace CSharpAdvanceDesignTests
             };
 
             //sum of all Saving of each group which 3 Account per group
-            //var actual = MyGroupSum(?);
+            var actual = MyGroupSum(accounts, 3, x => x.Saving);
 
-            var expected = new[] {60, 150, 240, 210};
+            var expected = new[] { 60, 150, 240, 330 };
 
-            //expected.ToExpectedObject().ShouldMatch(actual);
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        private IEnumerable<int> MyGroupSum(IEnumerable<Account> accounts, int pageSize, Func<Account, int> selector)
+        {
+            var pageIndex = 0;
+            var list = accounts.ToList();
+            while (pageIndex * pageSize < list.Count)
+            {
+                yield return list.Skip(pageIndex * pageSize).Take(pageSize).Sum(selector);
+                pageIndex++;
+            }
         }
     }
 
