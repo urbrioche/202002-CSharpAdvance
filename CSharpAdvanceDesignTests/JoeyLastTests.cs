@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExpectedObjects;
+using Lab;
 using Lab.Entities;
 using NUnit.Framework;
 
@@ -20,9 +21,9 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLast(employees);
+            var employee = employees.JoeyLast();
 
-            new Employee { FirstName = "Cash", LastName = "Li" }
+            new Employee {FirstName = "Cash", LastName = "Li"}
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
@@ -37,15 +38,10 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLastWithCondition(employees);
+            var employee = employees.JoeyLast(current => current?.LastName=="Chen");
 
-            new Employee { FirstName = "David", LastName = "Chen" }
-            .ToExpectedObject().ShouldMatch(employee);
-        }
-
-        private Employee JoeyLastWithCondition(IEnumerable<Employee> employees)
-        {
-            throw new NotImplementedException();
+            new Employee {FirstName = "David", LastName = "Chen"}
+                .ToExpectedObject().ShouldMatch(employee);
         }
 
         [Test]
@@ -55,26 +51,8 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            TestDelegate action = () => JoeyLast(employees);
+            TestDelegate action = () => employees.JoeyLast();
             Assert.Throws<InvalidOperationException>(action);
-        }
-
-        private Employee JoeyLast(IEnumerable<Employee> employees)
-        {
-            var enumerator = employees.GetEnumerator();
-
-            if (!enumerator.MoveNext())
-            {
-                throw new InvalidOperationException();
-            }
-
-            var last = enumerator.Current;
-            while (enumerator.MoveNext())
-            {
-                last = enumerator.Current;
-            }
-
-            return last;
         }
     }
 }

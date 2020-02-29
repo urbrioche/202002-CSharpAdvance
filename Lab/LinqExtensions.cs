@@ -111,5 +111,28 @@ namespace Lab
         {
             return employees.GetEnumerator().MoveNext();
         }
+
+        public static Employee JoeyLast(this IEnumerable<Employee> employees, Func<Employee, bool> predicate)
+        {
+            var enumerator = employees.GetEnumerator();
+            var hasMatch = false;
+            Employee employee = null;
+            while (enumerator.MoveNext()) 
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    hasMatch = true;
+                    employee = current; 
+                } 
+            } 
+
+            return hasMatch ? employee : throw new InvalidOperationException();
+        }
+
+        public static Employee JoeyLast(this IEnumerable<Employee> employees)
+        {
+            return employees.JoeyLast(employee => true);
+        }
     }
 }
