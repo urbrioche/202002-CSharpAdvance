@@ -43,7 +43,19 @@ namespace CSharpAdvanceDesignTests
 
         private Girl JoeySingle(IEnumerable<Girl> girls)
         {
-            throw new System.NotImplementedException();
+            var enumerator = girls.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException();
+            }
+
+            var girl = enumerator.Current;
+            if (enumerator.MoveNext())
+            { 
+                throw new InvalidOperationException();
+            }
+
+            return girl;
         }
     }
 }
