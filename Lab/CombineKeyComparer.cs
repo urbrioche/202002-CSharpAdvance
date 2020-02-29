@@ -12,8 +12,8 @@ namespace Lab
             KeyComparer = keyComparer;
         }
 
-        private Func<Employee, string> KeySelector { get; }
-        private IComparer<string> KeyComparer { get; }
+        public Func<Employee, string> KeySelector { get; set; }
+        public IComparer<string> KeyComparer { get; set; }
 
         public int Compare(Employee x, Employee y)
         {

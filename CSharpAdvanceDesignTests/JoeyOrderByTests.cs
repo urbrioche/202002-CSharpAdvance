@@ -46,7 +46,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), employee => employee.FirstName, Comparer<string>.Default);
+            var actual = JoeyOrderByLastNameAndFirstName(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(employee => employee.FirstName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -61,9 +61,9 @@ namespace CSharpAdvanceDesignTests
 
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, IComparer<Employee> firstComparer,
-            Func<Employee, string> secondKeySelector,
-            IComparer<string> secondKeyCompare)
+            IEnumerable<Employee> employees, 
+            IComparer<Employee> firstComparer, 
+            IComparer<Employee> secondComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -82,7 +82,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        if (secondKeyCompare.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
+                        if (secondComparer.Compare(employee,minElement) < 0)
                         {
                             minElement = employee;
                             index = i;
