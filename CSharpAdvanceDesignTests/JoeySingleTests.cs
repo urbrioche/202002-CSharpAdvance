@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExpectedObjects;
+using Lab;
 using Lab.Entities;
 using NUnit.Framework;
 
@@ -13,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         public void no_girls()
         {
             var girls = new Girl[] { };
-            TestDelegate action = () => JoeySingle(girls);
+            TestDelegate action = () => girls.JoeySingle();
             Assert.Throws<InvalidOperationException>(action);
         }
 
@@ -24,7 +25,7 @@ namespace CSharpAdvanceDesignTests
             {
                 new Girl() {Name = "May"},
             };
-            var girl = JoeySingle(girls);
+            var girl = girls.JoeySingle();
 
             new Girl() { Name = "May" }.ToExpectedObject().ShouldMatch(girl);
         }
@@ -37,25 +38,8 @@ namespace CSharpAdvanceDesignTests
                 new Girl() {Name = "May"},
                 new Girl() {Name = "Jessica"},
             };
-            TestDelegate action = () => JoeySingle(girls);
+            TestDelegate action = () => girls.JoeySingle();
             Assert.Throws<InvalidOperationException>(action);
-        }
-
-        private Girl JoeySingle(IEnumerable<Girl> girls)
-        {
-            var enumerator = girls.GetEnumerator();
-            if (!enumerator.MoveNext())
-            {
-                throw new InvalidOperationException();
-            }
-
-            var girl = enumerator.Current;
-            if (enumerator.MoveNext())
-            { 
-                throw new InvalidOperationException();
-            }
-
-            return girl;
         }
     }
 }

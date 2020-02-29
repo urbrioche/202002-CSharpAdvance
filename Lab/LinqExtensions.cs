@@ -134,5 +134,22 @@ namespace Lab
         {
             return employees.JoeyLast(employee => true);
         }
+
+        public static Girl JoeySingle(this IEnumerable<Girl> girls)
+        {
+            var enumerator = girls.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException();
+            }
+
+            var girl = enumerator.Current;
+            if (enumerator.MoveNext())
+            { 
+                throw new InvalidOperationException();
+            }
+
+            return girl;
+        }
     }
 }
