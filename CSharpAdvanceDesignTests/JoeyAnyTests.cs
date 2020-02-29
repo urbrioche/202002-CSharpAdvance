@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -18,7 +19,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee(),
             };
 
-            var actual = JoeyAny(emptyEmployees);
+            var actual = emptyEmployees.JoeyAny();
             Assert.IsTrue(actual);
         }
 
@@ -29,13 +30,16 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            var actual = JoeyAny(emptyEmployees);
+            var actual = emptyEmployees.JoeyAny();
             Assert.IsFalse(actual);
         }
 
-        private bool JoeyAny(IEnumerable<Employee> employees)
+        [Test]
+        public void any_number_greater_than_91()
         {
-            return employees.GetEnumerator().MoveNext();
+            var numbers = new[] { 87, 88, 91, 93, 0 };
+            var actual = numbers.JoeyAny(number => number > 91);
+            Assert.IsTrue(actual);
         }
     }
 }
