@@ -48,7 +48,8 @@ namespace CSharpAdvanceDesignTests
 
             var actual = JoeyOrderByLastNameAndFirstName(
                 employees,
-                employee => employee.LastName);
+                employee => employee.LastName,
+                Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -61,11 +62,14 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees, Func<Employee, string> firstSelector)
+        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+            IEnumerable<Employee> employees,
+            Func<Employee, string> firstKeySelector,
+            IComparer<string> firstKeyComparer)
         {
             //selection sort
-            var stringComparer = Comparer<string>.Default;
             var elements = employees.ToList();
+
             while (elements.Any())
             {
                 var minElement = elements[0];
@@ -73,14 +77,17 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    if (stringComparer.Compare(firstSelector(employee), firstSelector(minElement)) < 0)
+                    var firstCompareResult =
+                        firstKeyComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement));
+
+                    if (firstCompareResult < 0)
                     {
                         minElement = employee;
                         index = i;
                     }
-                    else if (stringComparer.Compare(firstSelector(employee), firstSelector(minElement)) == 0)
+                    else if (firstCompareResult == 0)
                     {
-                        if (stringComparer.Compare(employee.FirstName, minElement.FirstName) < 0)
+                        if (Comparer<string>.Default.Compare(employee.FirstName, minElement.FirstName) < 0)
                         {
                             minElement = employee;
                             index = i;
