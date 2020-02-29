@@ -3,6 +3,7 @@ using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -19,7 +20,7 @@ namespace CSharpAdvanceDesignTests
                 new Girl(){Age = 30},
             };
 
-            var girl = JoeyFirst(girls);
+            var girl = girls.JoeyFirst();
             var expected = new Girl { Age = 60 };
 
             expected.ToExpectedObject().ShouldEqual(girl);
@@ -32,7 +33,7 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            TestDelegate action = () => JoeyFirst(girls);
+            TestDelegate action = () => girls.JoeyFirst();
             Assert.Throws<InvalidOperationException>(action);
         }
 
@@ -45,31 +46,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
-            var employee = JoeyFirstWithCondition(employees, current => current.LastName == "Chen");
+            var employee = employees.JoeyFirst(current => current.LastName == "Chen");
             new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
-        }
-
-        private TSource JoeyFirstWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
-        {
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                if (predicate(current))
-                {
-                    return current;
-                }
-            }
-
-            throw new InvalidOperationException($"{nameof(source)} is empty");
-        }
-
-        private TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
-        {
-            var enumerator = source.GetEnumerator();
-            return enumerator.MoveNext()
-                ? enumerator.Current
-                : throw new InvalidOperationException($"{nameof(source)} is empty");
         }
     }
 }
