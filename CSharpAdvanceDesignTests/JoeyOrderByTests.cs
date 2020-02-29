@@ -4,21 +4,10 @@ using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class CombineKeyComparer
-    {
-        public CombineKeyComparer(Func<Employee, string> keySelector, IComparer<string> keyComparer)
-        {
-            KeySelector = keySelector;
-            KeyComparer = keyComparer;
-        }
-
-        public Func<Employee, string> KeySelector { get; private set; }
-        public IComparer<string> KeyComparer { get; private set; }
-    }
-
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -77,7 +66,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
-            CombineKeyComparer firstComparer,
+            IComparer<Employee> firstComparer,
             Func<Employee, string> secondKeySelector,
             IComparer<string> secondKeyComparer)
         {
@@ -91,8 +80,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult =
-                        firstComparer.KeyComparer.Compare(firstComparer.KeySelector(employee), firstComparer.KeySelector(minElement));
+                    var firstCompareResult = firstComparer.Compare(employee, minElement);
 
                     if (firstCompareResult < 0)
                     {
