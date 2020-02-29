@@ -61,8 +61,8 @@ namespace CSharpAdvanceDesignTests
 
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, 
-            IComparer<Employee> firstComparer, 
+            IEnumerable<Employee> employees,
+            IComparer<Employee> firstComparer,
             IComparer<Employee> secondComparer)
         {
             //selection sort
@@ -75,19 +75,31 @@ namespace CSharpAdvanceDesignTests
                 {
                     var employee = elements[i];
                     var firstCompareResult = firstComparer.Compare(employee, minElement);
+                    var secondCompareResult = secondComparer.Compare(employee, minElement);
+                    var finalCompareResult = 0;
                     if (firstCompareResult < 0)
+                    {
+                        finalCompareResult = firstCompareResult;
+                        //minElement = employee;
+                        //index = i;
+                    }
+                    else if (firstCompareResult == 0)
+                    {
+                        if (secondCompareResult < 0)
+                        {
+                            finalCompareResult = secondCompareResult;
+                            //minElement = employee;
+                            //index = i;
+                        }
+                    }
+
+                    if (finalCompareResult < 0)
                     {
                         minElement = employee;
                         index = i;
                     }
-                    else if (firstCompareResult == 0)
-                    {
-                        if (secondComparer.Compare(employee,minElement) < 0)
-                        {
-                            minElement = employee;
-                            index = i;
-                        }
-                    }
+
+
                 }
 
                 elements.RemoveAt(index);
