@@ -9,26 +9,7 @@ namespace Lab
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            Console.WriteLine("start where");
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                if (predicate(enumerator.Current))
-                {
-                    yield return enumerator.Current;
-                }
-            }
-        }
-
-        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
-            Func<TSource, TResult> selector)
-        {
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                yield return selector(current);
-            }
+            return JoeyWhere(source, (x, index) => predicate(x));
         }
 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
@@ -45,7 +26,19 @@ namespace Lab
                 }
 
                 index++;
-            } 
+            }
+        }
+
+
+        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
+            Func<TSource, TResult> selector)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                yield return selector(current);
+            }
         }
 
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> urls,
@@ -58,7 +51,7 @@ namespace Lab
                 var current = enumerator.Current;
                 yield return selector(current, index);
                 index++;
-            } 
+            }
         }
 
         public static IEnumerable<TSource> JoeyTake<TSource>(this IEnumerable<TSource> source, int count)
@@ -100,7 +93,7 @@ namespace Lab
         }
 
         public static bool JoeyAny(this IEnumerable<int> numbers, Func<int, bool> predicate)
-        { 
+        {
             var enumerator = numbers.GetEnumerator();
             while (enumerator.MoveNext())
             {

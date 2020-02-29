@@ -45,21 +45,33 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
-            var employee = JoeyFirstWithCondition(employees);
-            new Employee() {FirstName = "Joey", LastName = "Chen"}.ToExpectedObject().ShouldMatch(employee);
+            var employee = JoeyFirstWithCondition(employees, employee1 => employee1.LastName == "Chen");
+
+            new Employee() {FirstName = "Joey", LastName = "Chen"}
+                .ToExpectedObject().ShouldMatch(employee);
         }
 
-        private Employee JoeyFirstWithCondition(IEnumerable<Employee> employees)
+        private TSource JoeyFirstWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            throw new NotImplementedException();
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    return current;
+                }
+            }
+
+            throw new InvalidOperationException($"{nameof(source)} is empty");
         }
 
-        private Girl JoeyFirst(IEnumerable<Girl> girls)
+        private TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
         {
-            var enumerator = girls.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             return enumerator.MoveNext()
                 ? enumerator.Current
-                : throw new InvalidOperationException($"{nameof(girls)} is empty");
+                : throw new InvalidOperationException($"{nameof(source)} is empty");
         }
     }
 }
