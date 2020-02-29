@@ -61,7 +61,7 @@ namespace CSharpAdvanceDesignTests
 
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, CombineKeyComparer firstComparer,
+            IEnumerable<Employee> employees, IComparer<Employee> firstComparer,
             Func<Employee, string> secondKeySelector,
             IComparer<string> secondKeyCompare)
         {
