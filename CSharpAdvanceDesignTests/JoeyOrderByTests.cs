@@ -1,14 +1,13 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using ExpectedObjects;
+using Lab;
 using Lab.Entities;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
-using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class ComboComparer
+    public class ComboComparer : IComparer<Employee>
     {
         public ComboComparer(IComparer<Employee> firstComparer, IComparer<Employee> secondComparer)
         {
@@ -18,6 +17,18 @@ namespace CSharpAdvanceDesignTests
 
         public IComparer<Employee> FirstComparer { get; private set; }
         public IComparer<Employee> SecondComparer { get; private set; }
+
+        public int Compare(Employee x, Employee y)
+        {
+            var firstCompareResult = FirstComparer.Compare(x, y);
+
+            if (firstCompareResult != 0)
+            {
+                return firstCompareResult;
+            }
+
+            return SecondComparer.Compare(x, y);
+        }
     }
 
     [TestFixture]
@@ -56,7 +67,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Wang"},
                 new Employee {FirstName = "Tom", LastName = "Li"},
                 new Employee {FirstName = "Joseph", LastName = "Chen"},
-                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "Joey", LastName = "Chen"}
             };
 
             var comparer = new ComboComparer(
@@ -70,7 +81,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
                 new Employee {FirstName = "Joseph", LastName = "Chen"},
                 new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "Joey", LastName = "Wang"},
+                new Employee {FirstName = "Joey", LastName = "Wang"}
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
@@ -90,20 +101,12 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = comboComparer.FirstComparer.Compare(employee, minElement);
+                    var finalCompareResult = comboComparer.Compare(employee, minElement);
 
-                    if (firstCompareResult < 0)
+                    if (finalCompareResult < 0)
                     {
                         minElement = employee;
                         index = i;
-                    }
-                    else if (firstCompareResult == 0)
-                    {
-                        if (comboComparer.SecondComparer.Compare(employee, minElement) < 0)
-                        {
-                            minElement = employee;
-                            index = i;
-                        }
                     }
                 }
 
