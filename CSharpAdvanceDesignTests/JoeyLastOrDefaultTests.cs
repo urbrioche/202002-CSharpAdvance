@@ -2,11 +2,12 @@
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using ExpectedObjects;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyLastOrDefaultTests
     {
         [Test]
@@ -15,6 +16,23 @@ namespace CSharpAdvanceDesignTests
             var employees = new List<Employee>();
             var actual = JoeyLastOrDefault(employees);
             Assert.IsNull(actual);
+        }
+
+        [Test]
+        public void get_last_employee()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"},
+                new Employee {FirstName = "Cash", LastName = "Li"},
+            };
+
+            var employee = JoeyLastOrDefault(employees);
+
+            new Employee { FirstName = "Cash", LastName = "Li" }
+                .ToExpectedObject().ShouldMatch(employee);
         }
 
         private Employee JoeyLastOrDefault(IEnumerable<Employee> employees)
