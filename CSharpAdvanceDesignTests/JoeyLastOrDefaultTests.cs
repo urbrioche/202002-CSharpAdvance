@@ -2,11 +2,11 @@
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using ExpectedObjects;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyLastOrDefaultTests
     {
         [Test]
@@ -17,9 +17,54 @@ namespace CSharpAdvanceDesignTests
             Assert.IsNull(actual);
         }
 
-        private Employee JoeyLastOrDefault(IEnumerable<Employee> employees)
+        [Test]
+        public void get_last_employee()
         {
-            throw new System.NotImplementedException();
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"},
+                new Employee {FirstName = "Cash", LastName = "Li"},
+            };
+
+            var employee = JoeyLastOrDefaultWithCondition(employees);
+
+            new Employee { FirstName = "Cash", LastName = "Li" }
+                .ToExpectedObject().ShouldMatch(employee);
+        }
+
+        private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> employees)
+        {
+            var enumerator = employees.GetEnumerator();
+            var employee = default(Employee);
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current?.LastName == "Li")
+                {
+                    employee = current;
+                }
+            }
+
+            return employee;
+        }
+
+        private TSource JoeyLastOrDefault<TSource>(IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                return default(TSource);
+            }
+
+            var last = enumerator.Current;
+            while (enumerator.MoveNext())
+            {
+                last = enumerator.Current;
+            }
+
+            return last;
         }
     }
 }
