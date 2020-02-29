@@ -8,6 +8,42 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class ComboCompare
+    {
+        public ComboCompare(IComparer<Employee> firstComparer, IComparer<Employee> secondComparer)
+        {
+            FirstComparer = firstComparer;
+            SecondComparer = secondComparer;
+        }
+
+        public IComparer<Employee> FirstComparer { get; private set; }
+        public IComparer<Employee> SecondComparer { get; private set; }
+
+        public int Compare(Employee x, Employee y)
+        {
+            var firstCompareResult = FirstComparer.Compare(x, y);
+            var secondCompareResult = SecondComparer.Compare(x, y);
+            var finalCompareResult = 0;
+            if (firstCompareResult < 0)
+            {
+                finalCompareResult = firstCompareResult;
+                //y = x;
+                //index = i;
+            }
+            else if (firstCompareResult == 0)
+            {
+                if (secondCompareResult < 0)
+                {
+                    finalCompareResult = secondCompareResult;
+                    //y = x;
+                    //index = i;
+                }
+            }
+
+            return finalCompareResult;
+        }
+    }
+
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -74,24 +110,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = firstComparer.Compare(employee, minElement);
-                    var secondCompareResult = secondComparer.Compare(employee, minElement);
-                    var finalCompareResult = 0;
-                    if (firstCompareResult < 0)
-                    {
-                        finalCompareResult = firstCompareResult;
-                        //minElement = employee;
-                        //index = i;
-                    }
-                    else if (firstCompareResult == 0)
-                    {
-                        if (secondCompareResult < 0)
-                        {
-                            finalCompareResult = secondCompareResult;
-                            //minElement = employee;
-                            //index = i;
-                        }
-                    }
+                    var finalCompareResult = new ComboCompare(firstComparer, secondComparer).Compare(employee, minElement);
 
                     if (finalCompareResult < 0)
                     {
