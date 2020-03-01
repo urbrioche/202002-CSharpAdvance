@@ -7,30 +7,6 @@ using NUnit.Framework;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class ComboComparer : IComparer<Employee>
-    {
-        public ComboComparer(IComparer<Employee> firstComparer, IComparer<Employee> secondComparer)
-        {
-            FirstComparer = firstComparer;
-            SecondComparer = secondComparer;
-        }
-
-        public IComparer<Employee> FirstComparer { get; private set; }
-        public IComparer<Employee> SecondComparer { get; private set; }
-
-        public int Compare(Employee x, Employee y)
-        {
-            var firstCompareResult = FirstComparer.Compare(x, y);
-
-            if (firstCompareResult != 0)
-            {
-                return firstCompareResult;
-            }
-
-            return SecondComparer.Compare(x, y);
-        }
-    }
-
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -71,10 +47,10 @@ namespace CSharpAdvanceDesignTests
             };
 
             var comparer = new ComboComparer(
-                new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default),
-                new CombineKeyComparer(employee => employee.FirstName, Comparer<string>.Default));
+                new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default),
+                new CombineKeyComparer<string>(employee => employee.FirstName, Comparer<string>.Default));
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, comparer);
+            var actual = employees.JoeySort(comparer);
 
             var expected = new[]
             {
@@ -87,31 +63,36 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees,
-            IComparer<Employee> comboComparer)
+        [Test]
+        public void orderBy_lastName_firstName_Age()
         {
-            //selection sort
-            var elements = employees.ToList();
-
-            while (elements.Any())
+            var employees = new[]
             {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var employee = elements[i];
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
+                new Employee {FirstName = "Tom", LastName = "Li", Age = 31},
+                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 32},
+                new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
+            };
 
-                    if (comboComparer.Compare(employee, minElement) < 0)
-                    {
-                        minElement = employee;
-                        index = i;
-                    }
-                }
+            var comboComparer = new ComboComparer(
+                new ComboComparer(
+                    new CombineKeyComparer<string>(element => element.LastName, Comparer<string>.Default)
+                    , new CombineKeyComparer<string>(element => element.FirstName, Comparer<string>.Default))
+                , new CombineKeyComparer<int>(employee => employee.Age, Comparer<int>.Default));
 
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
+            var actual = employees.JoeySort(comboComparer);
+
+            var expected = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
+                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 32},
+                new Employee {FirstName = "Tom", LastName = "Li", Age = 31},
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
     }
 }
