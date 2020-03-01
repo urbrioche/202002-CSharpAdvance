@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ExpectedObjects;
 using Lab;
@@ -102,6 +103,12 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
             };
+
+
+            foreach (var employee in actual)
+            { 
+                Console.WriteLine($"{employee.FirstName}-{employee.LastName}");
+            }
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }

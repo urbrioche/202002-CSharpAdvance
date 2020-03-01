@@ -5,18 +5,23 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyOrderedEnumerable : IEnumerable<Employee>
+    public interface IMyOrderedEnumerable : IEnumerable<Employee>
+    {
+        IMyOrderedEnumerable Append(IComparer<Employee> currentComparer);
+    }
+
+    public class JoeyOrderedEnumerable : IMyOrderedEnumerable
     {
         private readonly IEnumerable<Employee> _source;
-        private readonly IComparer<Employee> _combineKeyComparer;
+        private IComparer<Employee> _untilNowComparer;
 
-        public MyOrderedEnumerable(IEnumerable<Employee> source, IComparer<Employee> combineKeyComparer)
+        public JoeyOrderedEnumerable(IEnumerable<Employee> source, IComparer<Employee> untilNowComparer)
         {
             _source = source;
-            _combineKeyComparer = combineKeyComparer;
+            _untilNowComparer = untilNowComparer;
         }
 
-        public static IEnumerable<Employee> JoeySort(IEnumerable<Employee> employees,
+        public static IEnumerator<Employee> JoeySort(IEnumerable<Employee> employees,
             IComparer<Employee> comboComparer)
         {
             //selection sort
@@ -44,7 +49,7 @@ namespace Lab
 
         public IEnumerator<Employee> GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return JoeySort(_source, _untilNowComparer);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -52,9 +57,10 @@ namespace Lab
             return GetEnumerator();
         }
 
-        public MyOrderedEnumerable Append(IComparer<Employee> combineKeyComparer)
-        {
-            throw new System.NotImplementedException();
+        public IMyOrderedEnumerable Append(IComparer<Employee> currentComparer)
+        { 
+            _untilNowComparer = new ComboComparer(_untilNowComparer, currentComparer);
+            return this;
         }
     }
 }
