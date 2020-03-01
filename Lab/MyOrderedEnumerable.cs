@@ -1,12 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Lab.Entities;
 
 namespace Lab
 {
-    public static class MyOrderedEnumerable
+    public class MyOrderedEnumerable : IEnumerable<Employee>
     {
-        public static IEnumerable<Employee> JoeySort(this IEnumerable<Employee> employees,
+        private readonly IEnumerable<Employee> _source;
+        private readonly IComparer<Employee> _combineKeyComparer;
+
+        public MyOrderedEnumerable(IEnumerable<Employee> source, IComparer<Employee> combineKeyComparer)
+        {
+            _source = source;
+            _combineKeyComparer = combineKeyComparer;
+        }
+
+        public static IEnumerable<Employee> JoeySort(IEnumerable<Employee> employees,
             IComparer<Employee> comboComparer)
         {
             //selection sort
@@ -30,6 +40,21 @@ namespace Lab
                 elements.RemoveAt(index);
                 yield return minElement;
             }
+        }
+
+        public IEnumerator<Employee> GetEnumerator()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public MyOrderedEnumerable Append(IComparer<Employee> combineKeyComparer)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
