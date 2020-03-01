@@ -118,15 +118,15 @@ namespace Lab
             var enumerator = employees.GetEnumerator();
             var hasMatch = false;
             Employee employee = null;
-            while (enumerator.MoveNext()) 
+            while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
                 if (predicate(current))
                 {
                     hasMatch = true;
-                    employee = current; 
-                } 
-            } 
+                    employee = current;
+                }
+            }
 
             return hasMatch ? employee : throw new InvalidOperationException();
         }
@@ -146,11 +146,24 @@ namespace Lab
 
             var girl = enumerator.Current;
             if (enumerator.MoveNext())
-            { 
+            {
                 throw new InvalidOperationException();
             }
 
             return girl;
+        }
+
+
+        public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
+            Func<Employee, TKey> keySelector)
+        {
+            return employees;
+        }
+
+        public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees,
+            Func<Employee, TKey> keySelector)
+        {
+            return employees;
         }
 
         public static IEnumerable<Employee> JoeySort(this IEnumerable<Employee> employees,
