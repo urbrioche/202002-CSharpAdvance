@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Lab.Entities;
 
 namespace Lab
@@ -128,31 +127,15 @@ namespace Lab
                 : throw new InvalidOperationException($"{nameof(source)} is empty");
         }
 
-        public static IEnumerable<Employee> JoeySort(this IEnumerable<Employee> employees, IComparer<Employee> comboCompare)
+        public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> selector)
         {
-            //selection sort
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var employee = elements[i];
-
-                    if (comboCompare.Compare(employee, minElement) < 0)
-                    {
-                        minElement = employee;
-                        index = i;
-                    }
-
-
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
-
+            return employees;
         }
+
+        public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> selector)
+        {
+            return employees;
+        }
+
     }
 }

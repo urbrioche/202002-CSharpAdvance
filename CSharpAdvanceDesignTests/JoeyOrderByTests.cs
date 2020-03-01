@@ -90,5 +90,34 @@ namespace CSharpAdvanceDesignTests
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
+
+        [Test]
+        public void orderBy_lastName_and_firstName_age_orderBy_thenBy()
+        {
+            var employees = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen", Age = 30},
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 25},
+                new Employee {FirstName = "Tom", LastName = "Li", Age = 18},
+                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 22},
+                new Employee {FirstName = "Joey", LastName = "Chen", Age = 28},
+            };
+
+            var actual = employees
+                .JoeyOrderBy(e => e.LastName)
+                .JoeyThenBy(e => e.FirstName)
+                .JoeyThenBy(e => e.Age);
+
+            var expected = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen", Age = 28},
+                new Employee {FirstName = "Joey", LastName = "Chen", Age = 30},
+                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 22},
+                new Employee {FirstName = "Tom", LastName = "Li", Age = 18},
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 25},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
     }
 }

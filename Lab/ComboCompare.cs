@@ -16,20 +16,14 @@ namespace Lab
 
         public int Compare(Employee x, Employee y)
         {
-            var firstCompareResult = FirstComparer.Compare(x, y);
-            var secondCompareResult = SecondComparer.Compare(x, y);
-
-            if (firstCompareResult != 0)
+            if (FirstComparer.Compare(x, y) != 0)
             {
-                return firstCompareResult;
+                return FirstComparer.Compare(x, y);
             }
 
-            if (secondCompareResult != 0)
-            {
-                return secondCompareResult;
-            }
+            return SecondComparer.Compare(x, y);
 
-            return 0;
+
             //if (firstCompareResult < 0)
             //{
             //    return firstCompareResult;
