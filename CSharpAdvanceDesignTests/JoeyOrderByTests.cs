@@ -89,7 +89,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
-            ComboComparer comboComparer)
+            IComparer<Employee> comboComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -101,9 +101,8 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var finalCompareResult = comboComparer.Compare(employee, minElement);
 
-                    if (finalCompareResult < 0)
+                    if (comboComparer.Compare(employee, minElement) < 0)
                     {
                         minElement = employee;
                         index = i;
