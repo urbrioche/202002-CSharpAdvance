@@ -12,9 +12,9 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void all_pets_and_owner()
         {
-            var david = new Employee {FirstName = "David", LastName = "Chen"};
-            var joey = new Employee {FirstName = "Joey", LastName = "Chen"};
-            var tom = new Employee {FirstName = "Tom", LastName = "Chen"};
+            var david = new Employee { FirstName = "David", LastName = "Chen" };
+            var joey = new Employee { FirstName = "Joey", LastName = "Chen" };
+            var tom = new Employee { FirstName = "Tom", LastName = "Chen" };
 
             var employees = new[]
             {
@@ -31,7 +31,13 @@ namespace CSharpAdvanceDesignTests
                 new Pet() {Name = "QQ", Owner = joey},
             };
 
-            var actual = JoeyJoin(employees, pets);
+            var actual = JoeyJoin(
+                employees,
+                pets,
+                employee => employee,
+                pet => pet.Owner,
+                (employee, pet) => Tuple.Create(employee.FirstName, pet.Name),
+                EqualityComparer<Employee>.Default);
 
             var expected = new[]
             {
@@ -44,21 +50,27 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Tuple<string, string>> JoeyJoin(IEnumerable<Employee> employees, IEnumerable<Pet> pets)
+        private IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(
+            IEnumerable<TOuter> outer,
+            IEnumerable<TInner> inner,
+            Func<TOuter, TKey> outerKeySelector,
+            Func<TInner, TKey> innerKeySelector,
+            Func<TOuter, TInner, TResult> resultSelector,
+            IEqualityComparer<TKey> comparer)
         {
-            var employeEnumerator = employees.GetEnumerator();
-            while (employeEnumerator.MoveNext())
+            var outerEnumerator = outer.GetEnumerator();
+            while (outerEnumerator.MoveNext())
             {
-                var employee = employeEnumerator.Current;
+                var outerCurrent = outerEnumerator.Current;
 
-                var petEnumerator = pets.GetEnumerator();
-                while (petEnumerator.MoveNext())
+                var innerEnumerator = inner.GetEnumerator();
+                while (innerEnumerator.MoveNext())
                 {
-                    var pet = petEnumerator.Current;
+                    var innerCurrent = innerEnumerator.Current;
 
-                    if (pet.Owner == employee)
+                    if (comparer.Equals(outerKeySelector(outerCurrent), innerKeySelector(innerCurrent)))
                     {
-                        yield return Tuple.Create(employee.FirstName, pet.Name);
+                        yield return resultSelector(outerCurrent, innerCurrent);
                     }
                 }
             }
