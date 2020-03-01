@@ -88,6 +88,7 @@
     <Compile Include="JoeyWhereWithDefaultTests.cs" />
     <Compile Include="JoeyZipTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SkipLastTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
