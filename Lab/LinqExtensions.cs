@@ -127,14 +127,16 @@ namespace Lab
                 : throw new InvalidOperationException($"{nameof(source)} is empty");
         }
 
-        public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> selector)
+        public static IMyOrderedEnumerable JoeyOrderBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> keySelector)
         {
-            return employees;
+            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            return new MyOrderedEnumerable(employees, combineKeyComparer);
         }
 
-        public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> selector)
+        public static IMyOrderedEnumerable JoeyThenBy<TKey>(this IMyOrderedEnumerable myOrderEnumerable, Func<Employee, TKey> keySelector)
         {
-            return employees;
+            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            return myOrderEnumerable.Append(combineKeyComparer);
         }
 
     }
