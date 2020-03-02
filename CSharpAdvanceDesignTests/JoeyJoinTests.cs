@@ -7,7 +7,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeyJoinTests
     {
         [Test]
@@ -32,7 +31,7 @@ namespace CSharpAdvanceDesignTests
                 new Pet() {Name = "QQ", Owner = joey},
             };
 
-            var actual = JoeyJoin(employees, pets);
+            var actual = JoeyJoin(employees, pets, employee1 => employee1, pet1 => pet1.Owner, (employee, pet) => Tuple.Create(employee.FirstName, pet.Name));
 
             var expected = new[]
             {
@@ -45,9 +44,27 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Tuple<string, string>> JoeyJoin(IEnumerable<Employee> employees, IEnumerable<Pet> pets)
+        private IEnumerable<Tuple<string, string>> JoeyJoin(
+            IEnumerable<Employee> employees,
+            IEnumerable<Pet> pets,
+            Func<Employee, Employee> outerKeySelector,
+            Func<Pet, Employee> innerKeySelector,
+            Func<Employee, Pet, Tuple<string, string>> resultSelector)
         {
-            throw new NotImplementedException();
+            var empEnumerator = employees.GetEnumerator();
+            while (empEnumerator.MoveNext())
+            {
+                var employee = empEnumerator.Current;
+                var petEnumerator = pets.GetEnumerator();
+                while (petEnumerator.MoveNext())
+                {
+                    var pet = petEnumerator.Current;
+                    if (outerKeySelector(employee) == innerKeySelector(pet))
+                    {
+                        yield return resultSelector(employee, pet);
+                    }
+                }
+            }
         }
     }
 }

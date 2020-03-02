@@ -89,6 +89,7 @@
     <Compile Include="JoeyZipTests.cs" />
     <Compile Include="lin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SkipLastTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
