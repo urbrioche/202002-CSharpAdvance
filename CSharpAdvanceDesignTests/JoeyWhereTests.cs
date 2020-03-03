@@ -89,25 +89,9 @@ namespace CSharpAdvanceDesignTests
         public void find_the_first_one_and_skip_second_one_and_take_others()
         {
             var numbers = new List<int> { 1, 2, 3, 4, -5 };
-            var actual = JoeyWhereWithIndex(numbers, (number, index) => (index == 0 || index > 1) && number > 0);
+            var actual = numbers.JoeyWhere((number, index) => (index == 0 || index > 1) && number > 0);
             var expected = new List<int> { 1, 3, 4 };
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private List<TSource> JoeyWhereWithIndex<TSource>(List<TSource> source, Func<TSource, int, bool> predicate)
-        {
-            var index = 0;
-            var result = new List<TSource>();
-            foreach (var item in source)
-            {
-                if (predicate(item, index))
-                {
-                    result.Add(item);
-                }
-                index++;
-            }
-
-            return result;
         }
     }
 }

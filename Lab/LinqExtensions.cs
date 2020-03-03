@@ -18,5 +18,21 @@ namespace Lab
 
             return result;
         }
+
+        public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, int, bool> predicate)
+        {
+            var index = 0;
+            var result = new List<TSource>();
+            foreach (var item in source)
+            {
+                if (predicate(item, index))
+                {
+                    result.Add(item);
+                }
+                index++;
+            }
+
+            return result;
+        }
     }
 }
