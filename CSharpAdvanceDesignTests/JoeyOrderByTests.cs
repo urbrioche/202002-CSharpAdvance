@@ -47,7 +47,7 @@ namespace CSharpAdvanceDesignTests
 
             var actual = JoeyOrderByLastNameAndFirstName(
                 employees,
-                employee => employee.LastName, Comparer<string>.Default, employee1 => employee1.FirstName);
+                employee => employee.LastName, Comparer<string>.Default, employee1 => employee1.FirstName, Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -64,8 +64,9 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
             Func<Employee, string> firstKeySelector,
-            IComparer<string> firstKeyCompare,
-            Func<Employee, string> secondKeySelector)
+            IComparer<string> firstKeyComparer,
+            Func<Employee, string> secondKeySelector, 
+            IComparer<string> secondKeyComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -76,7 +77,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = firstKeyCompare.Compare(firstKeySelector(employee), firstKeySelector(minElement));
+                    var firstCompareResult = firstKeyComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement));
                     if (firstCompareResult < 0)
                     {
                         minElement = employee;
@@ -84,7 +85,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        if (Comparer<string>.Default.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
+                        if (secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
                         {
                             minElement = employee;
                             index = i;
