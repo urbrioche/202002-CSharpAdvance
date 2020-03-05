@@ -62,7 +62,13 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), employee1 => employee1.FirstName, Comparer<string>.Default);
+            Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
+            IComparer<string> secondKeyComparer = Comparer<string>.Default;
+            var actual = JoeyOrderByLastNameAndFirstName(employees, 
+                new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), 
+                secondKeySelector, 
+                secondKeyComparer, 
+                new CombineKeyComparer(secondKeySelector, secondKeyComparer));
 
             var expected = new[]
             {
@@ -80,11 +86,10 @@ namespace CSharpAdvanceDesignTests
             IEnumerable<Employee> employees, 
             IComparer<Employee> combineKeyComparer,
             Func<Employee, string> secondKeySelector, 
-            IComparer<string> secondKeyComparer)
+            IComparer<string> secondKeyComparer, CombineKeyComparer secondCombineKeyComparer)
         {
-            var secondCombineKeyComparer = new CombineKeyComparer(secondKeySelector, secondKeyComparer);
-            var secondKeySelector = secondCombineKeyComparer.KeySelector;
-            var secondKeyComparer = secondCombineKeyComparer.KeyComparer;
+            secondKeySelector = secondCombineKeyComparer.KeySelector;
+            secondKeyComparer = secondCombineKeyComparer.KeyComparer;
             //selection sort
             var elements = employees.ToList();
             while (elements.Any())
