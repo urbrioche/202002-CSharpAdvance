@@ -66,8 +66,6 @@ namespace CSharpAdvanceDesignTests
             IComparer<string> secondKeyComparer = Comparer<string>.Default;
             var actual = JoeyOrderByLastNameAndFirstName(employees, 
                 new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), 
-                secondKeySelector, 
-                secondKeyComparer, 
                 new CombineKeyComparer(secondKeySelector, secondKeyComparer));
 
             var expected = new[]
@@ -84,12 +82,8 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees, 
-            IComparer<Employee> combineKeyComparer,
-            Func<Employee, string> secondKeySelector, 
-            IComparer<string> secondKeyComparer, CombineKeyComparer secondCombineKeyComparer)
+            IComparer<Employee> combineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
         {
-            secondKeySelector = secondCombineKeyComparer.KeySelector;
-            secondKeyComparer = secondCombineKeyComparer.KeyComparer;
             //selection sort
             var elements = employees.ToList();
             while (elements.Any())
@@ -107,7 +101,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        if (secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
+                        if (secondCombineKeyComparer.KeyComparer.Compare(secondCombineKeyComparer.KeySelector(employee), secondCombineKeyComparer.KeySelector(minElement)) < 0)
                         {
                             minElement = employee;
                             index = i;
