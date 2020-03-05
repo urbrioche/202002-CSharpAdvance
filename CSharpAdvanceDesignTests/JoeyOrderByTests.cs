@@ -101,7 +101,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        if (secondCombineKeyComparer.KeyComparer.Compare(secondCombineKeyComparer.KeySelector(employee), secondCombineKeyComparer.KeySelector(minElement)) < 0)
+                        if (Compare2(secondCombineKeyComparer, employee, minElement) < 0)
                         {
                             minElement = employee;
                             index = i;
@@ -112,6 +112,11 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
+        }
+
+        private static int Compare2(CombineKeyComparer secondCombineKeyComparer, Employee employee, Employee minElement)
+        {
+            return secondCombineKeyComparer.KeyComparer.Compare(secondCombineKeyComparer.KeySelector(employee), secondCombineKeyComparer.KeySelector(minElement));
         }
     }
 }
