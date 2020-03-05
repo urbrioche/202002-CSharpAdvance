@@ -25,7 +25,8 @@ namespace CSharpAdvanceDesignTests
 
         public int Compare2(Employee employee, Employee minElement)
         {
-            return KeyComparer.Compare(KeySelector(employee), KeySelector(minElement));
+            return Compare(employee, minElement);
+            //return KeyComparer.Compare(KeySelector(employee), KeySelector(minElement));
         }
     }
 
