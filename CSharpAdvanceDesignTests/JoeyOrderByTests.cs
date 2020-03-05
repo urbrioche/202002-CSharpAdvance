@@ -18,9 +18,9 @@ namespace CSharpAdvanceDesignTests
         public Func<Employee, string> KeySelector { get; private set; }
         public IComparer<string> KeyComparer { get; private set; }
 
-        public int Compare(Employee employee, Employee minElement)
+        public int Compare(Employee x, Employee y)
         {
-            return KeyComparer.Compare(KeySelector(employee), KeySelector(minElement));
+            return KeyComparer.Compare(KeySelector(x), KeySelector(y));
         }
     }
 
