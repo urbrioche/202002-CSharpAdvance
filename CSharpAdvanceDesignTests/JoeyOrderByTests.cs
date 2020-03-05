@@ -62,11 +62,9 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
-            IComparer<string> secondKeyComparer = Comparer<string>.Default;
             var actual = JoeyOrderByLastNameAndFirstName(employees, 
                 new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), 
-                new CombineKeyComparer(secondKeySelector, secondKeyComparer));
+                new CombineKeyComparer(employee => employee.FirstName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -82,7 +80,8 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees, 
-            IComparer<Employee> combineKeyComparer, IComparer<Employee> secondCombineKeyComparer)
+            IComparer<Employee> firstComparer, 
+            IComparer<Employee> secondComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -93,7 +92,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = combineKeyComparer.Compare(employee, minElement);
+                    var firstCompareResult = firstComparer.Compare(employee, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = employee;
@@ -101,7 +100,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        if (secondCombineKeyComparer.Compare(employee, minElement) < 0)
+                        if (secondComparer.Compare(employee, minElement) < 0)
                         {
                             minElement = employee;
                             index = i;
