@@ -86,7 +86,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = combineKeyComparer.KeyComparer.Compare(combineKeyComparer.KeySelector(employee), combineKeyComparer.KeySelector(minElement));
+                    var firstCompareResult = Compare(combineKeyComparer, employee, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = employee;
@@ -105,6 +105,11 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
+        }
+
+        private static int Compare(CombineKeyComparer combineKeyComparer, Employee employee, Employee minElement)
+        {
+            return combineKeyComparer.KeyComparer.Compare(combineKeyComparer.KeySelector(employee), combineKeyComparer.KeySelector(minElement));
         }
     }
 }
