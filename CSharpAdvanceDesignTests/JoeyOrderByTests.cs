@@ -22,12 +22,6 @@ namespace CSharpAdvanceDesignTests
         {
             return KeyComparer.Compare(KeySelector(x), KeySelector(y));
         }
-
-        public int Compare2(Employee employee, Employee minElement)
-        {
-            return Compare(employee, minElement);
-            //return KeyComparer.Compare(KeySelector(employee), KeySelector(minElement));
-        }
     }
 
     [TestFixture]
@@ -107,7 +101,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        if (secondCombineKeyComparer.Compare2(employee, minElement) < 0)
+                        if (secondCombineKeyComparer.Compare(employee, minElement) < 0)
                         {
                             minElement = employee;
                             index = i;
