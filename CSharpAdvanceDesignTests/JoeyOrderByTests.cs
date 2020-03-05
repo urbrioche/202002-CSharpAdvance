@@ -82,7 +82,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees, 
-            IComparer<Employee> combineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
+            IComparer<Employee> combineKeyComparer, IComparer<Employee> secondCombineKeyComparer)
         {
             //selection sort
             var elements = employees.ToList();
