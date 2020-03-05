@@ -82,6 +82,9 @@ namespace CSharpAdvanceDesignTests
             Func<Employee, string> secondKeySelector, 
             IComparer<string> secondKeyComparer)
         {
+            var secondCombineKeyComparer = new CombineKeyComparer(secondKeySelector, secondKeyComparer);
+            secondKeySelector = secondCombineKeyComparer.KeySelector;
+            secondKeyComparer = secondCombineKeyComparer.KeyComparer;
             //selection sort
             var elements = employees.ToList();
             while (elements.Any())
