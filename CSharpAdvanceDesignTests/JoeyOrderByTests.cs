@@ -68,6 +68,33 @@ namespace CSharpAdvanceDesignTests
         }
     }
 
+    public static class LinqExtensions
+    {
+        public static IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(this IEnumerable<Employee> employees, IComparer<Employee> comboComparer)
+        {
+            //selection sort
+            var elements = employees.ToList();
+            while (elements.Any())
+            {
+                var minElement = elements[0];
+                var index = 0;
+                for (int i = 1; i < elements.Count; i++)
+                {
+                    var employee = elements[i];
+
+                    if (comboComparer.Compare(employee, minElement) < 0)
+                    {
+                        minElement = employee;
+                        index = i;
+                    }
+                }
+
+                elements.RemoveAt(index);
+                yield return minElement;
+            }
+        }
+    }
+
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -106,7 +133,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee => employee.FirstName, Comparer<string>.Default)));
+            var actual = employees.JoeyOrderByLastNameAndFirstName(new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee => employee.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
@@ -140,7 +167,7 @@ namespace CSharpAdvanceDesignTests
 
             var comboComparer = new ComboComparer(untilNowComparer, lastComparer);
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, comboComparer);
+            var actual = employees.JoeyOrderByLastNameAndFirstName(comboComparer);
 
             var expected = new[]
             {
@@ -152,32 +179,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, IComparer<Employee> comboComparer)
-        {
-            //selection sort
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var employee = elements[i];
-
-                    if (comboComparer.Compare(employee, minElement) < 0)
-                    {
-                        minElement = employee;
-                        index = i;
-                    }
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
         }
     }
 }
