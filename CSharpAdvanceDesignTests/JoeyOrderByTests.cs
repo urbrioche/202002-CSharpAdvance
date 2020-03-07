@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class CombineKeyComparer:IComparer<Employee>
+    public class CombineKeyComparer : IComparer<Employee>
     {
         public CombineKeyComparer(Func<Employee, string> keySelector, IComparer<string> keyComparer)
         {
@@ -106,8 +106,8 @@ namespace CSharpAdvanceDesignTests
                     if (firstCompareResult < 0)
                     {
                         finalCompareResult = firstCompareResult;
-                        minElement = employee;
-                        index = i;
+                        //minElement = employee;
+                        //index = i;
                     }
                     else if (firstCompareResult == 0)
                     {
@@ -115,9 +115,15 @@ namespace CSharpAdvanceDesignTests
                         if (secondCompareResult < 0)
                         {
                             finalCompareResult = secondCompareResult;
-                            minElement = employee;
-                            index = i;
+                            //minElement = employee;
+                            //index = i;
                         }
+                    }
+
+                    if (finalCompareResult < 0)
+                    {
+                        minElement = employee;
+                        index = i;
                     }
                 }
 
