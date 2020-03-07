@@ -70,7 +70,7 @@ namespace CSharpAdvanceDesignTests
 
     public static class LinqExtensions
     {
-        public static IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(this IEnumerable<Employee> employees, IComparer<Employee> comboComparer)
+        public static IEnumerable<Employee> JoeySort(this IEnumerable<Employee> employees, IComparer<Employee> comboComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -109,7 +109,7 @@ namespace CSharpAdvanceDesignTests
         //        new Employee {FirstName = "Joey", LastName = "Chen"},
         //    };
 
-        //    var actual = JoeyOrderByLastNameAndFirstName(employees);
+        //    var actual = JoeySort(employees);
 
         //    var expected = new[]
         //    {
@@ -133,7 +133,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = employees.JoeyOrderByLastNameAndFirstName(new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee => employee.FirstName, Comparer<string>.Default)));
+            var actual = employees.JoeySort(new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee => employee.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
@@ -167,7 +167,7 @@ namespace CSharpAdvanceDesignTests
 
             var comboComparer = new ComboComparer(untilNowComparer, lastComparer);
 
-            var actual = employees.JoeyOrderByLastNameAndFirstName(comboComparer);
+            var actual = employees.JoeySort(comboComparer);
 
             var expected = new[]
             {
