@@ -7,16 +7,16 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class CombineKeyComparer : IComparer<Employee>
+    public class CombineKeyComparer<TKey> : IComparer<Employee>
     {
-        public CombineKeyComparer(Func<Employee, string> keySelector, IComparer<string> keyComparer)
+        public CombineKeyComparer(Func<Employee, TKey> keySelector, IComparer<TKey> keyComparer)
         {
             KeySelector = keySelector;
             KeyComparer = keyComparer;
         }
 
-        public Func<Employee, string> KeySelector { get; private set; }
-        public IComparer<string> KeyComparer { get; private set; }
+        public Func<Employee, TKey> KeySelector { get; private set; }
+        public IComparer<TKey> KeyComparer { get; private set; }
 
         public int Compare(Employee x, Employee y)
         {
@@ -106,7 +106,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(employee => employee.FirstName, Comparer<string>.Default)));
+            var actual = JoeyOrderByLastNameAndFirstName(employees, new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee => employee.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
@@ -131,12 +131,12 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
             };
 
-            var firstKeyComparer = new CombineKeyComparer(element => element.LastName, Comparer<string>.Default);
-            var lastKeyComparer = new CombineKeyComparer(element => element.FirstName, Comparer<string>.Default);
+            var firstKeyComparer = new CombineKeyComparer<string>(element => element.LastName, Comparer<string>.Default);
+            var lastKeyComparer = new CombineKeyComparer<string>(element => element.FirstName, Comparer<string>.Default);
 
             var untilNowComparer = new ComboComparer(firstKeyComparer, lastKeyComparer);
 
-            var lastComparer = new CombineKeyComparer(employee => employee.Age, Comparer<int>.Default);
+            var lastComparer = new CombineKeyComparer<int>(employee => employee.Age, Comparer<int>.Default);
 
             var comboComparer = new ComboComparer(untilNowComparer, lastComparer);
 
