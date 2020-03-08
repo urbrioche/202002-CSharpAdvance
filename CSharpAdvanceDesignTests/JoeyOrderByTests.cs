@@ -95,7 +95,8 @@ namespace CSharpAdvanceDesignTests
             }
         }
 
-        public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> keySelector)
+        public static MyOrderedEnumerable JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
+            Func<Employee, TKey> keySelector)
         {
             var combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
             return new MyOrderedEnumerable(employees, combineKeyComparer);
