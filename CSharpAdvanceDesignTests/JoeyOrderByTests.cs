@@ -8,7 +8,7 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class ComboComparer
+    public class ComboComparer:IComparer<Employee>
     {
         public ComboComparer(CombineKeyComparer firstCombineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
         {
