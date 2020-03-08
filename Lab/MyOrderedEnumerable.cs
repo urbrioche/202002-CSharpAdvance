@@ -9,7 +9,7 @@ namespace Lab
     public class MyOrderedEnumerable : IEnumerable<Employee>
     {
         private readonly IEnumerable<Employee> _employees;
-        private readonly IComparer<Employee> _combineKeyComparer;
+        private IComparer<Employee> _combineKeyComparer;
 
         public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> combineKeyComparer)
         {
@@ -52,5 +52,10 @@ namespace Lab
             }
         }
 
+        public MyOrderedEnumerable Append(IComparer<Employee> currentComparer)
+        {
+            _combineKeyComparer = new ComboComparer(_combineKeyComparer, currentComparer);
+            return this;
+        }
     }
 }
