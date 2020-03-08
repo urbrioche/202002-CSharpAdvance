@@ -93,6 +93,16 @@ namespace CSharpAdvanceDesignTests
                 yield return minElement;
             }
         }
+
+        public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> keySelector)
+        {
+            return employees;
+        }
+
+        public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> keySelector)
+        {
+            return employees;
+        }
     }
 
     [TestFixture]
