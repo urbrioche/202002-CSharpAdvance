@@ -14,5 +14,10 @@ namespace Lab
 
         public Func<Employee, string> FirstKeySelector { get; private set; }
         public IComparer<string> FirstKeyComparer { get; private set; }
+
+        public int FirstKeyCompareResult(Employee employee, Employee minElement)
+        {
+            return FirstKeyComparer.Compare(FirstKeySelector(employee), FirstKeySelector(minElement));
+        }
     }
 }
