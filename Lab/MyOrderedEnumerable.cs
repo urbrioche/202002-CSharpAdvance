@@ -33,10 +33,10 @@ namespace Lab
             return GetEnumerator();
         }
 
-        private IEnumerator<TSource> JoeySort(IEnumerable<TSource> employees, IComparer<TSource> comboComparer)
+        private IEnumerator<TSource> JoeySort(IEnumerable<TSource> source, IComparer<TSource> comboComparer)
         {
             //selection sort
-            var elements = employees.ToList();
+            var elements = source.ToList();
             while (elements.Any())
             {
                 var minElement = elements[0];
