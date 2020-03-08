@@ -82,7 +82,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstKeyCompareResult == 0)
                     {
-                        if (secondCombineKeyComparer.SecondCompare(employee, minElement) < 0)
+                        if (secondCombineKeyComparer.Compare(employee, minElement) < 0)
                         {
                             minElement = employee;
                             index = i;

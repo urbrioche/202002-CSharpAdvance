@@ -19,10 +19,5 @@ namespace Lab
         {
             return KeyComparer.Compare(KeySelector(x), KeySelector(y));
         }
-
-        public int SecondCompare(Employee employee, Employee minElement)
-        {
-            return Compare(employee, minElement);
-        }
     }
 }
