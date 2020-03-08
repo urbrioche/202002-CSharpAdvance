@@ -12,11 +12,11 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void three_employees()
         {
-            var emptyEmployees = new Employee[]
+            var emptyEmployees = new TSource[]
             {
-                new Employee(),
-                new Employee(),
-                new Employee(),
+                new TSource(),
+                new TSource(),
+                new TSource(),
             };
 
             var actual = JoeyAny(emptyEmployees);
@@ -26,7 +26,7 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void empty_employees()
         {
-            var emptyEmployees = new Employee[]
+            var emptyEmployees = new TSource[]
             {
             };
 
@@ -34,7 +34,7 @@ namespace CSharpAdvanceDesignTests
             Assert.IsFalse(actual);
         }
 
-        private bool JoeyAny(IEnumerable<Employee> employees)
+        private bool JoeyAny(IEnumerable<TSource> employees)
         {
             throw new NotImplementedException();
         }

@@ -14,25 +14,25 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void default_employee_is_Joey()
         {
-            var employees = new List<Employee>
+            var employees = new List<TSource>
             {
-                new Employee() {FirstName = "Tom", LastName = "Li", Role = Role.Engineer},
-                new Employee() {FirstName = "David", LastName = "Wang", Role = Role.Designer},
+                new TSource() {FirstName = "Tom", LastName = "Li", Role = Role.Engineer},
+                new TSource() {FirstName = "David", LastName = "Wang", Role = Role.Designer},
             };
 
             var actual = WhereWithDefault(
                 employees,
                 e => e.Role == Role.Manager,
-                new Employee { FirstName = "Joey", LastName = "Chen", Role = Role.Engineer });
+                new TSource { FirstName = "Joey", LastName = "Chen", Role = Role.Engineer });
 
-            var expected = new List<Employee>
-                {new Employee() {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}};
+            var expected = new List<TSource>
+                {new TSource() {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}};
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> WhereWithDefault(IEnumerable<Employee> employees, Func<Employee, bool> predicate,
-            Employee defaultEmployee)
+        private IEnumerable<TSource> WhereWithDefault(IEnumerable<TSource> employees, Func<TSource, bool> predicate,
+            TSource defaultSource)
         {
             throw new NotImplementedException();
         }

@@ -46,7 +46,7 @@
     <Compile Include="Entities\Card.cs" />
     <Compile Include="Entities\CardKind.cs" />
     <Compile Include="Entities\CardType.cs" />
-    <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Entities\TSource.cs" />
     <Compile Include="Entities\Girl.cs" />
     <Compile Include="Entities\Key.cs" />
     <Compile Include="Entities\Pet.cs" />

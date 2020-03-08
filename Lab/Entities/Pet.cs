@@ -2,7 +2,7 @@
 {
     public class Pet
     {
-        public Employee Owner { get; set; }
+        public TSource Owner { get; set; }
         public string Name { get; set; }
     }
 }

@@ -13,30 +13,30 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void concat_two_employees()
         {
-            var first = new List<Employee>
+            var first = new List<TSource>
             {
-                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var second = new List<Employee>
+            var second = new List<TSource>
             {
-                new Employee {FirstName = "David", LastName = "Li"},
-                new Employee {FirstName = "Tom", LastName = "Wang"},
+                new TSource {FirstName = "David", LastName = "Li"},
+                new TSource {FirstName = "Tom", LastName = "Wang"},
             };
 
             var actual = JoeyConcat(first, second);
 
-            var expected = new List<Employee>()
+            var expected = new List<TSource>()
             {
-                new Employee {FirstName = "Joey", LastName = "Chen"},
-                new Employee {FirstName = "David", LastName = "Li"},
-                new Employee {FirstName = "Tom", LastName = "Wang"},
+                new TSource {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "David", LastName = "Li"},
+                new TSource {FirstName = "Tom", LastName = "Wang"},
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyConcat(IEnumerable<Employee> first, IEnumerable<Employee> second)
+        private IEnumerable<TSource> JoeyConcat(IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
             throw new System.NotImplementedException();
         }

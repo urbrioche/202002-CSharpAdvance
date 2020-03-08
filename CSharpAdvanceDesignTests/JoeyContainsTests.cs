@@ -11,21 +11,21 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void contains_joey_chen()
         {
-            var employees = new List<Employee>
+            var employees = new List<TSource>
             {
-                new Employee(){FirstName = "Joey", LastName = "Wang"},
-                new Employee(){FirstName = "Tom", LastName = "Li"},
-                new Employee(){FirstName = "Joey", LastName = "Chen"},
+                new TSource(){FirstName = "Joey", LastName = "Wang"},
+                new TSource(){FirstName = "Tom", LastName = "Li"},
+                new TSource(){FirstName = "Joey", LastName = "Chen"},
             };
 
-            var joey = new Employee() { FirstName = "Joey", LastName = "Chen" };
+            var joey = new TSource() { FirstName = "Joey", LastName = "Chen" };
 
             var actual = JoeyContains(employees, joey);
 
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyContains(IEnumerable<Employee> employees, Employee value)
+        private bool JoeyContains(IEnumerable<TSource> employees, TSource value)
         {
             throw new System.NotImplementedException();
         }

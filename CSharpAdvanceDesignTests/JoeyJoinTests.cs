@@ -13,9 +13,9 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void all_pets_and_owner()
         {
-            var david = new Employee { FirstName = "David", LastName = "Chen" };
-            var joey = new Employee { FirstName = "Joey", LastName = "Chen" };
-            var tom = new Employee { FirstName = "Tom", LastName = "Chen" };
+            var david = new TSource { FirstName = "David", LastName = "Chen" };
+            var joey = new TSource { FirstName = "Joey", LastName = "Chen" };
+            var tom = new TSource { FirstName = "Tom", LastName = "Chen" };
 
             var employees = new[]
             {
@@ -45,7 +45,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Tuple<string, string>> JoeyJoin(IEnumerable<Employee> employees, IEnumerable<Pet> pets)
+        private IEnumerable<Tuple<string, string>> JoeyJoin(IEnumerable<TSource> employees, IEnumerable<Pet> pets)
         {
             throw new NotImplementedException();
         }

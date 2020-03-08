@@ -12,26 +12,26 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void reverse_employees()
         {
-            var employees = new List<Employee>
+            var employees = new List<TSource>
             {
-                new Employee(){FirstName = "Joey",LastName = "Chen"},
-                new Employee(){FirstName = "Tom",LastName = "Li"},
-                new Employee(){FirstName = "David",LastName = "Wang"},
+                new TSource(){FirstName = "Joey",LastName = "Chen"},
+                new TSource(){FirstName = "Tom",LastName = "Li"},
+                new TSource(){FirstName = "David",LastName = "Wang"},
             };
 
             var actual = JoeyReverse(employees);
 
-            var expected = new List<Employee>
+            var expected = new List<TSource>
             {
-                new Employee(){FirstName = "David",LastName = "Wang"},
-                new Employee(){FirstName = "Tom",LastName = "Li"},
-                new Employee(){FirstName = "Joey",LastName = "Chen"},
+                new TSource(){FirstName = "David",LastName = "Wang"},
+                new TSource(){FirstName = "Tom",LastName = "Li"},
+                new TSource(){FirstName = "Joey",LastName = "Chen"},
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyReverse(IEnumerable<Employee> employees)
+        private IEnumerable<TSource> JoeyReverse(IEnumerable<TSource> employees)
         {
             throw new System.NotImplementedException();
         }

@@ -13,14 +13,14 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void get_null_when_employees_is_empty()
         {
-            var employees = new List<Employee>();
+            var employees = new List<TSource>();
 
             var actual = JoeyFirstOrDefault(employees);
 
             Assert.IsNull(actual);
         }
 
-        private Employee JoeyFirstOrDefault(IEnumerable<Employee> employees)
+        private TSource JoeyFirstOrDefault(IEnumerable<TSource> employees)
         {
             throw new NotImplementedException();
         }

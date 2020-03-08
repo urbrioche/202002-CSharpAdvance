@@ -41,13 +41,13 @@ namespace CSharpAdvanceDesignTests
             yield return "http://github.com";
         }
 
-        private static List<Employee> GetEmployees()
+        private static List<TSource> GetEmployees()
         {
-            return new List<Employee>
+            return new List<TSource>
             {
-                new Employee {FirstName = "Joey", LastName = "Chen"},
-                new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "David", LastName = "Chen"}
+                new TSource {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "Tom", LastName = "Li"},
+                new TSource {FirstName = "David", LastName = "Chen"}
             };
         }
     }

@@ -6,25 +6,25 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public interface IMyOrderedEnumerable : IEnumerable<Employee>
+    public interface IMyOrderedEnumerable : IEnumerable<TSource>
     {
-        IMyOrderedEnumerable Append(IComparer<Employee> currentComparer);
+        IMyOrderedEnumerable Append(IComparer<TSource> currentComparer);
     }
 
     public class MyOrderedEnumerable : IMyOrderedEnumerable
     {
-        private readonly IEnumerable<Employee> _employees;
-        private IComparer<Employee> _untilNowComparer;
+        private readonly IEnumerable<TSource> _source;
+        private IComparer<TSource> _untilNowComparer;
 
-        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> untilNowComparer)
+        public MyOrderedEnumerable(IEnumerable<TSource> source, IComparer<TSource> untilNowComparer)
         {
-            _employees = employees;
+            _source = source;
             _untilNowComparer = untilNowComparer;
         }
 
-        public IEnumerator<Employee> GetEnumerator()
+        public IEnumerator<TSource> GetEnumerator()
         {
-            return JoeySort(_employees, _untilNowComparer);
+            return JoeySort(_source, _untilNowComparer);
             //throw new NotImplementedException();
         }
 
@@ -33,7 +33,7 @@ namespace Lab
             return GetEnumerator();
         }
 
-        private IEnumerator<Employee> JoeySort(IEnumerable<Employee> employees, IComparer<Employee> comboComparer)
+        private IEnumerator<TSource> JoeySort(IEnumerable<TSource> employees, IComparer<TSource> comboComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -57,7 +57,7 @@ namespace Lab
             }
         }
 
-        public IMyOrderedEnumerable Append(IComparer<Employee> currentComparer)
+        public IMyOrderedEnumerable Append(IComparer<TSource> currentComparer)
         {
             _untilNowComparer = new ComboComparer(_untilNowComparer, currentComparer);
             return this;

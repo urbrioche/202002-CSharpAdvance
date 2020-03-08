@@ -12,21 +12,21 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void get_the_2nd_element_of_enumerable()
         {
-            var employees = new List<Employee>
+            var employees = new List<TSource>
             {
-                new Employee{FirstName = "Joey",LastName = "Chen"},
-                new Employee{FirstName = "Tom",LastName = "Li"},
-                new Employee{FirstName = "David",LastName = "Wang"},
+                new TSource{FirstName = "Joey",LastName = "Chen"},
+                new TSource{FirstName = "Tom",LastName = "Li"},
+                new TSource{FirstName = "David",LastName = "Wang"},
             };
 
             var actual = JoeyElementAt(employees, 1);
 
-            var expected = new Employee { FirstName = "Tom", LastName = "Li" };
+            var expected = new TSource { FirstName = "Tom", LastName = "Li" };
 
             expected.ToExpectedObject().ShouldEqual(actual);
         }
 
-        private Employee JoeyElementAt(IEnumerable<Employee> employees, int index)
+        private TSource JoeyElementAt(IEnumerable<TSource> employees, int index)
         {
             throw new System.NotImplementedException();
         }

@@ -38,20 +38,20 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = new[]
             {
-                new Employee {FirstName = "Joey", LastName = "Wang"},
-                new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "Joseph", LastName = "Chen"},
-                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "Joey", LastName = "Wang"},
+                new TSource {FirstName = "Tom", LastName = "Li"},
+                new TSource {FirstName = "Joseph", LastName = "Chen"},
+                new TSource {FirstName = "Joey", LastName = "Chen"},
             };
 
             var actual = employees.JoeySort(new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee => employee.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
-                new Employee {FirstName = "Joey", LastName = "Chen"},
-                new Employee {FirstName = "Joseph", LastName = "Chen"},
-                new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "Joey", LastName = "Wang"},
+                new TSource {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "Joseph", LastName = "Chen"},
+                new TSource {FirstName = "Tom", LastName = "Li"},
+                new TSource {FirstName = "Joey", LastName = "Wang"},
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
@@ -62,11 +62,11 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = new[]
             {
-                new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
-                new Employee {FirstName = "Tom", LastName = "Li", Age = 31},
-                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 32},
-                new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
-                new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
+                new TSource {FirstName = "Joey", LastName = "Wang", Age = 50},
+                new TSource {FirstName = "Tom", LastName = "Li", Age = 31},
+                new TSource {FirstName = "Joseph", LastName = "Chen", Age = 32},
+                new TSource {FirstName = "Joey", LastName = "Chen", Age = 33},
+                new TSource {FirstName = "Joey", LastName = "Wang", Age = 20},
             };
 
             var firstKeyComparer = new CombineKeyComparer<string>(element => element.LastName, Comparer<string>.Default);
@@ -82,11 +82,11 @@ namespace CSharpAdvanceDesignTests
 
             var expected = new[]
             {
-                new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
-                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 32},
-                new Employee {FirstName = "Tom", LastName = "Li", Age = 31},
-                new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
-                new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
+                new TSource {FirstName = "Joey", LastName = "Chen", Age = 33},
+                new TSource {FirstName = "Joseph", LastName = "Chen", Age = 32},
+                new TSource {FirstName = "Tom", LastName = "Li", Age = 31},
+                new TSource {FirstName = "Joey", LastName = "Wang", Age = 20},
+                new TSource {FirstName = "Joey", LastName = "Wang", Age = 50},
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
@@ -97,11 +97,11 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = new[]
             {
-                new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
-                new Employee {FirstName = "Tom", LastName = "Li", Age = 31},
-                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 32},
-                new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
-                new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
+                new TSource {FirstName = "Joey", LastName = "Wang", Age = 50},
+                new TSource {FirstName = "Tom", LastName = "Li", Age = 31},
+                new TSource {FirstName = "Joseph", LastName = "Chen", Age = 32},
+                new TSource {FirstName = "Joey", LastName = "Chen", Age = 33},
+                new TSource {FirstName = "Joey", LastName = "Wang", Age = 20},
             };
 
             //var firstKeyComparer =
@@ -124,11 +124,11 @@ namespace CSharpAdvanceDesignTests
 
             var expected = new[]
             {
-                new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
-                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 32},
-                new Employee {FirstName = "Tom", LastName = "Li", Age = 31},
-                new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
-                new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
+                new TSource {FirstName = "Joey", LastName = "Chen", Age = 33},
+                new TSource {FirstName = "Joseph", LastName = "Chen", Age = 32},
+                new TSource {FirstName = "Tom", LastName = "Li", Age = 31},
+                new TSource {FirstName = "Joey", LastName = "Wang", Age = 20},
+                new TSource {FirstName = "Joey", LastName = "Wang", Age = 50},
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);

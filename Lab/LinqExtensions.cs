@@ -7,7 +7,7 @@ namespace Lab
 {
     public static class LinqExtensions
     {
-        public static IEnumerable<Employee> JoeySort(this IEnumerable<Employee> employees, IComparer<Employee> comboComparer)
+        public static IEnumerable<TSource> JoeySort(this IEnumerable<TSource> employees, IComparer<TSource> comboComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -31,17 +31,17 @@ namespace Lab
             }
         }
 
-        public static IMyOrderedEnumerable JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
-            Func<Employee, TKey> keySelector)
+        public static IMyOrderedEnumerable JoeyOrderBy<TKey>(this IEnumerable<TSource> employees,
+            Func<TSource, TKey> keySelector)
         {
-            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            IComparer<TSource> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
             return new MyOrderedEnumerable(employees, combineKeyComparer);
         }
 
         public static IMyOrderedEnumerable JoeyThenBy<TKey>(this IMyOrderedEnumerable orderedEnumerable,
-            Func<Employee, TKey> keySelector)
+            Func<TSource, TKey> keySelector)
         {
-            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            IComparer<TSource> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
             return orderedEnumerable.Append(combineKeyComparer);
         }
     }

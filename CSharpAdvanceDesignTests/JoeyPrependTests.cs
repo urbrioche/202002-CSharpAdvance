@@ -13,25 +13,25 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void prepend_employee_to_employees()
         {
-            var employees = new Employee[]
+            var employees = new TSource[]
             {
-                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var newEmployee = new Employee() { FirstName = "Tom", LastName = "Li" };
+            var newEmployee = new TSource() { FirstName = "Tom", LastName = "Li" };
 
             var actual = JoeyPrepend(employees, newEmployee);
 
-            var expected = new Employee[]
+            var expected = new TSource[]
             {
-                new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "Tom", LastName = "Li"},
+                new TSource {FirstName = "Joey", LastName = "Chen"},
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyPrepend(IEnumerable<Employee> employees, Employee newEmployee)
+        private IEnumerable<TSource> JoeyPrepend(IEnumerable<TSource> employees, TSource newSource)
         {
             throw new System.NotImplementedException();
         }

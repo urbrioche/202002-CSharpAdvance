@@ -17,29 +17,29 @@ namespace CSharpAdvanceDesignTests
 
             var actual = JoeyTake(employees);
 
-            var expected = new List<Employee>
+            var expected = new List<TSource>
             {
-                new Employee {FirstName = "Joey", LastName = "Chen"},
-                new Employee {FirstName = "Tom", LastName = "Li"},
+                new TSource {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "Tom", LastName = "Li"},
             };
 
             expected.ToExpectedObject().ShouldEqual(actual);
         }
 
-        private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees)
+        private IEnumerable<TSource> JoeyTake(IEnumerable<TSource> employees)
         {
             throw new System.NotImplementedException();
         }
 
-        private static IEnumerable<Employee> GetEmployees()
+        private static IEnumerable<TSource> GetEmployees()
         {
-            return new List<Employee>
+            return new List<TSource>
             {
-                new Employee {FirstName = "Joey", LastName = "Chen"},
-                new Employee {FirstName = "Tom", LastName = "Li"},
-                new Employee {FirstName = "David", LastName = "Chen"},
-                new Employee {FirstName = "Mike", LastName = "Chang"},
-                new Employee {FirstName = "Joseph", LastName = "Yao"},
+                new TSource {FirstName = "Joey", LastName = "Chen"},
+                new TSource {FirstName = "Tom", LastName = "Li"},
+                new TSource {FirstName = "David", LastName = "Chen"},
+                new TSource {FirstName = "Mike", LastName = "Chang"},
+                new TSource {FirstName = "Joseph", LastName = "Yao"},
             };
         }
     }

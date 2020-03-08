@@ -1,6 +1,6 @@
 ﻿namespace Lab.Entities
 {
-    public class Employee
+    public class TSource
     {
         public string LastName { get; set; }
         public string FirstName { get; set; }
