@@ -82,7 +82,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstKeyCompareResult == 0)
                     {
-                        if (SecondCompare(secondCombineKeyComparer, employee, minElement) < 0)
+                        if (secondCombineKeyComparer.SecondCompare(employee, minElement) < 0)
                         {
                             minElement = employee;
                             index = i;
@@ -93,11 +93,6 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
-        }
-
-        private static int SecondCompare(CombineKeyComparer secondCombineKeyComparer, Employee employee, Employee minElement)
-        {
-            return secondCombineKeyComparer.KeyComparer.Compare(secondCombineKeyComparer.KeySelector(employee), secondCombineKeyComparer.KeySelector(minElement));
         }
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
