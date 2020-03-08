@@ -4,6 +4,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -96,7 +97,8 @@ namespace CSharpAdvanceDesignTests
 
         public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> keySelector)
         {
-            return employees;
+            var combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            return new MyOrderedEnumerable(employees, combineKeyComparer);
         }
 
         public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees, Func<Employee, TKey> keySelector)
