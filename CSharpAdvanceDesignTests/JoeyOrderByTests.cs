@@ -21,22 +21,13 @@ namespace CSharpAdvanceDesignTests
 
         public int Compare(Employee x, Employee y)
         {
-            var finalCompareResult = 0;
             var firstKeyCompareResult = FirstCombineKeyComparer.Compare(x, y);
-            if (firstKeyCompareResult < 0)
+            if (firstKeyCompareResult !=0)
             {
-                finalCompareResult = firstKeyCompareResult;
-            }
-            else if (firstKeyCompareResult == 0)
-            {
-                var secondCompareResult = SecondCombineKeyComparer.Compare(x, y);
-                if (secondCompareResult < 0)
-                {
-                    finalCompareResult = secondCompareResult;
-                }
+                return firstKeyCompareResult;
             }
 
-            return finalCompareResult;
+            return SecondCombineKeyComparer.Compare(x, y);
         }
     }
 
