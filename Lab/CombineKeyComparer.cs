@@ -22,7 +22,7 @@ namespace Lab
 
         public int SecondCompare(Employee employee, Employee minElement)
         {
-            return KeyComparer.Compare(KeySelector(employee), KeySelector(minElement));
+            return Compare(employee, minElement);
         }
     }
 }
