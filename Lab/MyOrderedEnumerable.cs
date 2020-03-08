@@ -9,17 +9,17 @@ namespace Lab
     public class MyOrderedEnumerable : IEnumerable<Employee>
     {
         private readonly IEnumerable<Employee> _employees;
-        private IComparer<Employee> _combineKeyComparer;
+        private IComparer<Employee> _untilNowComparer;
 
-        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> combineKeyComparer)
+        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> untilNowComparer)
         {
             _employees = employees;
-            _combineKeyComparer = combineKeyComparer;
+            _untilNowComparer = untilNowComparer;
         }
 
         public IEnumerator<Employee> GetEnumerator()
         {
-            return JoeySort(_employees, _combineKeyComparer);
+            return JoeySort(_employees, _untilNowComparer);
             //throw new NotImplementedException();
         }
 
@@ -54,7 +54,7 @@ namespace Lab
 
         public MyOrderedEnumerable Append(IComparer<Employee> currentComparer)
         {
-            _combineKeyComparer = new ComboComparer(_combineKeyComparer, currentComparer);
+            _untilNowComparer = new ComboComparer(_untilNowComparer, currentComparer);
             return this;
         }
     }
