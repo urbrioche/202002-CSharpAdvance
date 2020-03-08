@@ -38,10 +38,10 @@ namespace Lab
             return new MyOrderedEnumerable(employees, combineKeyComparer);
         }
 
-        public static MyOrderedEnumerable JoeyThenBy<TKey>(this MyOrderedEnumerable orderedEnumerable,
+        public static IMyOrderedEnumerable JoeyThenBy<TKey>(this IMyOrderedEnumerable orderedEnumerable,
             Func<Employee, TKey> keySelector)
         {
-            var combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
             return orderedEnumerable.Append(combineKeyComparer);
         }
     }
