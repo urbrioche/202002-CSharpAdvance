@@ -72,7 +72,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstKeyCompareResult = combineKeyComparer.FirstKeyCompareResult(employee, minElement);
+                    var firstKeyCompareResult = combineKeyComparer.Compare(employee, minElement);
                     if (firstKeyCompareResult < 0)
                     {
                         minElement = employee;
