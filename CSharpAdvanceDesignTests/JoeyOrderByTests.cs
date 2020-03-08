@@ -45,7 +45,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, employee => employee.LastName);
+            var actual = JoeyOrderByLastNameAndFirstName(employees, employee => employee.LastName, Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -58,10 +58,11 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees, Func<Employee, string> firstKeySelector)
+        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees, 
+            Func<Employee, string> firstKeySelector, 
+            IComparer<string> firstKeyComparer)
         {
             //selection sort
-            var stringComparer = Comparer<string>.Default;
             var elements = employees.ToList();
             while (elements.Any())
             {
@@ -70,14 +71,15 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    if (stringComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement)) < 0)
+                    var firstKeyCompareResult = firstKeyComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement));
+                    if (firstKeyCompareResult < 0)
                     {
                         minElement = employee;
                         index = i;
                     }
-                    else if (stringComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement)) == 0)
+                    else if (firstKeyCompareResult == 0)
                     {
-                        if (stringComparer.Compare(employee.FirstName, minElement.FirstName) < 0)
+                        if (Comparer<string>.Default.Compare(employee.FirstName, minElement.FirstName) < 0)
                         {
                             minElement = employee;
                             index = i;
