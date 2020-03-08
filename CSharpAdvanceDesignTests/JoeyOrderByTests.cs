@@ -59,7 +59,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees)
         {
-             //selection sort
+            //selection sort
             var stringComparer = Comparer<string>.Default;
             var elements = employees.ToList();
             while (elements.Any())
@@ -72,6 +72,14 @@ namespace CSharpAdvanceDesignTests
                     {
                         minElement = elements[i];
                         index = i;
+                    }
+                    else if (stringComparer.Compare(elements[i].LastName, minElement.LastName) == 0)
+                    {
+                        if (stringComparer.Compare(elements[i].FirstName, minElement.FirstName) < 0)
+                        {
+                            minElement = elements[i];
+                            index = i;
+                        }
                     }
                 }
 
