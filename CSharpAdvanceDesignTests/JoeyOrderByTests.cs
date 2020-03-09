@@ -45,7 +45,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastName(employees);
+            var actual = JoeyOrderBy(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -106,11 +106,6 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
-        }
-
-        private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
-        {
-            return JoeyOrderBy(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default));
         }
     }
 }
