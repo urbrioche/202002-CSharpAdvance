@@ -21,7 +21,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = LinqExtensions.JoeyOrderBy(employees, new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default));
+            var actual = employees.JoeyOrderBy(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -45,8 +45,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = LinqExtensions.JoeyOrderBy(employees, 
-                new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee1 => employee1.FirstName, Comparer<string>.Default)));
+            var actual = employees.JoeyOrderBy(new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee1 => employee1.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
@@ -77,7 +76,7 @@ namespace CSharpAdvanceDesignTests
 
             var comboComparer = new ComboComparer(new ComboComparer(firstKeyComparer, secondKeyComparer), thirdKeyComparer);
 
-            var actual = LinqExtensions.JoeyOrderBy(employees, comboComparer);
+            var actual = employees.JoeyOrderBy(comboComparer);
 
             var expected = new[]
             {
