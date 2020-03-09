@@ -22,7 +22,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderBy(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default));
+            var actual = JoeyOrderBy(employees, new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -47,7 +47,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             var actual = JoeyOrderBy(employees, 
-                new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(employee1 => employee1.FirstName, Comparer<string>.Default)));
+                new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee1 => employee1.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
@@ -72,8 +72,13 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
             };
 
+            var firstKeyComparer = new CombineKeyComparer<string>(e => e.LastName, Comparer<string>.Default);
+            var secondKeyComparer = new CombineKeyComparer<string>(e => e.FirstName, Comparer<string>.Default);
+            var thirdKeyComparer = new CombineKeyComparer<int>(e => e.Age, Comparer<int>.Default);
 
-            var actual = JoeyOrderBy(employees);
+            var comboComparer = new ComboComparer(new ComboComparer(firstKeyComparer, secondKeyComparer), thirdKeyComparer);
+
+            var actual = JoeyOrderBy(employees, comboComparer);
 
             var expected = new[]
             {

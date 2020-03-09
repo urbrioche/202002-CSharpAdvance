@@ -5,14 +5,14 @@ namespace Lab
 {
     public class ComboComparer:IComparer<Employee>
     {
-        public ComboComparer(CombineKeyComparer firstCombineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
+        public ComboComparer(IComparer<Employee> firstCombineKeyComparer, IComparer<Employee> secondCombineKeyComparer)
         {
             FirstCombineKeyComparer = firstCombineKeyComparer;
             SecondCombineKeyComparer = secondCombineKeyComparer;
         }
 
-        public CombineKeyComparer FirstCombineKeyComparer { get; private set; }
-        public CombineKeyComparer SecondCombineKeyComparer { get; private set; }
+        public IComparer<Employee> FirstCombineKeyComparer { get; private set; }
+        public IComparer<Employee> SecondCombineKeyComparer { get; private set; }
 
         public int Compare(Employee x, Employee y)
         {
