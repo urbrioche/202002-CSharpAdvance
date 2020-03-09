@@ -6,7 +6,7 @@ namespace Lab
 {
     public static class LinqExtensions
     {
-        public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees, 
+        public static IEnumerable<Employee> JoeySortBy(this IEnumerable<Employee> employees, 
             IComparer<Employee> comboComparer)
         {
             //selection sort
