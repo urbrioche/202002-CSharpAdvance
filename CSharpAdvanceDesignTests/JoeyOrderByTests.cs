@@ -8,29 +8,6 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class ComboComparer:IComparer<Employee>
-    {
-        public ComboComparer(CombineKeyComparer firstCombineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
-        {
-            FirstCombineKeyComparer = firstCombineKeyComparer;
-            SecondCombineKeyComparer = secondCombineKeyComparer;
-        }
-
-        public CombineKeyComparer FirstCombineKeyComparer { get; private set; }
-        public CombineKeyComparer SecondCombineKeyComparer { get; private set; }
-
-        public int Compare(Employee x, Employee y)
-        {
-            var firstKeyCompareResult = FirstCombineKeyComparer.Compare(x, y);
-            if (firstKeyCompareResult !=0)
-            {
-                return firstKeyCompareResult;
-            }
-
-            return SecondCombineKeyComparer.Compare(x, y);
-        }
-    }
-
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -69,9 +46,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
-            IComparer<string> secondKeyComparer = Comparer<string>.Default;
-            var actual = JoeyOrderBy(employees, new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(secondKeySelector, secondKeyComparer)));
+            var actual = JoeyOrderBy(employees, 
+                new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(employee1 => employee1.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
