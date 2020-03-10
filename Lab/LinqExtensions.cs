@@ -33,13 +33,14 @@ namespace Lab
         public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees, 
             Func<Employee, TKey> keySelector)
         {
-            return employees;
+            var combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            return new MyOrderedEnumerable(employees, combineKeyComparer);
         }
 
-        public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees, 
+        public static IEnumerable<Employee> JoeyThenBy<TKey>(this MyOrderedEnumerable myOrderedEnumerable, 
             Func<Employee, TKey> keySelector)
         {
-            return employees;
+            return myOrderedEnumerable;
         }
 
 
