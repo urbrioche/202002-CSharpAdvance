@@ -7,11 +7,11 @@ namespace Lab
 {
     public class MyOrderedEnumerable:IEnumerable<Employee>
     {
-        private readonly IComparer<Employee> _combineKeyComparer;
+        private IComparer<Employee> _untilNowComparer;
 
-        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> combineKeyComparer)
+        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> untilNowComparer)
         {
-            _combineKeyComparer = combineKeyComparer;
+            _untilNowComparer = untilNowComparer;
         }
 
         public IEnumerator<Employee> GetEnumerator()
@@ -22,6 +22,12 @@ namespace Lab
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public MyOrderedEnumerable Append(IComparer<Employee> currentComparer)
+        {
+            _untilNowComparer = new ComboComparer(_untilNowComparer, currentComparer);
+            return this;
         }
     }
 }
