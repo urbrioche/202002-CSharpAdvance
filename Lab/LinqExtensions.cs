@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Lab.Entities;
 
@@ -28,5 +29,19 @@ namespace Lab
                 yield return minElement;
             }
         }
+
+        public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees, 
+            Func<Employee, TKey> keySelector)
+        {
+            return employees;
+        }
+
+        public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees, 
+            Func<Employee, TKey> keySelector)
+        {
+            return employees;
+        }
+
+
     }
 }
