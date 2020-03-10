@@ -21,7 +21,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = employees.JoeySortBy(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default));
+            var actual = employees.JoeySortBy(new CombineKeyComparer<Employee, string>(employee => employee.LastName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -45,7 +45,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = employees.JoeySortBy(new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee1 => employee1.FirstName, Comparer<string>.Default)));
+            var actual = employees.JoeySortBy(new ComboComparer<Employee>(new CombineKeyComparer<Employee, string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<Employee, string>(employee1 => employee1.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
@@ -70,11 +70,11 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
             };
 
-            var firstKeyComparer = new CombineKeyComparer<string>(e => e.LastName, Comparer<string>.Default);
-            var secondKeyComparer = new CombineKeyComparer<string>(e => e.FirstName, Comparer<string>.Default);
-            var thirdKeyComparer = new CombineKeyComparer<int>(e => e.Age, Comparer<int>.Default);
+            var firstKeyComparer = new CombineKeyComparer<Employee, string>(e => e.LastName, Comparer<string>.Default);
+            var secondKeyComparer = new CombineKeyComparer<Employee, string>(e => e.FirstName, Comparer<string>.Default);
+            var thirdKeyComparer = new CombineKeyComparer<Employee, int>(e => e.Age, Comparer<int>.Default);
 
-            var comboComparer = new ComboComparer(new ComboComparer(firstKeyComparer, secondKeyComparer), thirdKeyComparer);
+            var comboComparer = new ComboComparer<Employee>(new ComboComparer<Employee>(firstKeyComparer, secondKeyComparer), thirdKeyComparer);
 
             var actual = employees.JoeySortBy(comboComparer);
 

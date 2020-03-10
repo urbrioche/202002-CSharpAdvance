@@ -6,23 +6,23 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public interface IMyOrderedEnumerable : IEnumerable<Employee>
+    public interface IMyOrderedEnumerable<TSource> : IEnumerable<TSource>
     {
-        IMyOrderedEnumerable Append(IComparer<Employee> currentComparer);
+        MyOrderedEnumerable<TSource> Append(IComparer<TSource> currentComparer);
     }
 
-    public class MyOrderedEnumerable: IMyOrderedEnumerable
+    public class MyOrderedEnumerable<TSource>: IMyOrderedEnumerable<TSource>
     {
-        private readonly IEnumerable<Employee> _employees;
-        private IComparer<Employee> _untilNowComparer;
+        private readonly IEnumerable<TSource> _employees;
+        private IComparer<TSource> _untilNowComparer;
 
-        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> untilNowComparer)
+        public MyOrderedEnumerable(IEnumerable<TSource> employees, IComparer<TSource> untilNowComparer)
         {
             _employees = employees;
             _untilNowComparer = untilNowComparer;
         }
 
-        public IEnumerator<Employee> GetEnumerator()
+        public IEnumerator<TSource> GetEnumerator()
         {
             //selection sort
             var elements = _employees.ToList();
@@ -49,9 +49,9 @@ namespace Lab
             return GetEnumerator();
         }
 
-        public IMyOrderedEnumerable Append(IComparer<Employee> currentComparer)
+        public MyOrderedEnumerable<TSource> Append(IComparer<TSource> currentComparer)
         {
-            _untilNowComparer = new ComboComparer(_untilNowComparer, currentComparer);
+            _untilNowComparer = new ComboComparer<TSource>(_untilNowComparer, currentComparer);
             return this;
         }
     }
