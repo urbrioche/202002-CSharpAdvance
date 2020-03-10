@@ -8,7 +8,7 @@ namespace Lab
 {
     public interface IMyOrderedEnumerable : IEnumerable<Employee>
     {
-        MyOrderedEnumerable Append(IComparer<Employee> currentComparer);
+        IMyOrderedEnumerable Append(IComparer<Employee> currentComparer);
     }
 
     public class MyOrderedEnumerable: IMyOrderedEnumerable
@@ -49,7 +49,7 @@ namespace Lab
             return GetEnumerator();
         }
 
-        public MyOrderedEnumerable Append(IComparer<Employee> currentComparer)
+        public IMyOrderedEnumerable Append(IComparer<Employee> currentComparer)
         {
             _untilNowComparer = new ComboComparer(_untilNowComparer, currentComparer);
             return this;
