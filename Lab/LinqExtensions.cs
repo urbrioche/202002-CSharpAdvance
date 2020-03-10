@@ -37,7 +37,7 @@ namespace Lab
             return new MyOrderedEnumerable(employees, combineKeyComparer);
         }
 
-        public static MyOrderedEnumerable JoeyThenBy<TKey>(this MyOrderedEnumerable myOrderedEnumerable, 
+        public static MyOrderedEnumerable JoeyThenBy<TKey>(this IMyOrderedEnumerable myOrderedEnumerable, 
             Func<Employee, TKey> keySelector)
         {
             var combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);

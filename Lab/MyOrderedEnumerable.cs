@@ -6,7 +6,12 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyOrderedEnumerable:IEnumerable<Employee>
+    public interface IMyOrderedEnumerable : IEnumerable<Employee>
+    {
+        MyOrderedEnumerable Append(IComparer<Employee> currentComparer);
+    }
+
+    public class MyOrderedEnumerable: IMyOrderedEnumerable
     {
         private readonly IEnumerable<Employee> _employees;
         private IComparer<Employee> _untilNowComparer;
