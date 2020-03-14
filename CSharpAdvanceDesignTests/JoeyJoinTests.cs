@@ -31,7 +31,7 @@ namespace CSharpAdvanceDesignTests
                 new Pet() {Name = "QQ", Owner = joey},
             };
 
-            var actual = JoeyJoin(employees, pets, employee => employee, pet => pet.Owner, (employee1, pet1) => Tuple.Create(employee1.FirstName, pet1.Name));
+            var actual = JoeyJoin(employees, pets, employee => employee, pet => pet.Owner, (employee1, pet1) => Tuple.Create(employee1.FirstName, pet1.Name), EqualityComparer<Employee>.Default);
 
             var expected = new[]
             {
@@ -48,7 +48,8 @@ namespace CSharpAdvanceDesignTests
             IEnumerable<Pet> pets,
             Func<Employee, Employee> outerKeySelector,
             Func<Pet, Employee> innerKeySelector,
-            Func<Employee, Pet, Tuple<string, string>> resultSelector)
+            Func<Employee, Pet, Tuple<string, string>> resultSelector, 
+            IEqualityComparer<Employee> comparer)
         {
             var employeeEnumerator = employees.GetEnumerator();
             while (employeeEnumerator.MoveNext())
@@ -59,7 +60,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var pet = petEnumerator.Current;
 
-                    if (EqualityComparer<Employee>.Default.Equals(outerKeySelector(employee), innerKeySelector(pet)))
+                    if (comparer.Equals(outerKeySelector(employee), innerKeySelector(pet)))
                     {
                         yield return resultSelector(employee, pet);
                     }
