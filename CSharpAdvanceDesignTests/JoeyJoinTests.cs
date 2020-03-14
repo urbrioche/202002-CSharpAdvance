@@ -3,6 +3,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -31,6 +32,7 @@ namespace CSharpAdvanceDesignTests
                 new Pet() {Name = "QQ", Owner = joey},
             };
 
+
             var actual = JoeyJoin(employees, pets, employee => employee, pet => pet.Owner, (employee, pet) => Tuple.Create(employee.FirstName, pet.Name), EqualityComparer<Employee>.Default);
 
             var expected = new[]
@@ -45,25 +47,25 @@ namespace CSharpAdvanceDesignTests
         }
 
         private IEnumerable<TResult> JoeyJoin<TOuter,TInner, TKey, TResult>(
-            IEnumerable<TOuter> employees,
-            IEnumerable<TInner> pets,
+            IEnumerable<TOuter> outer,
+            IEnumerable<TInner> inner,
             Func<TOuter, TKey> outerKeySelector,
             Func<TInner, TKey> innerKeySelector,
             Func<TOuter, TInner, TResult> resultSelector, 
             IEqualityComparer<TKey> comparer)
         {
-            var employeeEnumerator = employees.GetEnumerator();
-            while (employeeEnumerator.MoveNext())
+            var outerEnumerator = outer.GetEnumerator();
+            while (outerEnumerator.MoveNext())
             {
-                var employee = employeeEnumerator.Current;
-                var petEnumerator = pets.GetEnumerator();
-                while (petEnumerator.MoveNext())
+                var outerCurrent = outerEnumerator.Current;
+                var innerEnumerator = inner.GetEnumerator();
+                while (innerEnumerator.MoveNext())
                 {
-                    var pet = petEnumerator.Current;
+                    var innerCurrent = innerEnumerator.Current;
 
-                    if (comparer.Equals(outerKeySelector(employee), innerKeySelector(pet)))
+                    if (comparer.Equals(outerKeySelector(outerCurrent), innerKeySelector(innerCurrent)))
                     {
-                        yield return resultSelector(employee, pet);
+                        yield return resultSelector(outerCurrent, innerCurrent);
                     }
                 }
                 
