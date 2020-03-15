@@ -68,7 +68,7 @@ namespace CSharpAdvanceDesignTests
         }
 
 
-        private IEnumerable<TResult> JoeySelect<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        private static IEnumerable<TResult> JoeySelect<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
             var result = new List<TResult>();
             foreach (var item in source)
