@@ -53,8 +53,7 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            Func<Product, bool> predicate = product => product.Price > 200 && product.Price < 500 && product.Cost < 30;
-            var actual = products.JoeyWhere(predicate);
+            var actual = products.JoeyWhere(product => product.Price > 200 && product.Price < 500 && product.Cost < 30);
 
             var expected = new List<Product>
             {
@@ -75,8 +74,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "May", LastName = "Chen"},
             };
 
-            Func<Employee, bool> predicate = e => e.FirstName.Length < 5;
-            var actual = employees.JoeyWhere(predicate);
+            var actual = employees.JoeyWhere(e => e.FirstName.Length < 5);
 
             var expected = new List<Employee>
             {
