@@ -86,6 +86,20 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
+        private List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
+        {
+            var result = new List<TSource>();
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
+
         private List<Employee> JoeyWhereForEmployee(List<Employee> employees, Func<Employee, bool> predicate)
         {
              var result = new List<Employee>();
@@ -94,20 +108,6 @@ namespace CSharpAdvanceDesignTests
                 if (predicate(employee))
                 {
                     result.Add(employee);
-                }
-            }
-
-            return result;
-        }
-
-        private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
-        {
-            var result = new List<Product>();
-            foreach (var product in products)
-            {
-                if (predicate(product))
-                {
-                    result.Add(product);
                 }
             }
 
