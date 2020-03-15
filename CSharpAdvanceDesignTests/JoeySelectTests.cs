@@ -5,6 +5,7 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -16,7 +17,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelect(urls, url => url.Replace("http://", "https://"));
+            var actual = LinqExtensions.JoeySelect(urls, url => url.Replace("http://", "https://"));
             var expected = new List<string>
             {
                 "https://tw.yahoo.com",
@@ -34,7 +35,7 @@ namespace CSharpAdvanceDesignTests
             var urls = GetUrls();
 
             Func<string, string> selector = url => $"{url}:{9191}";
-            var actual = JoeySelect(urls, selector);
+            var actual = LinqExtensions.JoeySelect(urls, selector);
             var expected = new List<string>
             {
                 "http://tw.yahoo.com:9191",
@@ -57,7 +58,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             Func<Employee, string> selector = e => $"{e.FirstName} {e.LastName}";
-            var names = JoeySelect(employees, selector);
+            var names = LinqExtensions.JoeySelect(employees, selector);
             var expected = new[]
             {
                 "Joey Chen",
@@ -67,17 +68,6 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(names);
         }
 
-
-        private static IEnumerable<TResult> JoeySelect<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
-        {
-            var result = new List<TResult>();
-            foreach (var item in source)
-            {
-                result.Add(selector(item));
-            }
-
-            return result;
-        }
 
         private static IEnumerable<string> GetUrls()
         {
