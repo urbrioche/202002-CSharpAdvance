@@ -19,7 +19,7 @@ namespace Lab
             return result;
         }
 
-        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
             var result = new List<TResult>();
             foreach (var item in source)

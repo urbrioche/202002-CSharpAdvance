@@ -17,7 +17,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = LinqExtensions.JoeySelect(urls, url => url.Replace("http://", "https://"));
+            var actual = urls.JoeySelect(url => url.Replace("http://", "https://"));
             var expected = new List<string>
             {
                 "https://tw.yahoo.com",
@@ -35,7 +35,7 @@ namespace CSharpAdvanceDesignTests
             var urls = GetUrls();
 
             Func<string, string> selector = url => $"{url}:{9191}";
-            var actual = LinqExtensions.JoeySelect(urls, selector);
+            var actual = urls.JoeySelect(selector);
             var expected = new List<string>
             {
                 "http://tw.yahoo.com:9191",
@@ -58,7 +58,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             Func<Employee, string> selector = e => $"{e.FirstName} {e.LastName}";
-            var names = LinqExtensions.JoeySelect(employees, selector);
+            var names = employees.JoeySelect(selector);
             var expected = new[]
             {
                 "Joey Chen",
