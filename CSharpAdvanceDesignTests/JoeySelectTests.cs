@@ -56,7 +56,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
 
-            var names = JoeySelectForEmployee(employees, e => $"{e.FirstName} {e.LastName}");
+            Func<Employee, string> selector = e => $"{e.FirstName} {e.LastName}";
+            var names = JoeySelect(employees, selector);
             var expected = new[]
             {
                 "Joey Chen",
@@ -64,11 +65,6 @@ namespace CSharpAdvanceDesignTests
                 "David Chen",
             };
             expected.ToExpectedObject().ShouldMatch(names);
-        }
-
-        private IEnumerable<string> JoeySelectForEmployee(IEnumerable<Employee> employees, Func<Employee, string> selector)
-        {
-            return JoeySelect(employees, selector);
         }
 
 
