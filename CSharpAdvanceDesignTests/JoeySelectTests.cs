@@ -34,8 +34,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            Func<string, string> selector = url => $"{url}:{9191}";
-            var actual = urls.JoeySelect(selector);
+            var actual = urls.JoeySelect(url => $"{url}:{9191}");
             var expected = new List<string>
             {
                 "http://tw.yahoo.com:9191",
@@ -57,8 +56,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
 
-            Func<Employee, string> selector = e => $"{e.FirstName} {e.LastName}";
-            var names = employees.JoeySelect(selector);
+            var names = employees.JoeySelect(e => $"{e.FirstName} {e.LastName}");
             var expected = new[]
             {
                 "Joey Chen",
