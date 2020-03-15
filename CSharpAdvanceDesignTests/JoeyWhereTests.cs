@@ -26,7 +26,7 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = LinqExtensions.JoeyWhere(products, product => product.Price > 200 && product.Price < 500);
+            var actual = products.JoeyWhere(product => product.Price > 200 && product.Price < 500);
 
             var expected = new List<Product>
             {
@@ -54,7 +54,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             Func<Product, bool> predicate = product => product.Price > 200 && product.Price < 500 && product.Cost < 30;
-            var actual = LinqExtensions.JoeyWhere(products, predicate);
+            var actual = products.JoeyWhere(predicate);
 
             var expected = new List<Product>
             {
@@ -76,7 +76,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             Func<Employee, bool> predicate = e => e.FirstName.Length < 5;
-            var actual = LinqExtensions.JoeyWhere(employees, predicate);
+            var actual = employees.JoeyWhere(predicate);
 
             var expected = new List<Employee>
             {
