@@ -47,13 +47,14 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeySelectWithPort(IEnumerable<string> urls, Func<string, string> selector)
         {
-            var result = new List<string>();
-            foreach (var url in urls)
-            {
-                result.Add(selector(url));
-            }
+            return JoeySelect(urls, selector);
+            //var result = new List<string>();
+            //foreach (var url in urls)
+            //{
+            //    result.Add(selector(url));
+            //}
 
-            return result;
+            //return result;
 
         }
 
