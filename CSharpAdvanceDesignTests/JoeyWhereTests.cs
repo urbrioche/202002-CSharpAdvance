@@ -63,16 +63,17 @@ namespace CSharpAdvanceDesignTests
 
         private List<Product> JoeyWhereCostLessThan30(List<Product> products, Func<Product, bool> predicate)
         {
-            var result = new List<Product>();
-            foreach (var product in products)
-            {
-                if (predicate(product))
-                {
-                    result.Add(product);
-                }
-            }
+            return JoeyWhere(products, predicate);
+            //var result = new List<Product>();
+            //foreach (var product in products)
+            //{
+            //    if (predicate(product))
+            //    {
+            //        result.Add(product);
+            //    }
+            //}
 
-            return result;
+            //return result;
         }
 
         private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
