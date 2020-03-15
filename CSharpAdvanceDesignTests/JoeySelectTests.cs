@@ -46,7 +46,14 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeySelectWithPort(IEnumerable<string> urls)
         {
-            throw new System.NotImplementedException();
+            var result = new List<string>();
+            foreach (var url in urls)
+            {
+                result.Add($"{url}:{9191}");
+            }
+
+            return result;
+
         }
 
         private IEnumerable<string> JoeySelect(IEnumerable<string> urls)
@@ -54,7 +61,7 @@ namespace CSharpAdvanceDesignTests
             var result = new List<string>();
             foreach (var url in urls)
             {
-               result.Add(url.Replace("http://", "https://")); 
+                result.Add(url.Replace("http://", "https://"));
             }
 
             return result;
