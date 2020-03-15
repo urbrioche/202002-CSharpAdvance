@@ -25,7 +25,7 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhere(products);
+            var actual = JoeyWhere(products, product => product.Price > 200 && product.Price < 500);
 
             var expected = new List<Product>
             {
@@ -75,12 +75,12 @@ namespace CSharpAdvanceDesignTests
             return result;
         }
 
-        private List<Product> JoeyWhere(List<Product> products)
+        private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
         {
             var result = new List<Product>();
             foreach (var product in products)
             {
-                if (product.Price > 200 && product.Price < 500)
+                if (predicate(product))
                 {
                     result.Add(product);
                 }
