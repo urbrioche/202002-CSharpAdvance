@@ -36,6 +36,7 @@ namespace CSharpAdvanceDesignTests
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
+
         [Test]
         public void find_products_that_price_between_200_and_500_and_cost_less_than_30()
         {
@@ -60,6 +61,34 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        [Test]
+        public void Find_the_first_name_length_less_than_5()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"},
+                new Employee {FirstName = "Claire", LastName = "Chen"},
+                new Employee {FirstName = "May", LastName = "Chen"},
+            };
+
+            var actual = JoeyWhereForEmployee(
+                employees, e => e.FirstName.Length < 5);
+
+            var expected = new List<Employee>
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "May", LastName = "Chen"},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        private List<Employee> JoeyWhereForEmployee(List<Employee> employees, Func<Employee, bool> predicate)
+        {
+            throw new NotImplementedException();
         }
 
         private List<Product> JoeyWhere(List<Product> products, Func<Product, bool> predicate)
