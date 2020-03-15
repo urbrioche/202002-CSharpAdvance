@@ -79,12 +79,12 @@ namespace CSharpAdvanceDesignTests
         }
 
 
-        private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> selector)
+        private IEnumerable<TResult> JoeySelect<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            var result = new List<string>();
-            foreach (var url in urls)
+            var result = new List<TResult>();
+            foreach (var item in source)
             {
-                result.Add(selector(url));
+                result.Add(selector(item));
             }
 
             return result;
