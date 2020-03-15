@@ -7,6 +7,23 @@ using ExpectedObjects;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class LinqExtensions
+    {
+        public static List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
+        {
+            var result = new List<TSource>();
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
+    }
+
     [TestFixture()]
     public class JoeyWhereTests
     {
@@ -25,7 +42,7 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhere(products, product => product.Price > 200 && product.Price < 500);
+            var actual = LinqExtensions.JoeyWhere(products, product => product.Price > 200 && product.Price < 500);
 
             var expected = new List<Product>
             {
@@ -53,7 +70,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             Func<Product, bool> predicate = product => product.Price > 200 && product.Price < 500 && product.Cost < 30;
-            var actual = JoeyWhere(products, predicate);
+            var actual = LinqExtensions.JoeyWhere(products, predicate);
 
             var expected = new List<Product>
             {
@@ -75,7 +92,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             Func<Employee, bool> predicate = e => e.FirstName.Length < 5;
-            var actual = JoeyWhere(employees, predicate);
+            var actual = LinqExtensions.JoeyWhere(employees, predicate);
 
             var expected = new List<Employee>
             {
@@ -84,20 +101,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private static List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
-        {
-            var result = new List<TSource>();
-            foreach (var item in source)
-            {
-                if (predicate(item))
-                {
-                    result.Add(item);
-                }
-            }
-
-            return result;
         }
     }
 }
