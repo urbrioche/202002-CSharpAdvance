@@ -4,26 +4,10 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using ExpectedObjects;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class LinqExtensions
-    {
-        public static List<TSource> JoeyWhere<TSource>(List<TSource> source, Func<TSource, bool> predicate)
-        {
-            var result = new List<TSource>();
-            foreach (var item in source)
-            {
-                if (predicate(item))
-                {
-                    result.Add(item);
-                }
-            }
-
-            return result;
-        }
-    }
-
     [TestFixture()]
     public class JoeyWhereTests
     {
