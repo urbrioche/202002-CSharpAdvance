@@ -7,16 +7,17 @@ namespace Lab
     {
         public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, bool> predicate)
         {
-            var result = new List<TSource>();
-            foreach (var item in source)
-            {
-                if (predicate(item))
-                {
-                    result.Add(item);
-                }
-            }
+            return JoeyWhere(source, (item, index) => predicate(item));
+            //var result = new List<TSource>();
+            //foreach (var item in source)
+            //{
+            //    if (predicate(item))
+            //    {
+            //        result.Add(item);
+            //    }
+            //}
 
-            return result;
+            //return result;
         }
 
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
@@ -30,15 +31,15 @@ namespace Lab
             return result;
         }
 
-        public static List<TSource> JoeyWhere<TSource>(this List<TSource> numbers, Func<TSource, int, bool> predicate)
+        public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, int, bool> predicate)
         {
             var index = 0;
             var result = new List<TSource>();
-            foreach (var number in numbers)
+            foreach (var item in source)
             {
-                if (predicate(number, index))
+                if (predicate(item, index))
                 {
-                    result.Add(number);
+                    result.Add(item);
                 }
                 index++;
             }
