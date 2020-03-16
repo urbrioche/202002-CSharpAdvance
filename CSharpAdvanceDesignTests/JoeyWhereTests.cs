@@ -96,7 +96,18 @@ namespace CSharpAdvanceDesignTests
 
         private List<int> JoeyWhereWithIndex(List<int> numbers)
         {
-            throw new System.NotImplementedException();
+            var index = 0;
+            var result = new List<int>();
+            foreach (var number in numbers)
+            {
+                if ((index == 0 || index > 1) && number > 0)
+                {
+                    result.Add(number);
+                }
+                index++;
+            }
+
+            return result;
         }
     }
 }
