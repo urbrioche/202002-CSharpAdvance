@@ -71,7 +71,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelectWithIndex(urls);
+            var actual = JoeySelectWithIndex(urls, (url, index) => $"{index+1}. {url}:9191");
             var expected = new List<string>
             {
                 "1. http://tw.yahoo.com:9191",
@@ -83,13 +83,13 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<string> JoeySelectWithIndex(IEnumerable<string> urls)
+        private IEnumerable<string> JoeySelectWithIndex(IEnumerable<string> urls, Func<string, int, string> selector)
         {
             var index = 0;
             var result = new List<string>();
             foreach (var url in urls)
             {
-                result.Add($"{index+1}. {url}:9191");
+                result.Add(selector(url, index));
                 index++;
             }
 
