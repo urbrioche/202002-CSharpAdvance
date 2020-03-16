@@ -83,7 +83,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TResult> JoeySelectWithIndex<TSource, TResult>(IEnumerable<TSource> urls, Func<TSource, int, TResult> selector)
+        private static IEnumerable<TResult> JoeySelectWithIndex<TSource, TResult>(IEnumerable<TSource> urls, Func<TSource, int, TResult> selector)
         {
             var index = 0;
             var result = new List<TResult>();
