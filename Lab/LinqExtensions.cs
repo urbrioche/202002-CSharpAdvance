@@ -36,14 +36,13 @@ namespace Lab
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, int, TResult> selector)
         {
             var index = 0;
-            var result = new List<TResult>();
-            foreach (var item in source)
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                result.Add(selector(item, index));
+                var current = enumerator.Current;
+                yield return selector(current, index);
                 index++;
             }
-
-            return result;
         }
     }
 }
