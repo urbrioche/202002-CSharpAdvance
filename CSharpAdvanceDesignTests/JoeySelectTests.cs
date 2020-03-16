@@ -83,10 +83,10 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<string> JoeySelectWithIndex(IEnumerable<string> urls, Func<string, int, string> selector)
+        private IEnumerable<TResult> JoeySelectWithIndex<TSource, TResult>(IEnumerable<TSource> urls, Func<TSource, int, TResult> selector)
         {
             var index = 0;
-            var result = new List<string>();
+            var result = new List<TResult>();
             foreach (var url in urls)
             {
                 result.Add(selector(url, index));
