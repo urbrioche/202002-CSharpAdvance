@@ -30,10 +30,10 @@ namespace Lab
             return result;
         }
 
-        public static List<int> JoeyWhereWithIndex(this List<int> numbers, Func<int, int, bool> predicate)
+        public static List<TSource> JoeyWhereWithIndex<TSource>(this List<TSource> numbers, Func<TSource, int, bool> predicate)
         {
             var index = 0;
-            var result = new List<int>();
+            var result = new List<TSource>();
             foreach (var number in numbers)
             {
                 if (predicate(number, index))
