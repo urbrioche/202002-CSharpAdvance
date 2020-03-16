@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 namespace Lab
 {
@@ -7,7 +9,7 @@ namespace Lab
     {
         public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, bool> predicate)
         {
-            return JoeyWhere(source, (item, index) => predicate(item));
+            return JoeyWhere(source, (item, index) => predicate(item)).ToList();
             //var result = new List<TSource>();
             //foreach (var item in source)
             //{
@@ -31,20 +33,20 @@ namespace Lab
             return result;
         }
 
-        public static List<TSource> JoeyWhere<TSource>(this List<TSource> source, Func<TSource, int, bool> predicate)
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
         {
             var index = 0;
-            var result = new List<TSource>();
-            foreach (var item in source)
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                if (predicate(item, index))
+                var current = enumerator.Current;
+                if (predicate(current, index))
                 {
-                    result.Add(item);
+                    yield return current;
                 }
+
                 index++;
             }
-
-            return result;
         }
     }
 }
