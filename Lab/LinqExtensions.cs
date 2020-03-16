@@ -30,7 +30,7 @@ namespace Lab
             return result;
         }
 
-        public static List<int> JoeyWhereWithIndex(List<int> numbers, Func<int, int, bool> predicate)
+        public static List<int> JoeyWhereWithIndex(this List<int> numbers, Func<int, int, bool> predicate)
         {
             var index = 0;
             var result = new List<int>();
