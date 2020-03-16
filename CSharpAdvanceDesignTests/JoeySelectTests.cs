@@ -85,7 +85,15 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeySelectWithIndex(IEnumerable<string> urls)
         {
-            throw new NotImplementedException();
+            var index = 0;
+            var result = new List<string>();
+            foreach (var url in urls)
+            {
+                result.Add($"{index+1}. {url}:9191");
+                index++;
+            }
+
+            return result;
         }
 
         private static IEnumerable<string> GetUrls()
