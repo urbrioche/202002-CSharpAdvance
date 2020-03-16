@@ -29,5 +29,21 @@ namespace Lab
 
             return result;
         }
+
+        public static List<int> JoeyWhereWithIndex(List<int> numbers, Func<int, int, bool> predicate)
+        {
+            var index = 0;
+            var result = new List<int>();
+            foreach (var number in numbers)
+            {
+                if (predicate(number, index))
+                {
+                    result.Add(number);
+                }
+                index++;
+            }
+
+            return result;
+        }
     }
 }
