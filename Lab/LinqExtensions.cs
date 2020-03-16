@@ -14,13 +14,7 @@ namespace Lab
 
         public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            var result = new List<TResult>();
-            foreach (var item in source)
-            {
-                result.Add(selector(item));
-            }
-
-            return result;
+            return JoeySelect(source, (item, index) => selector(item));
         }
 
         public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
