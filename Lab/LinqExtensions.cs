@@ -39,7 +39,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TResult> JoeySelectWithIndex<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, int, TResult> selector)
+        public static IEnumerable<TResult> JoeySelectWithIndex<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, int, TResult> selector)
         {
             var index = 0;
             var result = new List<TResult>();

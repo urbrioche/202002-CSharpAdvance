@@ -71,7 +71,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = LinqExtensions.JoeySelectWithIndex(urls, (url, index) => $"{index+1}. {url}:9191");
+            var actual = urls.JoeySelectWithIndex((url, index) => $"{index+1}. {url}:9191");
             var expected = new List<string>
             {
                 "1. http://tw.yahoo.com:9191",
