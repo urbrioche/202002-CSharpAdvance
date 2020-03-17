@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Lab.Entities;
 
 namespace Lab
 {
@@ -41,6 +42,26 @@ namespace Lab
             {
                 var current = enumerator.Current;
                 yield return selector(current, index);
+                index++;
+            }
+        }
+
+        public static IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees, int count)
+        {
+            var enumerator = employees.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (index < count)
+                {
+                    yield return current;
+                }
+                else
+                {
+                    yield break;
+                }
+
                 index++;
             }
         }
