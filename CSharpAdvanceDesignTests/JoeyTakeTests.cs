@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees, int count)
+        private static IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees, int count)
         {
             var enumerator = employees.GetEnumerator();
             var index = 0;
