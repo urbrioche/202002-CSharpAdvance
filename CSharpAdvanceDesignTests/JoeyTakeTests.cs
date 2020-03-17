@@ -22,7 +22,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
 
-            var actual = JoeyTake(employees);
+            var actual = JoeyTake(employees, 2);
 
             var expected = new List<Employee>
             {
@@ -33,14 +33,14 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees)
+        private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees, int count)
         {
             var enumerator = employees.GetEnumerator();
             var index = 0;
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                if (index < 2)
+                if (index < count)
                 {
                     yield return current;
                 }
