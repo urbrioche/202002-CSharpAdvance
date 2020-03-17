@@ -46,7 +46,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees, int count)
+        public static IEnumerable<Employee> JoeyTake(this IEnumerable<Employee> employees, int count)
         {
             var enumerator = employees.GetEnumerator();
             var index = 0;

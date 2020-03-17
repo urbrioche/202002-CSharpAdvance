@@ -23,7 +23,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
 
-            var actual = LinqExtensions.JoeyTake(employees, 2);
+            var actual = employees.JoeyTake(2);
 
             var expected = new List<Employee>
             {
