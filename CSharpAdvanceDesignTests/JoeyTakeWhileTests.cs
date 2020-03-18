@@ -24,7 +24,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Normal, Point = 6},
             };
 
-            var actual = LinqExtensions.JoeyTakeWhile(cards, card => card.Kind != CardKind.Separate);
+            var actual = cards.JoeyTakeWhile(card => card.Kind != CardKind.Separate);
 
             var expected = new List<Card>
             {

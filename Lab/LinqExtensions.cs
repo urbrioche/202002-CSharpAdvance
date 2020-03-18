@@ -81,7 +81,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeyTakeWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> JoeyTakeWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
