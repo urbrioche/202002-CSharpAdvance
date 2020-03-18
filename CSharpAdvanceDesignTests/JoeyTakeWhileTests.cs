@@ -23,7 +23,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Normal, Point = 6},
             };
 
-            var actual = JoeyTakeWhile(cards, current => current.Kind != CardKind.Separate);
+            var actual = JoeyTakeWhile(cards, card => card.Kind != CardKind.Separate);
 
             var expected = new List<Card>
             {
@@ -35,9 +35,9 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Card> JoeyTakeWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
+        private IEnumerable<TSource> JoeyTakeWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            var enumerator = cards.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
