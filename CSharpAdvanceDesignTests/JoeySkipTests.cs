@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TSource> JoeySkip<TSource>(IEnumerable<TSource> source, int count)
+        private static IEnumerable<TSource> JoeySkip<TSource>(IEnumerable<TSource> source, int count)
         {
             var enumerator = source.GetEnumerator();
             var index = 0;
