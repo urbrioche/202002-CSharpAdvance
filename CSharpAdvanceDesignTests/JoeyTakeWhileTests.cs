@@ -35,7 +35,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TSource> JoeyTakeWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        private static IEnumerable<TSource> JoeyTakeWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
