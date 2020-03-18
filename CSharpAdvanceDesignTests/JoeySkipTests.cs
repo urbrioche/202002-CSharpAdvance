@@ -33,9 +33,9 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeySkip(IEnumerable<Employee> employees, int count)
+        private IEnumerable<TSource> JoeySkip<TSource>(IEnumerable<TSource> source, int count)
         {
-            var enumerator = employees.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             var index = 0;
             while (enumerator.MoveNext())
             {
