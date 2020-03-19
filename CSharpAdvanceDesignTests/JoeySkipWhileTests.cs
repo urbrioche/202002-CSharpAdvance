@@ -38,17 +38,17 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
+        private IEnumerable<TSource> JoeySkipWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            var enumerator = cards.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             var isStartTaking = false;
             while (enumerator.MoveNext())
             {
-                var card = enumerator.Current;
-                if (!predicate(card) || isStartTaking)
+                var current = enumerator.Current;
+                if (!predicate(current) || isStartTaking)
                 {
                     isStartTaking = true;
-                    yield return card;
+                    yield return current;
                 }
                 
             }
