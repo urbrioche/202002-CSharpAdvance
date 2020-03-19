@@ -19,7 +19,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee(),
             };
 
-            var actual = LinqExtensions.JoeyAny(emptyEmployees);
+            var actual = emptyEmployees.JoeyAny();
             Assert.IsTrue(actual);
         }
 
@@ -30,7 +30,7 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            var actual = LinqExtensions.JoeyAny(emptyEmployees);
+            var actual = emptyEmployees.JoeyAny();
             Assert.IsFalse(actual);
         }
     }

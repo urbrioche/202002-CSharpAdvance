@@ -114,7 +114,7 @@ namespace Lab
             }
         }
 
-        public static bool JoeyAny<TSource>(IEnumerable<TSource> source)
+        public static bool JoeyAny<TSource>(this IEnumerable<TSource> source)
         {
             return source.GetEnumerator().MoveNext();
         }
