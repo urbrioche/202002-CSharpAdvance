@@ -113,5 +113,10 @@ namespace Lab
                 
             }
         }
+
+        public static bool JoeyAny<TSource>(IEnumerable<TSource> source)
+        {
+            return source.GetEnumerator().MoveNext();
+        }
     }
 }

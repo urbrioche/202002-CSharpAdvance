@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -18,7 +19,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee(),
             };
 
-            var actual = JoeyAny(emptyEmployees);
+            var actual = LinqExtensions.JoeyAny(emptyEmployees);
             Assert.IsTrue(actual);
         }
 
@@ -29,13 +30,8 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            var actual = JoeyAny(emptyEmployees);
+            var actual = LinqExtensions.JoeyAny(emptyEmployees);
             Assert.IsFalse(actual);
-        }
-
-        private static bool JoeyAny<TSource>(IEnumerable<TSource> source)
-        {
-            return source.GetEnumerator().MoveNext();
         }
     }
 }
