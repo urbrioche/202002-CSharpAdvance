@@ -98,7 +98,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeySkipWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> JoeySkipWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             var isStartTaking = false;

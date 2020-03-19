@@ -26,7 +26,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = LinqExtensions.JoeySkipWhile(cards, card => card.Kind == CardKind.Normal);
+            var actual = cards.JoeySkipWhile(card => card.Kind == CardKind.Normal);
 
             var expected = new List<Card>
             {
