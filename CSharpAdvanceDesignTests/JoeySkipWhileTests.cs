@@ -38,7 +38,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TSource> JoeySkipWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        private static IEnumerable<TSource> JoeySkipWhile<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             var isStartTaking = false;
