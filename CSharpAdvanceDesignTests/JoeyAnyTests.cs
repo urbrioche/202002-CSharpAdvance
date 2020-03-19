@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
             Assert.IsFalse(actual);
         }
 
-        private bool JoeyAny<TSource>(IEnumerable<TSource> source)
+        private static bool JoeyAny<TSource>(IEnumerable<TSource> source)
         {
             return source.GetEnumerator().MoveNext();
         }
