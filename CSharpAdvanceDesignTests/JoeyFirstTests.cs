@@ -25,6 +25,17 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldEqual(girl);
         }
 
+        [Test]
+        public void get_first_girl_when_no_girls()
+        {
+            var girls = new Girl[]
+            {
+            };
+
+            TestDelegate action = () => JoeyFirst(girls);
+            Assert.Throws<InvalidOperationException>(action);
+        }
+
         private Girl JoeyFirst(IEnumerable<Girl> girls)
         {
             var enumerator = girls.GetEnumerator();
