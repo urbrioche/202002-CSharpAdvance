@@ -133,5 +133,20 @@ namespace Lab
 
             return false;
         }
+
+        public static bool JoeyAll<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (!predicate(current))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
