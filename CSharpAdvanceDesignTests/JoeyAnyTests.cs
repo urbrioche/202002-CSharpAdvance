@@ -33,5 +33,18 @@ namespace CSharpAdvanceDesignTests
             var actual = emptyEmployees.JoeyAny();
             Assert.IsFalse(actual);
         }
+
+        [Test]
+        public void any_number_greater_than_91()
+        {
+            var numbers = new[] { 87, 88, 91, 93, 0 };
+            var actual = JoeyAnyWithCondition(numbers);
+            Assert.IsTrue(actual);
+        }
+
+        private bool JoeyAnyWithCondition(IEnumerable<int> numbers)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
