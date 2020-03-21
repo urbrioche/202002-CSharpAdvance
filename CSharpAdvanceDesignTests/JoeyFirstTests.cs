@@ -20,7 +20,7 @@ namespace CSharpAdvanceDesignTests
                 new Girl(){Age = 30},
             };
 
-            var girl = LinqExtensions.JoeyFirst(girls);
+            var girl = girls.JoeyFirst();
             var expected = new Girl { Age = 60 };
 
             expected.ToExpectedObject().ShouldEqual(girl);
@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            TestDelegate action = () => LinqExtensions.JoeyFirst(girls);
+            TestDelegate action = () => girls.JoeyFirst();
             Assert.Throws<InvalidOperationException>(action);
         }
 
@@ -46,7 +46,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
-            var employee = LinqExtensions.JoeyFirstWithCondition(employees, employee1 => employee1.LastName == "Chen");
+            var employee = employees.JoeyFirstWithCondition(employee1 => employee1.LastName == "Chen");
             new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
         }
     }
