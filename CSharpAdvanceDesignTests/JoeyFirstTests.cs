@@ -36,6 +36,24 @@ namespace CSharpAdvanceDesignTests
             Assert.Throws<InvalidOperationException>(action);
         }
 
+        [Test]
+        public void get_first_chen()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"}
+            };
+            var employee = JoeyFirstWithCondition(employees);
+            new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
+        }
+
+        private Employee JoeyFirstWithCondition(IEnumerable<Employee> employees)
+        {
+            throw new NotImplementedException();
+        }
+
         private TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
