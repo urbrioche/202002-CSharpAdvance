@@ -49,7 +49,7 @@ namespace CSharpAdvanceDesignTests
             new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
         }
 
-        private TSource JoeyFirstWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        private static TSource JoeyFirstWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
@@ -64,7 +64,7 @@ namespace CSharpAdvanceDesignTests
             throw new InvalidOperationException($"{nameof(source)} is empty");
         }
 
-        private TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
+        private static TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
             if (enumerator.MoveNext())
