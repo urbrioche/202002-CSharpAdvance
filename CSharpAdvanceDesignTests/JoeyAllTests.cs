@@ -13,14 +13,14 @@ namespace CSharpAdvanceDesignTests
         {
             var girls = new List<Girl>
             {
-                new Girl{Age = 20},
-                new Girl{Age = 21},
-                new Girl{Age = 17},
-                new Girl{Age = 18},
-                new Girl{Age = 30},
+                new Girl {Age = 20},
+                new Girl {Age = 21},
+                new Girl {Age = 17},
+                new Girl {Age = 18},
+                new Girl {Age = 30},
             };
 
-            var actual = JoeyAll(girls, girl => girl.Age >=18);
+            var actual = JoeyAll(girls, girl => girl.Age >= 18);
             Assert.IsFalse(actual);
         }
 
@@ -29,14 +29,14 @@ namespace CSharpAdvanceDesignTests
         {
             var girls = new List<Girl>
             {
-                new Girl{Age = 20},
-                new Girl{Age = 21},
-                new Girl{Age = 18},
-                new Girl{Age = 18},
-                new Girl{Age = 30},
+                new Girl {Age = 20},
+                new Girl {Age = 21},
+                new Girl {Age = 18},
+                new Girl {Age = 18},
+                new Girl {Age = 30},
             };
 
-            var actual = JoeyAll(girls, girl => girl.Age >=18);
+            var actual = JoeyAll(girls, girl => girl.Age >= 18);
             Assert.IsTrue(actual);
         }
 
@@ -46,12 +46,10 @@ namespace CSharpAdvanceDesignTests
             while (enumerator.MoveNext())
             {
                 var girl = enumerator.Current;
-                if (predicate(girl))
+                if (!predicate(girl))
                 {
-                    continue;
+                    return false;
                 }
-
-                return false;
             }
 
             return true;
