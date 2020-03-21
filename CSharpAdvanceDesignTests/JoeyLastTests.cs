@@ -36,10 +36,22 @@ namespace CSharpAdvanceDesignTests
             TestDelegate action = () => JoeyLast(employees);
             Assert.Throws<InvalidOperationException>(action);
         }
-        
-        private Employee JoeyLast(ICollection<Employee> employees)
+
+        private Employee JoeyLast(IEnumerable<Employee> employees)
         {
-            throw new NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException();
+            }
+
+            var last = enumerator.Current;
+            while (enumerator.MoveNext())
+            {
+                last = enumerator.Current;
+            }
+
+            return last;
         }
     }
 }
