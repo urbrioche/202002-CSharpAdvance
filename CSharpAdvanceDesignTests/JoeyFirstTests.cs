@@ -36,15 +36,15 @@ namespace CSharpAdvanceDesignTests
             Assert.Throws<InvalidOperationException>(action);
         }
 
-        private Girl JoeyFirst(IEnumerable<Girl> girls)
+        private TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
         {
-            var enumerator = girls.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             if (enumerator.MoveNext())
             {
                 return enumerator.Current;
             }
 
-            throw new InvalidOperationException($"{nameof(girls)} is empty");
+            throw new InvalidOperationException($"{nameof(source)} is empty");
         }
     }
 }
