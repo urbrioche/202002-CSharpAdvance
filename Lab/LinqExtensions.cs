@@ -134,7 +134,7 @@ namespace Lab
             return false;
         }
 
-        public static bool JoeyAll<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static bool JoeyAll<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())

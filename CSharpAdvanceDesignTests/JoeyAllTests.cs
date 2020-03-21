@@ -21,7 +21,7 @@ namespace CSharpAdvanceDesignTests
                 new Girl {Age = 30},
             };
 
-            var actual = LinqExtensions.JoeyAll(girls, girl => girl.Age >= 18);
+            var actual = girls.JoeyAll(girl => girl.Age >= 18);
             Assert.IsFalse(actual);
         }
 
@@ -37,7 +37,7 @@ namespace CSharpAdvanceDesignTests
                 new Girl {Age = 30},
             };
 
-            var actual = LinqExtensions.JoeyAll(girls, girl => girl.Age >= 18);
+            var actual = girls.JoeyAll(girl => girl.Age >= 18);
             Assert.IsTrue(actual);
         }
     }
