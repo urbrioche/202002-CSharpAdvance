@@ -148,5 +148,31 @@ namespace Lab
 
             return true;
         }
+
+        public static TSource JoeyFirstWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    return current;
+                }
+            }
+
+            throw new InvalidOperationException($"{nameof(source)} is empty");
+        }
+
+        public static TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                return enumerator.Current;
+            }
+
+            throw new InvalidOperationException($"{nameof(source)} is empty");
+        }
     }
 }
