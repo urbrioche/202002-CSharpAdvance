@@ -45,17 +45,17 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
-            var employee = JoeyFirstWithCondition(employees);
+            var employee = JoeyFirstWithCondition(employees, employee1 => employee1.LastName == "Chen");
             new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
         }
 
-        private Employee JoeyFirstWithCondition(IEnumerable<Employee> employees)
+        private Employee JoeyFirstWithCondition(IEnumerable<Employee> employees, Func<Employee, bool> predicate)
         {
             var enumerator = employees.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var employee = enumerator.Current;
-                if (employee.LastName == "Chen")
+                if (predicate(employee))
                 {
                     return employee;
                 }
