@@ -119,7 +119,7 @@ namespace Lab
             return source.GetEnumerator().MoveNext();
         }
 
-        public static bool JoeyAnyWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static bool JoeyAnyWithCondition<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
