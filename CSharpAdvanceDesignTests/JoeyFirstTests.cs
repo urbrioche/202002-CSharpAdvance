@@ -49,19 +49,19 @@ namespace CSharpAdvanceDesignTests
             new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
         }
 
-        private Employee JoeyFirstWithCondition(IEnumerable<Employee> employees, Func<Employee, bool> predicate)
+        private TSource JoeyFirstWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            var enumerator = employees.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                var employee = enumerator.Current;
-                if (predicate(employee))
+                var current = enumerator.Current;
+                if (predicate(current))
                 {
-                    return employee;
+                    return current;
                 }
             }
 
-            throw new InvalidOperationException($"{nameof(employees)} is empty");
+            throw new InvalidOperationException($"{nameof(source)} is empty");
         }
 
         private TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
