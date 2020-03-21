@@ -38,17 +38,17 @@ namespace CSharpAdvanceDesignTests
         public void any_number_greater_than_91()
         {
             var numbers = new[] { 87, 88, 91, 93, 0 };
-            var actual = JoeyAnyWithCondition(numbers);
+            var actual = JoeyAnyWithCondition(numbers, current => current > 91);
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyAnyWithCondition(IEnumerable<int> numbers)
+        private bool JoeyAnyWithCondition(IEnumerable<int> numbers, Func<int, bool> predicate)
         {
             var enumerator = numbers.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                if (current > 91)
+                if (predicate(current))
                 {
                     return true;
                 }
