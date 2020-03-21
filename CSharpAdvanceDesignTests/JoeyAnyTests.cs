@@ -44,7 +44,17 @@ namespace CSharpAdvanceDesignTests
 
         private bool JoeyAnyWithCondition(IEnumerable<int> numbers)
         {
-            throw new NotImplementedException();
+            var enumerator = numbers.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current > 91)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
