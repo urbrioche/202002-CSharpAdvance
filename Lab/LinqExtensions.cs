@@ -149,7 +149,7 @@ namespace Lab
             return true;
         }
 
-        public static TSource JoeyFirstWithCondition<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static TSource JoeyFirst<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
