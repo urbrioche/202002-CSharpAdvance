@@ -51,7 +51,17 @@ namespace CSharpAdvanceDesignTests
 
         private Employee JoeyFirstWithCondition(IEnumerable<Employee> employees)
         {
-            throw new NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var employee = enumerator.Current;
+                if (employee.LastName == "Chen")
+                {
+                    return employee;
+                }
+            }
+
+            throw new InvalidOperationException($"{nameof(employees)} is empty");
         }
 
         private TSource JoeyFirst<TSource>(IEnumerable<TSource> source)
