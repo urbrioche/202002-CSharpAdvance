@@ -40,7 +40,7 @@ namespace CSharpAdvanceDesignTests
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyAll<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        private static bool JoeyAll<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
