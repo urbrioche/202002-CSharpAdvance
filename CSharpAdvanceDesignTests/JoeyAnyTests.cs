@@ -38,7 +38,7 @@ namespace CSharpAdvanceDesignTests
         public void any_number_greater_than_91()
         {
             var numbers = new[] { 87, 88, 91, 93, 0 };
-            var actual = numbers.JoeyAnyWithCondition(number => number > 91);
+            var actual = numbers.JoeyAny(number => number > 91);
             Assert.IsTrue(actual);
         }
     }
