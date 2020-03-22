@@ -53,9 +53,18 @@ namespace CSharpAdvanceDesignTests
 
         private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> employees)
         {
-            throw new System.NotImplementedException();
-        }
+            var enumerator = employees.GetEnumerator();
+            var last = default(Employee);
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.LastName == "Chen")
+                {
+                    last = enumerator.Current;
+                }
+            }
 
+            return last;
+        }
 
         private Employee JoeyLastOrDefault(IEnumerable<Employee> employees)
         {
