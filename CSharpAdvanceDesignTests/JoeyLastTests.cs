@@ -54,9 +54,42 @@ namespace CSharpAdvanceDesignTests
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
+        [Test]
+        public void get_last_chen_when_no_match()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chang"},
+                new Employee {FirstName = "David", LastName = "Change"},
+                new Employee {FirstName = "Cash", LastName = "Li"},
+            };
+
+            TestDelegate action = () => JoeyLastWithCondition(employees);
+            Assert.Throws<InvalidOperationException>(action);
+        }
+
         private Employee JoeyLastWithCondition(IEnumerable<Employee> employees)
         {
-            throw new NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+            var last = enumerator.Current;
+            var found = false;
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.LastName == "Chen")
+                {
+                    last = enumerator.Current;
+                    found = true;
+                }
+
+            }
+
+            if (found)
+            {
+                return last;
+            }
+
+            throw new InvalidOperationException();
         }
 
         private Employee JoeyLast(IEnumerable<Employee> employees)
