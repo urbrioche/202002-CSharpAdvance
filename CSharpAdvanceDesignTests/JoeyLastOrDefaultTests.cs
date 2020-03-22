@@ -4,6 +4,7 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using ExpectedObjects;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -14,7 +15,7 @@ namespace CSharpAdvanceDesignTests
         public void get_null_when_employees_is_empty()
         {
             var employees = new List<Employee>();
-            var actual = JoeyLastOrDefault(employees);
+            var actual = LinqExtensions.JoeyLastOrDefault(employees);
             Assert.IsNull(actual);
         }
 
@@ -29,7 +30,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLastOrDefault(employees);
+            var employee = LinqExtensions.JoeyLastOrDefault(employees);
 
             new Employee { FirstName = "Cash", LastName = "Li" }
                 .ToExpectedObject().ShouldMatch(employee);
@@ -46,43 +47,10 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLastOrDefault(employees, current => current.LastName == "Chen");
+            var employee = LinqExtensions.JoeyLastOrDefault(employees, current => current.LastName == "Chen");
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
-        }
-
-        private static TSource JoeyLastOrDefault<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
-        {
-            var enumerator = source.GetEnumerator();
-            var last = default(TSource);
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                if (predicate(current))
-                {
-                    last = current;
-                }
-            }
-
-            return last;
-        }
-
-        private static TSource JoeyLastOrDefault<TSource>(IEnumerable<TSource> source)
-        {
-            var enumerator = source.GetEnumerator();
-            if (!enumerator.MoveNext())
-            {
-                return default(TSource);
-            }
-
-            var last = enumerator.Current;
-            while (enumerator.MoveNext())
-            {
-                last = enumerator.Current;
-            }
-
-            return last;
         }
     }
 }

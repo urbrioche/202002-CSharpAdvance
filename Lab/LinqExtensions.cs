@@ -202,5 +202,38 @@ namespace Lab
         {
             return source.JoeyLast(employee => true);
         }
+
+        public static TSource JoeyLastOrDefault<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+            var last = default(TSource);
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    last = current;
+                }
+            }
+
+            return last;
+        }
+
+        public static TSource JoeyLastOrDefault<TSource>(IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                return default(TSource);
+            }
+
+            var last = enumerator.Current;
+            while (enumerator.MoveNext())
+            {
+                last = enumerator.Current;
+            }
+
+            return last;
+        }
     }
 }
