@@ -94,19 +94,7 @@ namespace CSharpAdvanceDesignTests
 
         private Employee JoeyLast(IEnumerable<Employee> employees)
         {
-            var enumerator = employees.GetEnumerator();
-            if (!enumerator.MoveNext())
-            {
-                throw new InvalidOperationException();
-            }
-
-            var last = enumerator.Current;
-            while (enumerator.MoveNext())
-            {
-                last = enumerator.Current;
-            }
-
-            return last;
+            return JoeyLastWithCondition(employees, employee => true);
         }
     }
 }
