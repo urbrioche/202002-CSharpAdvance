@@ -46,13 +46,13 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLastOrDefaultWithCondition(employees, current => current.LastName == "Chen");
+            var employee = JoeyLastOrDefault(employees, current => current.LastName == "Chen");
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
-        private static TSource JoeyLastOrDefaultWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        private static TSource JoeyLastOrDefault<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             var last = default(TSource);
