@@ -52,7 +52,7 @@ namespace CSharpAdvanceDesignTests
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
-        private TSource JoeyLastOrDefaultWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        private static TSource JoeyLastOrDefaultWithCondition<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             var last = default(TSource);
@@ -68,7 +68,7 @@ namespace CSharpAdvanceDesignTests
             return last;
         }
 
-        private TSource JoeyLastOrDefault<TSource>(IEnumerable<TSource> source)
+        private static TSource JoeyLastOrDefault<TSource>(IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
             if (!enumerator.MoveNext())
