@@ -34,6 +34,29 @@ namespace CSharpAdvanceDesignTests
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
+        [Test]
+        public void get_last_employee_last_name_is_Chen()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"},
+                new Employee {FirstName = "Cash", LastName = "Li"},
+            };
+
+            var employee = JoeyLastOrDefaultWithCondition(employees);
+
+            new Employee { FirstName = "David", LastName = "Chen" }
+                .ToExpectedObject().ShouldMatch(employee);
+        }
+
+        private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> employees)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
         private Employee JoeyLastOrDefault(IEnumerable<Employee> employees)
         {
             var enumerator = employees.GetEnumerator();
