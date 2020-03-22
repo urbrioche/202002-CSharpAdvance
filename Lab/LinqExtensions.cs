@@ -174,5 +174,33 @@ namespace Lab
 
             throw new InvalidOperationException($"{nameof(source)} is empty");
         }
+
+        public static TSource JoeyLast<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            var enumerator = source.GetEnumerator();
+            var last = default(TSource);
+            var found = false;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    last = current;
+                    found = true;
+                }
+            }
+
+            if (found)
+            {
+                return last;
+            }
+
+            throw new InvalidOperationException();
+        }
+
+        public static TSource JoeyLast<TSource>(IEnumerable<TSource> source)
+        {
+            return LinqExtensions.JoeyLast(source, employee => true);
+        }
     }
 }

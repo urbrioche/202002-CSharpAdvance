@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExpectedObjects;
+using Lab;
 using Lab.Entities;
 using NUnit.Framework;
 
@@ -20,7 +21,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLast(employees);
+            var employee = LinqExtensions.JoeyLast(employees);
 
             new Employee { FirstName = "Cash", LastName = "Li" }
                 .ToExpectedObject().ShouldMatch(employee);
@@ -33,7 +34,7 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            TestDelegate action = () => JoeyLast(employees);
+            TestDelegate action = () => LinqExtensions.JoeyLast(employees);
             Assert.Throws<InvalidOperationException>(action);
         }
 
@@ -48,7 +49,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLast(employees, emp => emp.LastName == "Chen");
+            var employee = LinqExtensions.JoeyLast(employees, emp => emp.LastName == "Chen");
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
@@ -65,36 +66,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            TestDelegate action = () => JoeyLast(employees, employee => employee.LastName == "Chen");
+            TestDelegate action = () => LinqExtensions.JoeyLast(employees, employee => employee.LastName == "Chen");
             Assert.Throws<InvalidOperationException>(action);
-        }
-
-        private static TSource JoeyLast<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
-        {
-            var enumerator = source.GetEnumerator();
-            var last = default(TSource);
-            var found = false;
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                if (predicate(current))
-                {
-                    last = current;
-                    found = true;
-                }
-            }
-
-            if (found)
-            {
-                return last;
-            }
-
-            throw new InvalidOperationException();
-        }
-
-        private static TSource JoeyLast<TSource>(IEnumerable<TSource> source)
-        {
-            return JoeyLast(source, employee => true);
         }
     }
 }
