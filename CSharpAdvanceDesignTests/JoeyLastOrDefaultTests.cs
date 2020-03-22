@@ -1,4 +1,5 @@
-﻿using Lab.Entities;
+﻿using System;
+using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
@@ -45,21 +46,22 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLastOrDefaultWithCondition(employees);
+            var employee = JoeyLastOrDefaultWithCondition(employees, current => current.LastName == "Chen");
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
-        private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> employees)
+        private Employee JoeyLastOrDefaultWithCondition(IEnumerable<Employee> employees, Func<Employee, bool> predicate)
         {
             var enumerator = employees.GetEnumerator();
             var last = default(Employee);
             while (enumerator.MoveNext())
             {
-                if (enumerator.Current.LastName == "Chen")
+                var current = enumerator.Current;
+                if (predicate(current))
                 {
-                    last = enumerator.Current;
+                    last = current;
                 }
             }
 
