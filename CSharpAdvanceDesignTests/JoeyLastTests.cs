@@ -92,9 +92,9 @@ namespace CSharpAdvanceDesignTests
             throw new InvalidOperationException();
         }
 
-        private Employee JoeyLast(IEnumerable<Employee> employees)
+        private TSource JoeyLast<TSource>(IEnumerable<TSource> source)
         {
-            return JoeyLast(employees, employee => true);
+            return JoeyLast(source, employee => true);
         }
     }
 }
