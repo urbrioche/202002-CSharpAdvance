@@ -21,7 +21,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = LinqExtensions.JoeyLast(employees);
+            var employee = employees.JoeyLast();
 
             new Employee { FirstName = "Cash", LastName = "Li" }
                 .ToExpectedObject().ShouldMatch(employee);
@@ -34,7 +34,7 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            TestDelegate action = () => LinqExtensions.JoeyLast(employees);
+            TestDelegate action = () => employees.JoeyLast();
             Assert.Throws<InvalidOperationException>(action);
         }
 
@@ -49,7 +49,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = LinqExtensions.JoeyLast(employees, emp => emp.LastName == "Chen");
+            var employee = employees.JoeyLast(emp => emp.LastName == "Chen");
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
@@ -66,7 +66,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            TestDelegate action = () => LinqExtensions.JoeyLast(employees, employee => employee.LastName == "Chen");
+            TestDelegate action = () => employees.JoeyLast(employee => employee.LastName == "Chen");
             Assert.Throws<InvalidOperationException>(action);
         }
     }
