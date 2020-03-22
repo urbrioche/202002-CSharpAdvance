@@ -48,7 +48,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLastWithCondition(employees);
+            var employee = JoeyLastWithCondition(employees, current => current.LastName == "Chen");
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
@@ -65,23 +65,23 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            TestDelegate action = () => JoeyLastWithCondition(employees);
+            TestDelegate action = () => JoeyLastWithCondition(employees, current => current.LastName == "Chen");
             Assert.Throws<InvalidOperationException>(action);
         }
 
-        private Employee JoeyLastWithCondition(IEnumerable<Employee> employees)
+        private Employee JoeyLastWithCondition(IEnumerable<Employee> employees, Func<Employee, bool> predicate)
         {
             var enumerator = employees.GetEnumerator();
-            var last = enumerator.Current;
+            Employee last = null;
             var found = false;
             while (enumerator.MoveNext())
             {
-                if (enumerator.Current.LastName == "Chen")
+                var current = enumerator.Current;
+                if (predicate(current))
                 {
-                    last = enumerator.Current;
+                    last = current;
                     found = true;
                 }
-
             }
 
             if (found)
