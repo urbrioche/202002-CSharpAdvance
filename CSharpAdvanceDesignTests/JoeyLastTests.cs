@@ -69,7 +69,7 @@ namespace CSharpAdvanceDesignTests
             Assert.Throws<InvalidOperationException>(action);
         }
 
-        private TSource JoeyLast<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        private static TSource JoeyLast<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             var last = default(TSource);
@@ -92,7 +92,7 @@ namespace CSharpAdvanceDesignTests
             throw new InvalidOperationException();
         }
 
-        private TSource JoeyLast<TSource>(IEnumerable<TSource> source)
+        private static TSource JoeyLast<TSource>(IEnumerable<TSource> source)
         {
             return JoeyLast(source, employee => true);
         }
