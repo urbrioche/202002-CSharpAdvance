@@ -45,9 +45,9 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyDistinct(IEnumerable<Employee> employees, IEqualityComparer<Employee> comparer)
+        private IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
         {
-            return new HashSet<Employee>(employees, comparer);
+            return new HashSet<TSource>(source, comparer);
         }
 
         private IEnumerable<int> Distinct(IEnumerable<int> numbers)
