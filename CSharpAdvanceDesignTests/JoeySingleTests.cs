@@ -15,7 +15,7 @@ namespace CSharpAdvanceDesignTests
         public void no_girls()
         {
             var girls = new Girl[] { };
-            TestDelegate action = () => LinqExtensions.JoeySingle(girls);
+            TestDelegate action = () => girls.JoeySingle();
             Assert.Throws<InvalidOperationException>(action);
         }
 
@@ -26,7 +26,7 @@ namespace CSharpAdvanceDesignTests
             {
                 new Girl() {Name = "May"},
             };
-            var girl = LinqExtensions.JoeySingle(girls);
+            var girl = girls.JoeySingle();
 
             new Girl() {Name = "May"}.ToExpectedObject().ShouldMatch(girl);
         }
@@ -39,7 +39,7 @@ namespace CSharpAdvanceDesignTests
                 new Girl() {Name = "May"},
                 new Girl() {Name = "Jessica"},
             };
-            TestDelegate action = () => LinqExtensions.JoeySingle(girls);
+            TestDelegate action = () => girls.JoeySingle();
             Assert.Throws<InvalidOperationException>(action);
         }
     }

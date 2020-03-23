@@ -236,7 +236,7 @@ namespace Lab
             return last;
         }
 
-        public static TSource JoeySingle<TSource>(IEnumerable<TSource> source)
+        public static TSource JoeySingle<TSource>(this IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
             if (!enumerator.MoveNext())
