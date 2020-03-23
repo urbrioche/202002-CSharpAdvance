@@ -42,24 +42,23 @@ namespace CSharpAdvanceDesignTests
             Assert.Throws<InvalidOperationException>(action);
         }
 
-        private Girl JoeySingle(IEnumerable<Girl> girls)
+        private TSource JoeySingle<TSource>(IEnumerable<TSource> source)
         {
-            var enumerator = girls.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             if (!enumerator.MoveNext())
             {
                 throw new InvalidOperationException();
             }
 
-            var girl = enumerator.Current;
+            var current = enumerator.Current;
 
             if (enumerator.MoveNext())
             {
                 throw new InvalidOperationException();
             }
 
-            return girl;
+            return current;
 
-            throw new System.NotImplementedException();
         }
     }
 }
