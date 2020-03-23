@@ -30,7 +30,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TSource> JoeyReverse<TSource>(IEnumerable<TSource> source)
+        private static IEnumerable<TSource> JoeyReverse<TSource>(IEnumerable<TSource> source)
         {
             return new Stack<TSource>(source);
         }
