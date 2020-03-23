@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using Lab;
 using Lab.Entities;
 
 namespace CSharpAdvanceDesignTests
@@ -31,7 +32,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyDistinct(employees);
+            IEqualityComparer<Employee> comparer = new FullNameEqualityComparer();
+            var actual = JoeyDistinct(employees, comparer);
 
             var expected = new[]
             {
@@ -43,27 +45,14 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyDistinct(IEnumerable<Employee> employees)
+        private IEnumerable<Employee> JoeyDistinct(IEnumerable<Employee> employees, IEqualityComparer<Employee> comparer)
         {
-            return new HashSet<Employee>(employees, new FullNameEqualityComparer());
+            return new HashSet<Employee>(employees, comparer);
         }
 
         private IEnumerable<int> Distinct(IEnumerable<int> numbers)
         {
             return new HashSet<int>(numbers);
-        }
-    }
-
-    internal class FullNameEqualityComparer : IEqualityComparer<Employee>
-    {
-        public bool Equals(Employee x, Employee y)
-        {
-            return x.FirstName == y.FirstName && x.LastName == y.LastName;
-        }
-
-        public int GetHashCode(Employee obj)
-        {
-            return new {obj.FirstName, obj.LastName}.GetHashCode();
         }
     }
 }
