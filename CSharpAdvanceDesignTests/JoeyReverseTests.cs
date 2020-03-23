@@ -19,7 +19,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee(){FirstName = "David",LastName = "Wang"},
             };
 
-            var actual = LinqExtensions.JoeyReverse(employees);
+            var actual = employees.JoeyReverse();
 
             var expected = new List<Employee>
             {
