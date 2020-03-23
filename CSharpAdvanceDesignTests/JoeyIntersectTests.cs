@@ -13,7 +13,7 @@ namespace CSharpAdvanceDesignTests
         {
             var first = new[] { 1, 3, 5, 3 };
             var second = new[] { 5, 7, 3, 7 };
-            var actual = LinqExtensions.JoeyIntersect(first, second);
+            var actual = first.JoeyIntersect(second);
 
             var expected = new[] { 3, 5 };
 

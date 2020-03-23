@@ -296,7 +296,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeyIntersect<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
+        public static IEnumerable<TSource> JoeyIntersect<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
             var hashSet = new HashSet<TSource>(second);
             var enumerator = first.GetEnumerator();
