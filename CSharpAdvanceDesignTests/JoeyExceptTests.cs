@@ -31,7 +31,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TSource> JoeyExcept<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
+        private static IEnumerable<TSource> JoeyExcept<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
             var hashSet = new HashSet<TSource>(second);
             var enumerator = first.GetEnumerator();
