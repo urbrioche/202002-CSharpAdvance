@@ -1,6 +1,7 @@
 ﻿using ExpectedObjects;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -13,7 +14,7 @@ namespace CSharpAdvanceDesignTests
             var first = new[] { 1, 3, 5, 7, 3 };
             var second = new[] { 7, 1, 4, 1 };
 
-            var actual = JoeyExcept(first, second);
+            var actual = LinqExtensions.JoeyExcept(first, second);
             var expected = new[] { 3, 5 };
 
             expected.ToExpectedObject().ShouldMatch(actual);
@@ -25,25 +26,10 @@ namespace CSharpAdvanceDesignTests
             var first = new[] { 1, 3, 5, 7, 3 };
             var second = new[] { 7, 1, 4, 1 };
 
-            var actual = JoeyExcept(second, first);
+            var actual = LinqExtensions.JoeyExcept(second, first);
             var expected = new[] { 4 };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private static IEnumerable<TSource> JoeyExcept<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
-        {
-            var hashSet = new HashSet<TSource>(second);
-            var enumerator = first.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-
-                if (hashSet.Add(current))
-                {
-                    yield return current;
-                }
-            }
         }
     }
 }
