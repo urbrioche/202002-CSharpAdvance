@@ -14,7 +14,7 @@ namespace CSharpAdvanceDesignTests
             var first = new[] { 1, 3, 5, 7, 3 };
             var second = new[] { 7, 1, 4, 1 };
 
-            var actual = LinqExtensions.JoeyExcept(first, second);
+            var actual = first.JoeyExcept(second);
             var expected = new[] { 3, 5 };
 
             expected.ToExpectedObject().ShouldMatch(actual);
@@ -26,7 +26,7 @@ namespace CSharpAdvanceDesignTests
             var first = new[] { 1, 3, 5, 7, 3 };
             var second = new[] { 7, 1, 4, 1 };
 
-            var actual = LinqExtensions.JoeyExcept(second, first);
+            var actual = second.JoeyExcept(first);
             var expected = new[] { 4 };
 
             expected.ToExpectedObject().ShouldMatch(actual);
