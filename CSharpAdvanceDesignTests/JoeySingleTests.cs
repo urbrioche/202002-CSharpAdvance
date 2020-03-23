@@ -42,7 +42,7 @@ namespace CSharpAdvanceDesignTests
             Assert.Throws<InvalidOperationException>(action);
         }
 
-        private TSource JoeySingle<TSource>(IEnumerable<TSource> source)
+        private static TSource JoeySingle<TSource>(IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
             if (!enumerator.MoveNext())
