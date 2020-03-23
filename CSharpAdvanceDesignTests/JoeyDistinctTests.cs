@@ -14,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         public void distinct_numbers()
         {
             var numbers = new[] { 91, 3, 91, -1 };
-            var actual = JoeyDistinct(numbers);
+            var actual = LinqExtensions.JoeyDistinct(numbers);
 
             var expected = new[] { 91, 3, -1 };
 
@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             IEqualityComparer<Employee> comparer = new FullNameEqualityComparer();
-            var actual = JoeyDistinct(employees, comparer);
+            var actual = LinqExtensions.JoeyDistinct(employees, comparer);
 
             var expected = new[]
             {
@@ -43,16 +43,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private static IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
-        {
-            return new HashSet<TSource>(source, comparer);
-        }
-
-        private static IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source)
-        {
-            return JoeyDistinct(source, EqualityComparer<TSource>.Default);
         }
     }
 }
