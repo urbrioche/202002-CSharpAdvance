@@ -19,9 +19,9 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<int> JoeyIntersect(IEnumerable<int> first, IEnumerable<int> second)
+        private IEnumerable<TSource> JoeyIntersect<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
-            var hashSet = new HashSet<int>(second);
+            var hashSet = new HashSet<TSource>(second);
             var enumerator = first.GetEnumerator();
             while (enumerator.MoveNext())
             {
