@@ -50,9 +50,9 @@ namespace CSharpAdvanceDesignTests
             return new HashSet<TSource>(source, comparer);
         }
 
-        private IEnumerable<int> Distinct(IEnumerable<int> numbers)
+        private IEnumerable<TSource> Distinct<TSource>(IEnumerable<TSource> source)
         {
-            return new HashSet<int>(numbers);
+            return new HashSet<TSource>(source, EqualityComparer<TSource>.Default);
         }
     }
 }
