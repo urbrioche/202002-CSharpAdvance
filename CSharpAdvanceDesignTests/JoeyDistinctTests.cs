@@ -14,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         public void distinct_numbers()
         {
             var numbers = new[] { 91, 3, 91, -1 };
-            var actual = Distinct(numbers);
+            var actual = JoeyDistinct(numbers);
 
             var expected = new[] { 91, 3, -1 };
 
@@ -50,9 +50,9 @@ namespace CSharpAdvanceDesignTests
             return new HashSet<TSource>(source, comparer);
         }
 
-        private IEnumerable<TSource> Distinct<TSource>(IEnumerable<TSource> source)
+        private IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source)
         {
-            return new HashSet<TSource>(source, EqualityComparer<TSource>.Default);
+            return JoeyDistinct(source, EqualityComparer<TSource>.Default);
         }
     }
 }
