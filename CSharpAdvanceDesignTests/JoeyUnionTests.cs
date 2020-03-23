@@ -14,7 +14,7 @@ namespace CSharpAdvanceDesignTests
             var first = new[] { 1, 3, 5, 3 };
             var second = new[] { 5, 3, 7 };
 
-            var actual = LinqExtensions.JoeyUnion(first, second);
+            var actual = first.JoeyUnion(second);
             var expected = new[] { 1, 3, 5, 7 };
 
             expected.ToExpectedObject().ShouldMatch(actual);

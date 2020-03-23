@@ -270,7 +270,7 @@ namespace Lab
             return source.JoeyDistinct(EqualityComparer<TSource>.Default);
         }
 
-        public static IEnumerable<TSource> JoeyUnion<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
+        public static IEnumerable<TSource> JoeyUnion<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
             var hashSet = new HashSet<TSource>();
             var firstEnumerator = first.GetEnumerator();
