@@ -235,5 +235,24 @@ namespace Lab
 
             return last;
         }
+
+        public static TSource JoeySingle<TSource>(IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException();
+            }
+
+            var current = enumerator.Current;
+
+            if (enumerator.MoveNext())
+            {
+                throw new InvalidOperationException();
+            }
+
+            return current;
+
+        }
     }
 }
