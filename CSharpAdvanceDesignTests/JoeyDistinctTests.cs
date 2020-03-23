@@ -14,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         public void distinct_numbers()
         {
             var numbers = new[] { 91, 3, 91, -1 };
-            var actual = LinqExtensions.JoeyDistinct(numbers);
+            var actual = numbers.JoeyDistinct();
 
             var expected = new[] { 91, 3, -1 };
 
@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             IEqualityComparer<Employee> comparer = new FullNameEqualityComparer();
-            var actual = LinqExtensions.JoeyDistinct(employees, comparer);
+            var actual = employees.JoeyDistinct(comparer);
 
             var expected = new[]
             {

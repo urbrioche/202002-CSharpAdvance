@@ -260,14 +260,14 @@ namespace Lab
             return new Stack<TSource>(source);
         }
 
-        public static IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
+        public static IEnumerable<TSource> JoeyDistinct<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
         {
             return new HashSet<TSource>(source, comparer);
         }
 
-        public static IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source)
+        public static IEnumerable<TSource> JoeyDistinct<TSource>(this IEnumerable<TSource> source)
         {
-            return JoeyDistinct(source, EqualityComparer<TSource>.Default);
+            return source.JoeyDistinct(EqualityComparer<TSource>.Default);
         }
     }
 }
