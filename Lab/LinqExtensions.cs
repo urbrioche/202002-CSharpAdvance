@@ -269,5 +269,31 @@ namespace Lab
         {
             return source.JoeyDistinct(EqualityComparer<TSource>.Default);
         }
+
+        public static IEnumerable<TSource> JoeyUnion<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
+        {
+            var hashSet = new HashSet<TSource>();
+            var firstEnumerator = first.GetEnumerator();
+            while (firstEnumerator.MoveNext())
+            {
+                var current = firstEnumerator.Current;
+                if (hashSet.Add(current))
+                {
+                    yield return current;
+                }
+                
+            }
+
+            var secondEnumerator = second.GetEnumerator();
+            while (secondEnumerator.MoveNext())
+            {
+                var current = secondEnumerator.Current;
+
+                if (hashSet.Add(current))
+                {
+                    yield return current;
+                }
+            }
+        }
     }
 }
