@@ -45,12 +45,12 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
+        private static IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
         {
             return new HashSet<TSource>(source, comparer);
         }
 
-        private IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source)
+        private static IEnumerable<TSource> JoeyDistinct<TSource>(IEnumerable<TSource> source)
         {
             return JoeyDistinct(source, EqualityComparer<TSource>.Default);
         }
