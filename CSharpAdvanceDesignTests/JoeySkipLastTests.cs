@@ -43,6 +43,17 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
+        [Test]
+        public void skip_last_0()
+        {
+            var numbers = new[] { 10, 20, 30, 40, 50 };
+            var actual = JoeySkipLast(numbers, 0);
+
+            var expected = new[] { 10, 20, 30, 40, 50 };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
         private IEnumerable<int> JoeySkipLast(IEnumerable<int> numbers, int count)
         {
             var queue = new Queue<int>();
