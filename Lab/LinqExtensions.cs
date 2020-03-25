@@ -324,5 +324,41 @@ namespace Lab
                 }
             }
         }
+
+        public static IEnumerable<TSource> JoeySkipLast<TSource>(IEnumerable<TSource> numbers, int count)
+        {
+            if (count <= 0)
+            {
+                return numbers;
+            }
+
+
+            return _(); IEnumerable<TSource> _()
+            {
+                var queue = new Queue<TSource>();
+                var enumerator = numbers.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    var current = enumerator.Current;
+                    if (queue.Count == count)
+                    {
+                        yield return queue.Dequeue();
+                    }
+
+                    queue.Enqueue(current);
+                }
+
+            }
+            //var queue = new Queue<int>(numbers);
+
+            //var enumerator = numbers.GetEnumerator();
+            //while (enumerator.MoveNext())
+            //{
+            //    if (queue.Count > count)
+            //    {
+            //        yield return queue.Dequeue();
+            //    }
+            //}
+        }
     }
 }
