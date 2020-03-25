@@ -54,7 +54,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<int> JoeySkipLast(IEnumerable<int> numbers, int count)
+        private IEnumerable<TSource> JoeySkipLast<TSource>(IEnumerable<TSource> numbers, int count)
         {
             if (count <= 0)
             {
@@ -62,9 +62,9 @@ namespace CSharpAdvanceDesignTests
             }
 
 
-            return _(); IEnumerable<int> _()
+            return _(); IEnumerable<TSource> _()
             {
-                var queue = new Queue<int>();
+                var queue = new Queue<TSource>();
                 var enumerator = numbers.GetEnumerator();
                 while (enumerator.MoveNext())
                 {
