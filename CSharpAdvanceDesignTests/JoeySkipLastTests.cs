@@ -54,7 +54,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TSource> JoeySkipLast<TSource>(IEnumerable<TSource> numbers, int count)
+        private static IEnumerable<TSource> JoeySkipLast<TSource>(IEnumerable<TSource> numbers, int count)
         {
             if (count <= 0)
             {
