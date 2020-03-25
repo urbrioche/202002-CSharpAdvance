@@ -14,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         public void skip_last_2()
         {
             var numbers = new[] { 10, 20, 30, 40, 50 };
-            var actual = LinqExtensions.JoeySkipLast(numbers, 2);
+            var actual = numbers.JoeySkipLast(2);
 
             var expected = new[] { 10, 20, 30 };
 
@@ -26,7 +26,7 @@ namespace CSharpAdvanceDesignTests
         public void skip_last_2_with_2_numbers()
         {
             var numbers = new[] { 40, 50 };
-            var actual = LinqExtensions.JoeySkipLast(numbers, 2);
+            var actual = numbers.JoeySkipLast(2);
 
             var expected = new int[] { };
 
@@ -37,7 +37,7 @@ namespace CSharpAdvanceDesignTests
         public void skip_last_2_with_1_numbers()
         {
             var numbers = new[] { 40 };
-            var actual = LinqExtensions.JoeySkipLast(numbers, 2);
+            var actual = numbers.JoeySkipLast(2);
 
             var expected = new int[] { };
 
@@ -48,7 +48,7 @@ namespace CSharpAdvanceDesignTests
         public void skip_last_0()
         {
             var numbers = new[] { 10, 20, 30, 40, 50 };
-            var actual = LinqExtensions.JoeySkipLast(numbers, 0);
+            var actual = numbers.JoeySkipLast(0);
 
             var expected = new[] { 10, 20, 30, 40, 50 };
 

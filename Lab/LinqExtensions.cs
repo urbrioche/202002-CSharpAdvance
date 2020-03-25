@@ -325,7 +325,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeySkipLast<TSource>(IEnumerable<TSource> numbers, int count)
+        public static IEnumerable<TSource> JoeySkipLast<TSource>(this IEnumerable<TSource> numbers, int count)
         {
             if (count <= 0)
             {
