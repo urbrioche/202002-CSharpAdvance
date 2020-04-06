@@ -43,17 +43,22 @@ namespace CSharpAdvanceDesignTests
             {
                 var employee = enumerator.Current;
 
-                if (lookup.ContainsKey(employee.LastName))
-                {
-                    lookup[employee.LastName].Add(employee);
-                }
-                else
-                {
-                    lookup.Add(employee.LastName, new List<Employee> { employee });
-                }
+                AddElement(lookup, employee);
             }
 
             return ConvertToMyGrouping(lookup);
+        }
+
+        private static void AddElement(Dictionary<string, List<Employee>> lookup, Employee employee)
+        {
+            if (lookup.ContainsKey(employee.LastName))
+            {
+                lookup[employee.LastName].Add(employee);
+            }
+            else
+            {
+                lookup.Add(employee.LastName, new List<Employee> {employee});
+            }
         }
 
         private static IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
