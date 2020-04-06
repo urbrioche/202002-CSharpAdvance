@@ -53,6 +53,11 @@ namespace CSharpAdvanceDesignTests
                 }
             }
 
+            return ConvertToMyGrouping(lookup);
+        }
+
+        private static IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
+        {
             var lookupEnumerator = lookup.GetEnumerator();
             while (lookupEnumerator.MoveNext())
             {
