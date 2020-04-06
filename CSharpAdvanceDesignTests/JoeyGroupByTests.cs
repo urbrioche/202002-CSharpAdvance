@@ -18,7 +18,17 @@ namespace CSharpAdvanceDesignTests
             }
             else
             {
-                lookup.Add(employee.LastName, new List<Employee> {employee});
+                lookup.Add(employee.LastName, new List<Employee> { employee });
+            }
+        }
+
+        public IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
+        {
+            var lookupEnumerator = lookup.GetEnumerator();
+            while (lookupEnumerator.MoveNext())
+            {
+                var keyValuePair = lookupEnumerator.Current;
+                yield return new MyGrouping(keyValuePair.Key, keyValuePair.Value);
             }
         }
     }
@@ -63,17 +73,7 @@ namespace CSharpAdvanceDesignTests
                 _myLookup.AddElement(lookup, employee);
             }
 
-            return ConvertToMyGrouping(lookup);
-        }
-
-        private static IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
-        {
-            var lookupEnumerator = lookup.GetEnumerator();
-            while (lookupEnumerator.MoveNext())
-            {
-                var keyValuePair = lookupEnumerator.Current;
-                yield return new MyGrouping(keyValuePair.Key, keyValuePair.Value);
-            }
+            return _myLookup.ConvertToMyGrouping(lookup);
         }
     }
 
