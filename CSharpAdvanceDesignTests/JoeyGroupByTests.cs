@@ -10,16 +10,17 @@ namespace CSharpAdvanceDesignTests
 {
     public class MyLookup
     {
+        private Dictionary<string, List<Employee>> _lookup = new Dictionary<string, List<Employee>>();
+
         public void AddElement(Employee employee)
         {
-            Dictionary<string, List<Employee>> lookup = new Dictionary<string, List<Employee>>();
-            if (lookup.ContainsKey(employee.LastName))
+            if (_lookup.ContainsKey(employee.LastName))
             {
-                lookup[employee.LastName].Add(employee);
+                _lookup[employee.LastName].Add(employee);
             }
             else
             {
-                lookup.Add(employee.LastName, new List<Employee> { employee });
+                _lookup.Add(employee.LastName, new List<Employee> { employee });
             }
         }
 
