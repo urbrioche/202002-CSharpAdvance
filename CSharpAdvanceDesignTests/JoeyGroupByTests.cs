@@ -64,16 +64,15 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<IGrouping<string, Employee>> JoeyGroupBy(IEnumerable<Employee> employees)
         {
-            var lookup = new Dictionary<string, List<Employee>>();
             var enumerator = employees.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var employee = enumerator.Current;
 
-                _myLookup.AddElement(lookup, employee);
+                _myLookup.AddElement(new Dictionary<string, List<Employee>>(), employee);
             }
 
-            return _myLookup.ConvertToMyGrouping(lookup);
+            return _myLookup.ConvertToMyGrouping(new Dictionary<string, List<Employee>>());
         }
     }
 
