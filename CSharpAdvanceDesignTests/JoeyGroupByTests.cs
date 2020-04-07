@@ -26,7 +26,7 @@ namespace CSharpAdvanceDesignTests
 
         public IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
         {
-            var lookupEnumerator = lookup.GetEnumerator();
+            var lookupEnumerator = _lookup.GetEnumerator();
             while (lookupEnumerator.MoveNext())
             {
                 var keyValuePair = lookupEnumerator.Current;
