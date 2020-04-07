@@ -2,49 +2,12 @@
 using Lab.Entities;
 using NUnit.Framework;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class MyLookup: IEnumerable<IGrouping<string, Employee>>
-    {
-        private Dictionary<string, List<Employee>> _lookup = new Dictionary<string, List<Employee>>();
-
-        public void AddElement(Employee employee)
-        {
-            if (_lookup.ContainsKey(employee.LastName))
-            {
-                _lookup[employee.LastName].Add(employee);
-            }
-            else
-            {
-                _lookup.Add(employee.LastName, new List<Employee> { employee });
-            }
-        }
-
-        public IEnumerator<IGrouping<string, Employee>> ConvertToMyGrouping()
-        {
-            var lookupEnumerator = _lookup.GetEnumerator();
-            while (lookupEnumerator.MoveNext())
-            {
-                var keyValuePair = lookupEnumerator.Current;
-                yield return new MyGrouping(keyValuePair.Key, keyValuePair.Value);
-            }
-        }
-
-        public IEnumerator<IGrouping<string, Employee>> GetEnumerator()
-        {
-            return ConvertToMyGrouping();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-    }
-
     [TestFixture]
     public class JoeyGroupByTests
     {
@@ -85,28 +48,5 @@ namespace CSharpAdvanceDesignTests
 
             return myLookup;
         }
-    }
-
-    internal class MyGrouping : IGrouping<string, Employee>
-    {
-        private readonly List<Employee> _employees;
-
-        public MyGrouping(string key, List<Employee> employees)
-        {
-            _employees = employees;
-            Key = key;
-        }
-
-        public IEnumerator<Employee> GetEnumerator()
-        {
-            return _employees.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public string Key { get; }
     }
 }
