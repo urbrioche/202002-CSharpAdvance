@@ -361,7 +361,7 @@ namespace Lab
             //}
         }
 
-        public static IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        public static IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             var enumerator = source.GetEnumerator();
             var myLookup = new MyLookup<TKey, TSource>();
