@@ -38,7 +38,7 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<IGrouping<string, Employee>> JoeyGroupBy(IEnumerable<Employee> employees, Func<Employee, string> keySelector)
         {
             var enumerator = employees.GetEnumerator();
-            var myLookup = new MyLookup<Employee>();
+            var myLookup = new MyLookup<string, Employee>();
             while (enumerator.MoveNext())
             {
                 var employee = enumerator.Current;

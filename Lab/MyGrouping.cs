@@ -5,11 +5,11 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyGrouping<TElement> : IGrouping<string, TElement>
+    public class MyGrouping<TKey, TElement> : IGrouping<TKey, TElement>
     {
         private readonly List<TElement> _employees;
 
-        public MyGrouping(string key, List<TElement> employees)
+        public MyGrouping(TKey key, List<TElement> employees)
         {
             _employees = employees;
             Key = key;
@@ -25,6 +25,6 @@ namespace Lab
             return GetEnumerator();
         }
 
-        public string Key { get; }
+        public TKey Key { get; }
     }
 }
