@@ -35,6 +35,29 @@ namespace CSharpAdvanceDesignTests
             firstGroup.ToExpectedObject().ShouldMatch(actual.First().ToList());
         }
 
+        [Test]
+        public void groupBy_lastName_role()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Manager},
+                new Employee {FirstName = "Tom", LastName = "Lee", Role = Role.Engineer},
+                new Employee {FirstName = "Eric", LastName = "Chen", Role = Role.Manager},
+                new Employee {FirstName = "John", LastName = "Chen", Role = Role.Designer},
+                new Employee {FirstName = "David", LastName = "Lee", Role = Role.Designer},
+            };
+
+            var actual = JoeyGroupBy(employees, employee => new { employee.LastName, employee.Role });
+            Assert.AreEqual(4, actual.Count());
+            var firstGroup = new List<Employee>
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Manager},
+                new Employee {FirstName = "Eric", LastName = "Chen", Role = Role.Manager},
+            };
+
+            firstGroup.ToExpectedObject().ShouldMatch(actual.First().ToList());
+        }
+
         private IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             var enumerator = source.GetEnumerator();
