@@ -7,17 +7,17 @@ namespace Lab
 {
     public class MyLookup<TKey, TElement>: IEnumerable<IGrouping<TKey, TElement>>
     {
-        private Dictionary<TKey, List<TElement>> _lookup = new Dictionary<TKey, List<TElement>>();
+        private readonly Dictionary<TKey, List<TElement>> _lookup = new Dictionary<TKey, List<TElement>>();
 
-        public void AddElement(TElement employee, TKey lastName)
+        public void AddElement(TKey key, TElement element)
         {
-            if (_lookup.ContainsKey(lastName))
+            if (_lookup.ContainsKey(key))
             {
-                _lookup[lastName].Add(employee);
+                _lookup[key].Add(element);
             }
             else
             {
-                _lookup.Add(lastName, new List<TElement> { employee });
+                _lookup.Add(key, new List<TElement> { element });
             }
         }
 
