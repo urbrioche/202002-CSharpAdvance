@@ -58,7 +58,7 @@ namespace CSharpAdvanceDesignTests
             firstGroup.ToExpectedObject().ShouldMatch(actual.First().ToList());
         }
 
-        private IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        private static IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             var enumerator = source.GetEnumerator();
             var myLookup = new MyLookup<TKey, TSource>();
