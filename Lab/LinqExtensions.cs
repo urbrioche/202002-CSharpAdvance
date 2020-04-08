@@ -360,5 +360,19 @@ namespace Lab
             //    }
             //}
         }
+
+        public static IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            var enumerator = source.GetEnumerator();
+            var myLookup = new MyLookup<TKey, TSource>();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+
+                myLookup.AddElement(keySelector(current), current);
+            }
+
+            return myLookup;
+        }
     }
 }
