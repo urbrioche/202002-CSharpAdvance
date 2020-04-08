@@ -23,7 +23,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Lee"},
             };
 
-            var actual = JoeyGroupBy(employees);
+            var actual = JoeyGroupBy(employees, employee => employee.LastName);
             Assert.AreEqual(2, actual.Count());
             var firstGroup = new List<Employee>
             {
@@ -35,7 +35,7 @@ namespace CSharpAdvanceDesignTests
             firstGroup.ToExpectedObject().ShouldMatch(actual.First().ToList());
         }
 
-        private IEnumerable<IGrouping<string, Employee>> JoeyGroupBy(IEnumerable<Employee> employees)
+        private IEnumerable<IGrouping<string, Employee>> JoeyGroupBy(IEnumerable<Employee> employees, Func<Employee, string> keySelector)
         {
             var enumerator = employees.GetEnumerator();
             var myLookup = new MyLookup();
@@ -43,7 +43,7 @@ namespace CSharpAdvanceDesignTests
             {
                 var employee = enumerator.Current;
 
-                myLookup.AddElement(employee, employee.LastName);
+                myLookup.AddElement(employee, keySelector(employee));
             }
 
             return myLookup;
