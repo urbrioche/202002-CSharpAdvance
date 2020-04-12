@@ -81,9 +81,10 @@ namespace CSharpAdvanceDesignTests
             while (firstEnumerator.MoveNext())
             {
                 var firstCurrent = firstEnumerator.Current;
+                
                 if (sendEnumerator.MoveNext())
                 {
-                    if (firstCurrent != sendEnumerator.Current)
+                    if (!EqualityComparer<int>.Default.Equals(firstCurrent, sendEnumerator.Current))
                     {
                         return false;
                     }
