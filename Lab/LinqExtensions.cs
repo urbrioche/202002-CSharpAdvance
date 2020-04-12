@@ -374,5 +374,35 @@ namespace Lab
 
             return myLookup;
         }
+
+        public static bool JoeySequenceEqual<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
+        {
+            var firstEnumerator = first.GetEnumerator();
+            var sendEnumerator = second.GetEnumerator();
+            while (firstEnumerator.MoveNext())
+            {
+                var firstCurrent = firstEnumerator.Current;
+                
+                if (sendEnumerator.MoveNext())
+                {
+                    if (!EqualityComparer<TSource>.Default.Equals(firstCurrent, sendEnumerator.Current))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (sendEnumerator.MoveNext())
+            {
+                return false;
+            }
+
+            return true;
+
+        }
     }
 }

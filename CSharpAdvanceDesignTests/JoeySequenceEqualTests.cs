@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -14,7 +15,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int> { 3, 2, 1 };
             var second = new List<int> { 3, 2, 1 };
 
-            var actual = JoeySequenceEqual(first, second);
+            var actual = LinqExtensions.JoeySequenceEqual(first, second);
 
             Assert.IsTrue(actual);
         }
@@ -25,7 +26,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int> { 3, 2, 2 };
             var second = new List<int> { 3, 2, 1 };
 
-            var actual = JoeySequenceEqual(first, second);
+            var actual = LinqExtensions.JoeySequenceEqual(first, second);
 
             Assert.IsFalse(actual);
         }
@@ -36,7 +37,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int> { 3, 2, 1, 0 };
             var second = new List<int> { 3, 2, 1 };
 
-            var actual = JoeySequenceEqual(first, second);
+            var actual = LinqExtensions.JoeySequenceEqual(first, second);
 
             Assert.IsFalse(actual);
         }
@@ -47,7 +48,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int> { 3, 2, 1 };
             var second = new List<int> { 3, 2, 1, 0 };
 
-            var actual = JoeySequenceEqual(first, second);
+            var actual = LinqExtensions.JoeySequenceEqual(first, second);
 
             Assert.IsFalse(actual);
         }
@@ -58,7 +59,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int>();
             var second = new List<int>();
 
-            var actual = JoeySequenceEqual(first, second);
+            var actual = LinqExtensions.JoeySequenceEqual(first, second);
 
             Assert.IsTrue(actual);
         }
@@ -69,39 +70,9 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int>();
             var second = new List<int> { 1 };
 
-            var actual = JoeySequenceEqual(first, second);
+            var actual = LinqExtensions.JoeySequenceEqual(first, second);
 
             Assert.IsFalse(actual);
-        }
-
-        private static bool JoeySequenceEqual<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
-        {
-            var firstEnumerator = first.GetEnumerator();
-            var sendEnumerator = second.GetEnumerator();
-            while (firstEnumerator.MoveNext())
-            {
-                var firstCurrent = firstEnumerator.Current;
-                
-                if (sendEnumerator.MoveNext())
-                {
-                    if (!EqualityComparer<TSource>.Default.Equals(firstCurrent, sendEnumerator.Current))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            if (sendEnumerator.MoveNext())
-            {
-                return false;
-            }
-
-            return true;
-
         }
     }
 }
