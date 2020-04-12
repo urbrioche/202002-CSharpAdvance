@@ -19,6 +19,17 @@ namespace CSharpAdvanceDesignTests
             Assert.IsTrue(actual);
         }
 
+        [Test]
+        public void compare_two_numbers_equal_diff()
+        {
+            var first = new List<int> { 3, 2, 2 };
+            var second = new List<int> { 3, 2, 1 };
+
+            var actual = JoeySequenceEqual(first, second);
+
+            Assert.IsFalse(actual);
+        }
+
         private bool JoeySequenceEqual(IEnumerable<int> first, IEnumerable<int> second)
         {
             var firstEnumerator = first.GetEnumerator();
@@ -32,7 +43,6 @@ namespace CSharpAdvanceDesignTests
                     {
                         return false;
                     }
-
                 }
             }
 
