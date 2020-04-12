@@ -55,12 +55,23 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void two_empty_list()
         {
-            var first = new List<int> { };
-            var second = new List<int> { };
+            var first = new List<int>();
+            var second = new List<int>();
 
             var actual = JoeySequenceEqual(first, second);
 
             Assert.IsTrue(actual);
+        }
+
+        [Test]
+        public void two_list_first_empty()
+        {
+            var first = new List<int>();
+            var second = new List<int> { 1 };
+
+            var actual = JoeySequenceEqual(first, second);
+
+            Assert.IsFalse(actual);
         }
 
         private bool JoeySequenceEqual(IEnumerable<int> first, IEnumerable<int> second)
