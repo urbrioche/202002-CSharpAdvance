@@ -15,7 +15,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int> { 3, 2, 1 };
             var second = new List<int> { 3, 2, 1 };
 
-            var actual = LinqExtensions.JoeySequenceEqual(first, second);
+            var actual = first.JoeySequenceEqual(second);
 
             Assert.IsTrue(actual);
         }
@@ -26,7 +26,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int> { 3, 2, 2 };
             var second = new List<int> { 3, 2, 1 };
 
-            var actual = LinqExtensions.JoeySequenceEqual(first, second);
+            var actual = first.JoeySequenceEqual(second);
 
             Assert.IsFalse(actual);
         }
@@ -37,7 +37,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int> { 3, 2, 1, 0 };
             var second = new List<int> { 3, 2, 1 };
 
-            var actual = LinqExtensions.JoeySequenceEqual(first, second);
+            var actual = first.JoeySequenceEqual(second);
 
             Assert.IsFalse(actual);
         }
@@ -48,7 +48,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int> { 3, 2, 1 };
             var second = new List<int> { 3, 2, 1, 0 };
 
-            var actual = LinqExtensions.JoeySequenceEqual(first, second);
+            var actual = first.JoeySequenceEqual(second);
 
             Assert.IsFalse(actual);
         }
@@ -59,7 +59,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int>();
             var second = new List<int>();
 
-            var actual = LinqExtensions.JoeySequenceEqual(first, second);
+            var actual = first.JoeySequenceEqual(second);
 
             Assert.IsTrue(actual);
         }
@@ -70,7 +70,7 @@ namespace CSharpAdvanceDesignTests
             var first = new List<int>();
             var second = new List<int> { 1 };
 
-            var actual = LinqExtensions.JoeySequenceEqual(first, second);
+            var actual = first.JoeySequenceEqual(second);
 
             Assert.IsFalse(actual);
         }

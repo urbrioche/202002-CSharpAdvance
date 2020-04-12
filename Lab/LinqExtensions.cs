@@ -375,7 +375,7 @@ namespace Lab
             return myLookup;
         }
 
-        public static bool JoeySequenceEqual<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
+        public static bool JoeySequenceEqual<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
             var firstEnumerator = first.GetEnumerator();
             var sendEnumerator = second.GetEnumerator();
