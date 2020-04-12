@@ -30,6 +30,17 @@ namespace CSharpAdvanceDesignTests
             Assert.IsFalse(actual);
         }
 
+        [Test]
+        public void first_longer()
+        {
+            var first = new List<int> { 3, 2, 1, 0 };
+            var second = new List<int> { 3, 2, 1 };
+
+            var actual = JoeySequenceEqual(first, second);
+
+            Assert.IsFalse(actual);
+        }
+
         private bool JoeySequenceEqual(IEnumerable<int> first, IEnumerable<int> second)
         {
             var firstEnumerator = first.GetEnumerator();
@@ -43,6 +54,10 @@ namespace CSharpAdvanceDesignTests
                     {
                         return false;
                     }
+                }
+                else
+                {
+                    return false;
                 }
             }
 
