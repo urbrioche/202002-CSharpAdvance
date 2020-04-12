@@ -74,7 +74,7 @@ namespace CSharpAdvanceDesignTests
             Assert.IsFalse(actual);
         }
 
-        private bool JoeySequenceEqual<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
+        private static bool JoeySequenceEqual<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
             var firstEnumerator = first.GetEnumerator();
             var sendEnumerator = second.GetEnumerator();
