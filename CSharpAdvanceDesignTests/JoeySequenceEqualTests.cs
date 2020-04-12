@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeySequenceEqualTests
     {
         [Test]
@@ -21,7 +21,23 @@ namespace CSharpAdvanceDesignTests
 
         private bool JoeySequenceEqual(IEnumerable<int> first, IEnumerable<int> second)
         {
-            throw new NotImplementedException();
+            var firstEnumerator = first.GetEnumerator();
+            var sendEnumerator = second.GetEnumerator();
+            while (firstEnumerator.MoveNext())
+            {
+                var firstCurrent = firstEnumerator.Current;
+                if (sendEnumerator.MoveNext())
+                {
+                    if (firstCurrent != sendEnumerator.Current)
+                    {
+                        return false;
+                    }
+
+                }
+            }
+
+            return true;
+
         }
     }
 }
