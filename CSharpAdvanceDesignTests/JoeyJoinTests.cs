@@ -47,6 +47,7 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<Tuple<string, string>> JoeyJoin(IEnumerable<Employee> employees, IEnumerable<Pet> pets)
         {
             var employeeEnumerator = employees.GetEnumerator();
+            var comparer = EqualityComparer<Employee>.Default;
             while (employeeEnumerator.MoveNext())
             {
                 var employee = employeeEnumerator.Current;
@@ -54,7 +55,7 @@ namespace CSharpAdvanceDesignTests
                 while (petEnumerator.MoveNext())
                 {
                     var pet = petEnumerator.Current;
-                    if (pet.Owner == employee)
+                    if (comparer.Equals(pet.Owner, employee))
                     {
                         yield return Tuple.Create(employee.FirstName, pet.Name);
                     }
