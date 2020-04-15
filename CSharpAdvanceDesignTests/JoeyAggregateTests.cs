@@ -26,7 +26,19 @@ namespace CSharpAdvanceDesignTests
 
         private decimal JoeyAggregate(IEnumerable<int> drawlingList, decimal balance)
         {
-            throw new System.NotImplementedException();
+            var enumerator = drawlingList.GetEnumerator();
+            var seed = balance;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current<=seed)
+                {
+                    seed = seed - current;
+                }
+                
+            }
+
+            return seed;
         }
     }
 }
