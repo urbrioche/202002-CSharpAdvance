@@ -5,7 +5,6 @@ using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
-    [Ignore("not yet")]
     [TestFixture]
     public class JoeyAggregateTests
     {
@@ -19,7 +18,7 @@ namespace CSharpAdvanceDesignTests
                 30, 80, 20, 40, 25
             };
 
-            var actual = LinqExtensions.JoeyAggregate(drawlingList, balance, (seed, current) =>
+            var actual = drawlingList.JoeyAggregate(balance, (seed, current) =>
             {
                 if (current <= seed)
                 {

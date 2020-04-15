@@ -428,8 +428,7 @@ namespace Lab
             }
         }
 
-        public static TAccumulate JoeyAggregate<TSource, TAccumulate>(
-            IEnumerable<TSource> source,
+        public static TAccumulate JoeyAggregate<TSource, TAccumulate>(this IEnumerable<TSource> source,
             TAccumulate seed,
             Func<TAccumulate, TSource, TAccumulate> func)
         {
