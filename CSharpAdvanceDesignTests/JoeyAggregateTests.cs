@@ -33,17 +33,16 @@ namespace CSharpAdvanceDesignTests
             Assert.AreEqual(expected, actual);
         }
 
-        private TAccumulate JoeyAggregate<TSource, TAccumulate>(
-            IEnumerable<TSource> drawlingList,
-            TAccumulate balance,
-            Func<TAccumulate, TSource, TAccumulate> calculateBalance)
+        private static TAccumulate JoeyAggregate<TSource, TAccumulate>(
+            IEnumerable<TSource> source,
+            TAccumulate seed,
+            Func<TAccumulate, TSource, TAccumulate> func)
         {
-            var enumerator = drawlingList.GetEnumerator();
-            var seed = balance;
+            var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                seed = calculateBalance(seed, current);
+                seed = func(seed, current);
             }
 
             return seed;
