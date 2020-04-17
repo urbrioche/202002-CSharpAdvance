@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
         {
             var enumerator = numbers.GetEnumerator();
             var count = 0;
-            var result = 0;
+            double result = 0;
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
