@@ -442,7 +442,7 @@ namespace Lab
             return seed;
         }
 
-        public static double? JoeyAverage(IEnumerable<int?> numbers)
+        public static double? JoeyAverage(this IEnumerable<int?> numbers)
         {
             var enumerator = numbers.GetEnumerator();
             var count = 0;

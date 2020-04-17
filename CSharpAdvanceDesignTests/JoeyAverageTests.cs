@@ -15,7 +15,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new int?[] { 2, 4, null, 6 };
 
-            var actual = LinqExtensions.JoeyAverage(numbers);
+            var actual = numbers.JoeyAverage();
 
             4d.ToExpectedObject().ShouldMatch(actual);
         }
@@ -25,7 +25,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new int?[] { 1, 1, null, 4, 4 };
 
-            var actual = LinqExtensions.JoeyAverage(numbers);
+            var actual = numbers.JoeyAverage();
 
             2.5d.ToExpectedObject().ShouldMatch(actual);
         }
@@ -35,7 +35,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new int?[] { null, null, null };
 
-            var actual = LinqExtensions.JoeyAverage(numbers);
+            var actual = numbers.JoeyAverage();
 
             Assert.IsNull(actual);
         }
