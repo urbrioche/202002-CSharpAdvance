@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using System.Linq;
 using ExpectedObjects;
 
 namespace CSharpAdvanceDesignTests
@@ -15,12 +16,25 @@ namespace CSharpAdvanceDesignTests
 
             var actual = JoeyAverage(numbers);
 
-            4.ToExpectedObject().ShouldMatch(actual);
+            4d.ToExpectedObject().ShouldMatch(actual);
         }
 
         private double? JoeyAverage(IEnumerable<int?> numbers)
         {
-            throw new System.NotImplementedException();
+            var enumerator = numbers.GetEnumerator();
+            var count = 0;
+            var result = 0;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current.HasValue)
+                {
+                    result += current.Value;
+                    count++;
+                }
+            }
+
+            return result / count;
         }
     }
 }
