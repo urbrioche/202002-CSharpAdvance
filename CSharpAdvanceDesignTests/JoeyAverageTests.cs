@@ -39,7 +39,7 @@ namespace CSharpAdvanceDesignTests
             Assert.IsNull(actual);
         }
 
-        private double? JoeyAverage(IEnumerable<int?> numbers)
+        private static double? JoeyAverage(IEnumerable<int?> numbers)
         {
             var enumerator = numbers.GetEnumerator();
             var count = 0;
