@@ -3,6 +3,7 @@ using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using System.Linq;
 using ExpectedObjects;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -14,7 +15,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new int?[] { 2, 4, null, 6 };
 
-            var actual = JoeyAverage(numbers);
+            var actual = LinqExtensions.JoeyAverage(numbers);
 
             4d.ToExpectedObject().ShouldMatch(actual);
         }
@@ -24,7 +25,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new int?[] { 1, 1, null, 4, 4 };
 
-            var actual = JoeyAverage(numbers);
+            var actual = LinqExtensions.JoeyAverage(numbers);
 
             2.5d.ToExpectedObject().ShouldMatch(actual);
         }
@@ -34,31 +35,9 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new int?[] { null, null, null };
 
-            var actual = JoeyAverage(numbers);
+            var actual = LinqExtensions.JoeyAverage(numbers);
 
             Assert.IsNull(actual);
-        }
-
-        private static double? JoeyAverage(IEnumerable<int?> numbers)
-        {
-            var enumerator = numbers.GetEnumerator();
-            var count = 0;
-            double result = 0;
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                if (current.HasValue)
-                {
-                    result += current.Value;
-                    count++;
-                }
-            }
-
-            if (count == 0)
-            {
-                return null;
-            }
-            return result / count;
         }
     }
 }

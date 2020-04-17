@@ -441,5 +441,27 @@ namespace Lab
 
             return seed;
         }
+
+        public static double? JoeyAverage(IEnumerable<int?> numbers)
+        {
+            var enumerator = numbers.GetEnumerator();
+            var count = 0;
+            double result = 0;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current.HasValue)
+                {
+                    result += current.Value;
+                    count++;
+                }
+            }
+
+            if (count == 0)
+            {
+                return null;
+            }
+            return result / count;
+        }
     }
 }
