@@ -29,6 +29,16 @@ namespace CSharpAdvanceDesignTests
             2.5d.ToExpectedObject().ShouldMatch(actual);
         }
 
+        [Test]
+        public void average_all_null_value()
+        {
+            var numbers = new int?[] { null, null, null };
+
+            var actual = JoeyAverage(numbers);
+
+            Assert.IsNull(actual);
+        }
+
         private double? JoeyAverage(IEnumerable<int?> numbers)
         {
             var enumerator = numbers.GetEnumerator();
