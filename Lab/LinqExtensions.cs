@@ -475,7 +475,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeyOfType<TSource>(IEnumerable source)
+        public static IEnumerable<TSource> JoeyOfType<TSource>(this IEnumerable source)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())

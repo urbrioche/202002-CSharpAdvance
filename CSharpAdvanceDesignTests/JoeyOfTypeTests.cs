@@ -23,9 +23,9 @@ namespace CSharpAdvanceDesignTests
                 {"model", new Product {Price = 100, Cost = 111}},
             };
 
-            var validators = LinqExtensions.JoeyOfType<IValidator<Product>>(arguments.Values);
+            var validators = arguments.Values.JoeyOfType<IValidator<Product>>();
 
-            var product = LinqExtensions.JoeyOfType<Product>(arguments.Values).Single();
+            var product = arguments.Values.JoeyOfType<Product>().Single();
 
             var isValid = validators.All(x => x.Validate(product));
 
