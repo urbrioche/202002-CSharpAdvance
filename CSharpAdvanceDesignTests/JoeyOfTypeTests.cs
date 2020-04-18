@@ -1,13 +1,14 @@
-﻿using Lab;
+﻿using System.Collections;
+using Lab;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyOfTypeTests
     {
         [Test]
@@ -17,13 +18,25 @@ namespace CSharpAdvanceDesignTests
 
             var arguments = new Dictionary<string, object>
             {
+                {"validator1", new ProfitValidator()},
+                {"validator2", new ProductPriceValidator()},
                 {"model", new Product {Price = 100, Cost = 111}},
-                {"validator", new ProductValidator()},
             };
 
-            //var validators = JoeyOfType(?);
+            var validators = JoeyOfType<IValidator<Product>>(arguments.Values);
 
-            //Assert.AreEqual(1, validators.Count());
+            var product = JoeyOfType<Product>(arguments.Values).Single();
+
+            var isValid = validators.All(x => x.Validate(product));
+
+            Assert.IsFalse(isValid);
+            //Assert.AreEqual(2, validators.Count());
         }
+
+        private IEnumerable<TSource> JoeyOfType<TSource>(IEnumerable source)
+        {
+            throw new System.NotImplementedException();
+        }
+
     }
 }

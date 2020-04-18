@@ -55,7 +55,9 @@
     <Compile Include="LinqExtensions.cs" />
     <Compile Include="MyGrouping.cs" />
     <Compile Include="MyLookup.cs" />
+    <Compile Include="ProductPriceValidator.cs" />
     <Compile Include="ProductValidator.cs" />
+    <Compile Include="ProfitValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
