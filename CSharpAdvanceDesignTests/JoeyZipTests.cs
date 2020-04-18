@@ -28,7 +28,7 @@ namespace CSharpAdvanceDesignTests
                 new Key() {Type = CardType.Benz, Owner = "Tom"},
             };
 
-            var pairs = LinqExtensions.JoeyZip(girls, keys, (girl, key) => $"{girl.Name}-{key.Owner}");
+            var pairs = girls.JoeyZip(keys, (girl, key) => $"{girl.Name}-{key.Owner}");
 
             var expected = new[]
             {

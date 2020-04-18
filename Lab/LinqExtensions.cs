@@ -571,8 +571,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TResult> JoeyZip<TFirst, TSecond, TResult>(
-            IEnumerable<TFirst> first,
+        public static IEnumerable<TResult> JoeyZip<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first,
             IEnumerable<TSecond> second, 
             Func<TFirst, TSecond, TResult> resultSelector)
         {
