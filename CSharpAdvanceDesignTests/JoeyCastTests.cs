@@ -16,7 +16,7 @@ namespace CSharpAdvanceDesignTests
         {
             var arrayList = new ArrayList { 1, "2", 3 };
 
-            void TestDelegate() => LinqExtensions.JoeyCast<int>(arrayList).ToList();
+            void TestDelegate() => arrayList.JoeyCast<int>().ToList();
 
             Assert.Throws<InvalidCastException>(TestDelegate);
         }

@@ -465,7 +465,7 @@ namespace Lab
             return result / count;
         }
 
-        public static IEnumerable<T> JoeyCast<T>(IEnumerable source)
+        public static IEnumerable<T> JoeyCast<T>(this IEnumerable source)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
