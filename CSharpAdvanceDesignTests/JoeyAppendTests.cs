@@ -2,6 +2,7 @@
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -18,7 +19,7 @@ namespace CSharpAdvanceDesignTests
 
             var newEmployee = new Employee() { FirstName = "Tom", LastName = "Li" };
 
-            var actual = JoeyAppend(employees, newEmployee);
+            var actual = LinqExtensions.JoeyAppend(employees, newEmployee);
 
             var expected = new List<Employee>
             {
@@ -27,18 +28,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private static IEnumerable<TSource> JoeyAppend<TSource>(IEnumerable<TSource> source, TSource element)
-        {
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                yield return current;
-            }
-
-            yield return element;
         }
     }
 }
