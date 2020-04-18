@@ -24,7 +24,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Tom", LastName = "Wang"},
             };
 
-            var actual = LinqExtensions.JoeyConcat(first, second);
+            var actual = first.JoeyConcat(second);
 
             var expected = new List<Employee>()
             {
