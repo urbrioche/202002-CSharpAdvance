@@ -39,7 +39,14 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeyZip(IEnumerable<Girl> girls, IEnumerable<Key> keys)
         {
-            throw new System.NotImplementedException();
+            var girlEnumerator = girls.GetEnumerator();
+            var keyEnumerator = keys.GetEnumerator();
+            while (girlEnumerator.MoveNext() && keyEnumerator.MoveNext())
+            {
+                var girl = girlEnumerator.Current;
+                var key = keyEnumerator.Current;
+                yield return $"{girl.Name}-{key.Owner}";
+            }
         }
     }
 }
