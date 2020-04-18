@@ -6,7 +6,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeyAppendTests
     {
         [Test]
@@ -32,7 +31,14 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyAppend(IEnumerable<Employee> employees, Employee newEmployee)
         {
-            throw new System.NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                yield return current;
+            }
+
+            yield return newEmployee;
         }
     }
 }
