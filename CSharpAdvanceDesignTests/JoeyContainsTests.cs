@@ -24,9 +24,9 @@ namespace CSharpAdvanceDesignTests
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyContains(IEnumerable<Employee> employees, Employee value, IEqualityComparer<Employee> comparer)
+        private bool JoeyContains<TSource>(IEnumerable<TSource> source, TSource value, IEqualityComparer<TSource> comparer)
         {
-            var enumerator = employees.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
