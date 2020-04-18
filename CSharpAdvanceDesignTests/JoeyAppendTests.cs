@@ -29,7 +29,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TSource> JoeyAppend<TSource>(IEnumerable<TSource> source, TSource element)
+        private static IEnumerable<TSource> JoeyAppend<TSource>(IEnumerable<TSource> source, TSource element)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
