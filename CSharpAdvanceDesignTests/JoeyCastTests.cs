@@ -20,7 +20,7 @@ namespace CSharpAdvanceDesignTests
             Assert.Throws<InvalidCastException>(TestDelegate);
         }
 
-        private IEnumerable<T> JoeyCast<T>(IEnumerable source)
+        private static IEnumerable<T> JoeyCast<T>(IEnumerable source)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
