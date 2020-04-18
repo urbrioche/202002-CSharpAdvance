@@ -1,6 +1,7 @@
 ﻿using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -19,24 +20,9 @@ namespace CSharpAdvanceDesignTests
 
             var joey = new Employee() { FirstName = "Joey", LastName = "Chen" };
 
-            var actual = JoeyContains(employees, joey, new EmployeeComparer());
+            var actual = LinqExtensions.JoeyContains(employees, joey, new EmployeeComparer());
 
             Assert.IsTrue(actual);
-        }
-
-        private static bool JoeyContains<TSource>(IEnumerable<TSource> source, TSource value, IEqualityComparer<TSource> comparer)
-        {
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                if (comparer.Equals(current, value))
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 

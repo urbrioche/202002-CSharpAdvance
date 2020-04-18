@@ -515,5 +515,23 @@ namespace Lab
                 yield return secondEnumerator.Current;
             }
         }
+
+        public static bool JoeyContains<TSource>(
+            IEnumerable<TSource> source, 
+            TSource value, 
+            IEqualityComparer<TSource> comparer)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (comparer.Equals(current, value))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
