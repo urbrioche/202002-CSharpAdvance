@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
             Assert.AreEqual(2, validators.Count());
         }
 
-        private IEnumerable<TSource> JoeyOfType<TSource>(IEnumerable source)
+        private static IEnumerable<TSource> JoeyOfType<TSource>(IEnumerable source)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
