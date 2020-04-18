@@ -16,7 +16,7 @@ namespace CSharpAdvanceDesignTests
             Assert.AreEqual(expected, count);
         }
 
-        private int JoeyCount<TSource>(IEnumerable<TSource> source)
+        private static int JoeyCount<TSource>(IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
             var count = 0;
