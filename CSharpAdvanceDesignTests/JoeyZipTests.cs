@@ -38,7 +38,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(pairs);
         }
 
-        private IEnumerable<TResult> JoeyZip<TFirst, TSecond, TResult>(
+        private static IEnumerable<TResult> JoeyZip<TFirst, TSecond, TResult>(
             IEnumerable<TFirst> first,
             IEnumerable<TSecond> second, 
             Func<TFirst, TSecond, TResult> resultSelector)
