@@ -40,15 +40,14 @@ namespace CSharpAdvanceDesignTests
             Assert.Throws<ArgumentOutOfRangeException>(action);
         }
 
-        private Employee JoeyElementAt(IEnumerable<Employee> employees, int index)
+        private TSource JoeyElementAt<TSource>(IEnumerable<TSource> source, int index)
         {
-            var enumerator = employees.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                var employee = enumerator.Current;
                 if (index == 0)
                 {
-                    return employee;
+                    return enumerator.Current;
                 }
                 index--;
             }
