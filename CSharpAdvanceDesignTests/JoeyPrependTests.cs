@@ -30,14 +30,13 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyPrepend(IEnumerable<Employee> employees, Employee newEmployee)
+        private IEnumerable<TSource> JoeyPrepend<TSource>(IEnumerable<TSource> source, TSource element)
         {
-            yield return newEmployee;
-            var enumerator = employees.GetEnumerator();
+            yield return element;
+            var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                var current = enumerator.Current;
-                yield return current;
+                yield return enumerator.Current;
             }
         }
     }
