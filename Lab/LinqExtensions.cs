@@ -474,5 +474,19 @@ namespace Lab
                 yield return (T)current;
             }
         }
+
+        public static IEnumerable<TSource> JoeyOfType<TSource>(IEnumerable source)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current is TSource x)
+                {
+                    yield return x;
+                }
+
+            }
+        }
     }
 }
