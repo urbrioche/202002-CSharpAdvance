@@ -19,7 +19,7 @@ namespace CSharpAdvanceDesignTests
 
             var newEmployee = new Employee() { FirstName = "Tom", LastName = "Li" };
 
-            var actual = LinqExtensions.JoeyAppend(employees, newEmployee);
+            var actual = employees.JoeyAppend(newEmployee);
 
             var expected = new List<Employee>
             {

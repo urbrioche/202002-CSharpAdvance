@@ -489,7 +489,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeyAppend<TSource>(IEnumerable<TSource> source, TSource element)
+        public static IEnumerable<TSource> JoeyAppend<TSource>(this IEnumerable<TSource> source, TSource element)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
