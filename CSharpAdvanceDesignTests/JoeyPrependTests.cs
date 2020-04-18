@@ -7,7 +7,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyPrependTests
     {
         [Test]
@@ -33,7 +32,13 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyPrepend(IEnumerable<Employee> employees, Employee newEmployee)
         {
-            throw new System.NotImplementedException();
+            yield return newEmployee;
+            var enumerator = employees.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                yield return current;
+            }
         }
     }
 }
