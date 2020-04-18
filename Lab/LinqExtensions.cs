@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -462,6 +463,16 @@ namespace Lab
                 return null;
             }
             return result / count;
+        }
+
+        public static IEnumerable<T> JoeyCast<T>(IEnumerable source)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                yield return (T)current;
+            }
         }
     }
 }
