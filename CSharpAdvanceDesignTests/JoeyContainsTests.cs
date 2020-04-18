@@ -19,14 +19,13 @@ namespace CSharpAdvanceDesignTests
 
             var joey = new Employee() { FirstName = "Joey", LastName = "Chen" };
 
-            var actual = JoeyContains(employees, joey);
+            var actual = JoeyContains(employees, joey, new EmployeeComparer());
 
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyContains(IEnumerable<Employee> employees, Employee value)
+        private bool JoeyContains(IEnumerable<Employee> employees, Employee value, IEqualityComparer<Employee> comparer)
         {
-            var comparer = new EmployeeComparer();
             var enumerator = employees.GetEnumerator();
             while (enumerator.MoveNext())
             {
