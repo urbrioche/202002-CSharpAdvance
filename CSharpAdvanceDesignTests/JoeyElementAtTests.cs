@@ -26,6 +26,20 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
+        [Test]
+        public void get_element_greater_than_total_employees()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee{FirstName = "Joey",LastName = "Chen"},
+                new Employee{FirstName = "Tom",LastName = "Li"},
+                new Employee{FirstName = "David",LastName = "Wang"},
+            };
+
+            TestDelegate action = () => JoeyElementAt(employees, 5);
+            Assert.Throws<ArgumentOutOfRangeException>(action);
+        }
+
         private Employee JoeyElementAt(IEnumerable<Employee> employees, int index)
         {
             var enumerator = employees.GetEnumerator();
