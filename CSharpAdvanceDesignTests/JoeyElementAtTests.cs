@@ -20,7 +20,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee{FirstName = "David",LastName = "Wang"},
             };
 
-            var actual = LinqExtensions.JoeyElementAt(employees, 1);
+            var actual = employees.JoeyElementAt(1);
 
             var expected = new Employee { FirstName = "Tom", LastName = "Li" };
 
@@ -37,7 +37,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee{FirstName = "David",LastName = "Wang"},
             };
 
-            TestDelegate action = () => LinqExtensions.JoeyElementAt(employees, 5);
+            TestDelegate action = () => employees.JoeyElementAt(5);
             Assert.Throws<ArgumentOutOfRangeException>(action);
         }
     }

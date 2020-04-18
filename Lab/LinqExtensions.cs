@@ -545,7 +545,7 @@ namespace Lab
             return count;
         }
 
-        public static TSource JoeyElementAt<TSource>(IEnumerable<TSource> source, int index)
+        public static TSource JoeyElementAt<TSource>(this IEnumerable<TSource> source, int index)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
