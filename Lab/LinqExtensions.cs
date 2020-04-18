@@ -570,5 +570,18 @@ namespace Lab
                 yield return enumerator.Current;
             }
         }
+
+        public static IEnumerable<TResult> JoeyZip<TFirst, TSecond, TResult>(
+            IEnumerable<TFirst> first,
+            IEnumerable<TSecond> second, 
+            Func<TFirst, TSecond, TResult> resultSelector)
+        {
+            var firstEnumerator = first.GetEnumerator();
+            var secondEnumerator = second.GetEnumerator();
+            while (firstEnumerator.MoveNext() && secondEnumerator.MoveNext())
+            {
+                yield return resultSelector(firstEnumerator.Current, secondEnumerator.Current);
+            }
+        }
     }
 }

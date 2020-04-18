@@ -4,6 +4,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -27,7 +28,7 @@ namespace CSharpAdvanceDesignTests
                 new Key() {Type = CardType.Benz, Owner = "Tom"},
             };
 
-            var pairs = JoeyZip(girls, keys, (girl, key) => $"{girl.Name}-{key.Owner}");
+            var pairs = LinqExtensions.JoeyZip(girls, keys, (girl, key) => $"{girl.Name}-{key.Owner}");
 
             var expected = new[]
             {
@@ -36,19 +37,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(pairs);
-        }
-
-        private static IEnumerable<TResult> JoeyZip<TFirst, TSecond, TResult>(
-            IEnumerable<TFirst> first,
-            IEnumerable<TSecond> second, 
-            Func<TFirst, TSecond, TResult> resultSelector)
-        {
-            var firstEnumerator = first.GetEnumerator();
-            var secondEnumerator = second.GetEnumerator();
-            while (firstEnumerator.MoveNext() && secondEnumerator.MoveNext())
-            {
-                yield return resultSelector(firstEnumerator.Current, secondEnumerator.Current);
-            }
         }
     }
 }
