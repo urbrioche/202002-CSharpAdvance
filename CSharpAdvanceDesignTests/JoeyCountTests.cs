@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -11,21 +12,9 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new[] { 10, 20, 30, 40, 50 };
 
-            var count = JoeyCount(numbers);
+            var count = LinqExtensions.JoeyCount(numbers);
             var expected = 5;
             Assert.AreEqual(expected, count);
-        }
-
-        private static int JoeyCount<TSource>(IEnumerable<TSource> source)
-        {
-            var enumerator = source.GetEnumerator();
-            var count = 0;
-            while (enumerator.MoveNext())
-            {
-                count++;
-            }
-
-            return count;
         }
     }
 }

@@ -532,5 +532,17 @@ namespace Lab
 
             return false;
         }
+
+        public static int JoeyCount<TSource>(IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            var count = 0;
+            while (enumerator.MoveNext())
+            {
+                count++;
+            }
+
+            return count;
+        }
     }
 }
