@@ -3,6 +3,7 @@ using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -23,7 +24,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Tom", LastName = "Wang"},
             };
 
-            var actual = JoeyConcat(first, second);
+            var actual = LinqExtensions.JoeyConcat(first, second);
 
             var expected = new List<Employee>()
             {
@@ -33,21 +34,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private static IEnumerable<TSource> JoeyConcat<TSource>(IEnumerable<TSource> first, IEnumerable<TSource> second)
-        {
-            var firstEnumerator = first.GetEnumerator();
-            while (firstEnumerator.MoveNext())
-            {
-                yield return firstEnumerator.Current;
-            }
-
-            var secondEnumerator = second.GetEnumerator();
-            while (secondEnumerator.MoveNext())
-            {
-                yield return secondEnumerator.Current;
-            }
         }
     }
 }
