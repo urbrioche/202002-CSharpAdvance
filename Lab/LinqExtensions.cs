@@ -533,7 +533,7 @@ namespace Lab
             return false;
         }
 
-        public static int JoeyCount<TSource>(IEnumerable<TSource> source)
+        public static int JoeyCount<TSource>(this IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
             var count = 0;

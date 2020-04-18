@@ -12,7 +12,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new[] { 10, 20, 30, 40, 50 };
 
-            var count = LinqExtensions.JoeyCount(numbers);
+            var count = numbers.JoeyCount();
             var expected = 5;
             Assert.AreEqual(expected, count);
         }
