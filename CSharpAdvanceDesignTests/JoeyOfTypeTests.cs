@@ -30,12 +30,21 @@ namespace CSharpAdvanceDesignTests
             var isValid = validators.All(x => x.Validate(product));
 
             Assert.IsFalse(isValid);
-            //Assert.AreEqual(2, validators.Count());
+            Assert.AreEqual(2, validators.Count());
         }
 
         private IEnumerable<TSource> JoeyOfType<TSource>(IEnumerable source)
         {
-            throw new System.NotImplementedException();
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current is TSource x)
+                {
+                    yield return x;
+                }
+
+            }
         }
 
     }
