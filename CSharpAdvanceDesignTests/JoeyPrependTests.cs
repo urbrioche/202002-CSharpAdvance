@@ -20,7 +20,7 @@ namespace CSharpAdvanceDesignTests
 
             var newEmployee = new Employee() { FirstName = "Tom", LastName = "Li" };
 
-            var actual = LinqExtensions.JoeyPrepend(employees, newEmployee);
+            var actual = employees.JoeyPrepend(newEmployee);
 
             var expected = new Employee[]
             {

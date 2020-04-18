@@ -561,7 +561,7 @@ namespace Lab
 
         }
 
-        public static IEnumerable<TSource> JoeyPrepend<TSource>(IEnumerable<TSource> source, TSource element)
+        public static IEnumerable<TSource> JoeyPrepend<TSource>(this IEnumerable<TSource> source, TSource element)
         {
             yield return element;
             var enumerator = source.GetEnumerator();
