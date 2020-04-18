@@ -20,7 +20,7 @@ namespace CSharpAdvanceDesignTests
 
             var joey = new Employee() { FirstName = "Joey", LastName = "Chen" };
 
-            var actual = LinqExtensions.JoeyContains(employees, joey, new EmployeeComparer());
+            var actual = employees.JoeyContains(joey, new EmployeeComparer());
 
             Assert.IsTrue(actual);
         }

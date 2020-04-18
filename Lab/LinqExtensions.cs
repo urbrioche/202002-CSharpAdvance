@@ -516,8 +516,7 @@ namespace Lab
             }
         }
 
-        public static bool JoeyContains<TSource>(
-            IEnumerable<TSource> source, 
+        public static bool JoeyContains<TSource>(this IEnumerable<TSource> source, 
             TSource value, 
             IEqualityComparer<TSource> comparer)
         {
