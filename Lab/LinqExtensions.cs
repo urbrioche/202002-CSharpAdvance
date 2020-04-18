@@ -544,5 +544,21 @@ namespace Lab
 
             return count;
         }
+
+        public static TSource JoeyElementAt<TSource>(IEnumerable<TSource> source, int index)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (index == 0)
+                {
+                    return enumerator.Current;
+                }
+                index--;
+            }
+
+            throw new ArgumentOutOfRangeException();
+
+        }
     }
 }

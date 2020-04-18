@@ -3,6 +3,7 @@ using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -19,7 +20,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee{FirstName = "David",LastName = "Wang"},
             };
 
-            var actual = JoeyElementAt(employees, 1);
+            var actual = LinqExtensions.JoeyElementAt(employees, 1);
 
             var expected = new Employee { FirstName = "Tom", LastName = "Li" };
 
@@ -36,24 +37,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee{FirstName = "David",LastName = "Wang"},
             };
 
-            TestDelegate action = () => JoeyElementAt(employees, 5);
+            TestDelegate action = () => LinqExtensions.JoeyElementAt(employees, 5);
             Assert.Throws<ArgumentOutOfRangeException>(action);
-        }
-
-        private static TSource JoeyElementAt<TSource>(IEnumerable<TSource> source, int index)
-        {
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                if (index == 0)
-                {
-                    return enumerator.Current;
-                }
-                index--;
-            }
-
-            throw new ArgumentOutOfRangeException();
-
         }
     }
 }
