@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeyElementAtTests
     {
         [Test]
@@ -23,12 +23,24 @@ namespace CSharpAdvanceDesignTests
 
             var expected = new Employee { FirstName = "Tom", LastName = "Li" };
 
-            expected.ToExpectedObject().ShouldEqual(actual);
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
         private Employee JoeyElementAt(IEnumerable<Employee> employees, int index)
         {
-            throw new System.NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var employee = enumerator.Current;
+                if (index == 0)
+                {
+                    return employee;
+                }
+                index--;
+            }
+
+            throw new ArgumentOutOfRangeException();
+
         }
     }
 }
