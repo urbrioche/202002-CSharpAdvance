@@ -30,7 +30,7 @@ namespace CSharpAdvanceDesignTests
         }
 
 
-        private int JoeyMax(IEnumerable<int> numbers)
+        private static int JoeyMax(IEnumerable<int> numbers)
         {
             var enumerator = numbers.GetEnumerator();
             if (!enumerator.MoveNext())
