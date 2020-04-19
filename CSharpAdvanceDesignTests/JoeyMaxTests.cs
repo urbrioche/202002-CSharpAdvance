@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -13,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new[] { 1, 3, 91, 5 };
 
-            var max = JoeyMax(numbers);
+            var max = LinqExtensions.JoeyMax(numbers);
 
             Assert.AreEqual(91, max);
         }
@@ -24,31 +25,9 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = Enumerable.Empty<int>();
 
-            TestDelegate action = () => JoeyMax(numbers);
+            TestDelegate action = () => LinqExtensions.JoeyMax(numbers);
 
             Assert.Throws<InvalidOperationException>(action);
-        }
-
-
-        private static int JoeyMax(IEnumerable<int> numbers)
-        {
-            var enumerator = numbers.GetEnumerator();
-            if (!enumerator.MoveNext())
-            {
-                throw new InvalidOperationException();
-            }
-            var num = enumerator.Current;
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-
-                if (current > num)
-                {
-                    num = current;
-                }
-            }
-
-            return num;
         }
     }
 }

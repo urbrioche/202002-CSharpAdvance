@@ -598,5 +598,26 @@ namespace Lab
                 }
             }
         }
+
+        public static int JoeyMax(IEnumerable<int> numbers)
+        {
+            var enumerator = numbers.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException();
+            }
+            var num = enumerator.Current;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+
+                if (current > num)
+                {
+                    num = current;
+                }
+            }
+
+            return num;
+        }
     }
 }
