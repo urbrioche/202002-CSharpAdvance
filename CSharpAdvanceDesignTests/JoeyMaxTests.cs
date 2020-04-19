@@ -14,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = new[] { 1, 3, 91, 5 };
 
-            var max = LinqExtensions.JoeyMax(numbers);
+            var max = numbers.JoeyMax();
 
             Assert.AreEqual(91, max);
         }
@@ -25,7 +25,7 @@ namespace CSharpAdvanceDesignTests
         {
             var numbers = Enumerable.Empty<int>();
 
-            TestDelegate action = () => LinqExtensions.JoeyMax(numbers);
+            TestDelegate action = () => numbers.JoeyMax();
 
             Assert.Throws<InvalidOperationException>(action);
         }

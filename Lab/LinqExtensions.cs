@@ -599,7 +599,7 @@ namespace Lab
             }
         }
 
-        public static int JoeyMax(IEnumerable<int> numbers)
+        public static int JoeyMax(this IEnumerable<int> numbers)
         {
             var enumerator = numbers.GetEnumerator();
             if (!enumerator.MoveNext())
