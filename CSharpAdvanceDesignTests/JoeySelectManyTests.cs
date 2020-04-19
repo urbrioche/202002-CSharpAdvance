@@ -33,7 +33,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(
             IEnumerable<TSource> source,
-            Func<TSource, List<TCollection>> collectionSelector,
+            Func<TSource, IEnumerable<TCollection>> collectionSelector,
             Func<TSource, TCollection, TResult> resultSelector)
         {
             var enumerator = source.GetEnumerator();
