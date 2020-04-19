@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -16,10 +18,26 @@ namespace CSharpAdvanceDesignTests
             Assert.AreEqual(91, max);
         }
 
+
+        [Test]
+        public void empty_numbers_throw_exception()
+        {
+            var numbers = Enumerable.Empty<int>();
+
+            TestDelegate action = () => JoeyMax(numbers);
+
+            Assert.Throws<InvalidOperationException>(action);
+        }
+
+
         private int JoeyMax(IEnumerable<int> numbers)
         {
             var enumerator = numbers.GetEnumerator();
-            var num = 0;
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException();
+            }
+            var num = enumerator.Current;
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
