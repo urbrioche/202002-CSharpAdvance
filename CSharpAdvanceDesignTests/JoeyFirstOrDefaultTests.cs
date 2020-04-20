@@ -7,7 +7,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyFirstOrDefaultTests
     {
         [Test]
@@ -22,7 +21,13 @@ namespace CSharpAdvanceDesignTests
 
         private Employee JoeyFirstOrDefault(IEnumerable<Employee> employees)
         {
-            throw new NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                return enumerator.Current;
+            }
+            return default(Employee);
         }
+
     }
 }
