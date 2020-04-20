@@ -619,5 +619,15 @@ namespace Lab
 
             return num;
         }
+
+        public static TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> source)
+        {
+            var enumerator = source.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                return enumerator.Current;
+            }
+            return default(TSource);
+        }
     }
 }

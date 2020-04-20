@@ -3,6 +3,7 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -14,20 +15,9 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = new List<Employee>();
 
-            var actual = JoeyFirstOrDefault(employees);
+            var actual = LinqExtensions.JoeyFirstOrDefault(employees);
 
             Assert.IsNull(actual);
         }
-
-        private static TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> source)
-        {
-            var enumerator = source.GetEnumerator();
-            if (enumerator.MoveNext())
-            {
-                return enumerator.Current;
-            }
-            return default(TSource);
-        }
-
     }
 }
