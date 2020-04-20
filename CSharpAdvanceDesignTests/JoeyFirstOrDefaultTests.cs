@@ -15,7 +15,7 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = new List<Employee>();
 
-            var actual = LinqExtensions.JoeyFirstOrDefault(employees);
+            var actual = employees.JoeyFirstOrDefault();
 
             Assert.IsNull(actual);
         }

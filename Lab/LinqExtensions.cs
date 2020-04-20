@@ -620,7 +620,7 @@ namespace Lab
             return num;
         }
 
-        public static TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> source)
+        public static TSource JoeyFirstOrDefault<TSource>(this IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
             if (enumerator.MoveNext())
