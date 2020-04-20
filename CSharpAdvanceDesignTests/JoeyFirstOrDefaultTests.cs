@@ -19,14 +19,14 @@ namespace CSharpAdvanceDesignTests
             Assert.IsNull(actual);
         }
 
-        private Employee JoeyFirstOrDefault(IEnumerable<Employee> employees)
+        private TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> source)
         {
-            var enumerator = employees.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             if (enumerator.MoveNext())
             {
                 return enumerator.Current;
             }
-            return default(Employee);
+            return default(TSource);
         }
 
     }
