@@ -19,7 +19,7 @@ namespace CSharpAdvanceDesignTests
             Assert.IsNull(actual);
         }
 
-        private TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> source)
+        private static TSource JoeyFirstOrDefault<TSource>(IEnumerable<TSource> source)
         {
             var enumerator = source.GetEnumerator();
             if (enumerator.MoveNext())
