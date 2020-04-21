@@ -7,6 +7,18 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class CombineKeyComparer
+    {
+        public CombineKeyComparer(Func<Employee, string> firstKeySelector, IComparer<string> firstKeyComparer)
+        {
+            FirstKeySelector = firstKeySelector;
+            FirstKeyComparer = firstKeyComparer;
+        }
+
+        public Func<Employee, string> FirstKeySelector { get; private set; }
+        public IComparer<string> FirstKeyComparer { get; private set; }
+    }
+
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -45,7 +57,10 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, employee => employee.LastName, employee1 => employee1.FirstName, Comparer<string>.Default, Comparer<string>.Default);
+            var actual = JoeyOrderByLastNameAndFirstName(employees, 
+                new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), 
+                employee1 => employee1.FirstName, 
+                Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -59,10 +74,8 @@ namespace CSharpAdvanceDesignTests
         }
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees,
-            Func<Employee, string> firstKeySelector,
+            IEnumerable<Employee> employees, CombineKeyComparer combineKeyComparer,
             Func<Employee, string> secondKeySelector,
-            IComparer<string> firstKeyComparer,
             IComparer<string> secondKeyComparer)
         {
             //selection sort
@@ -74,12 +87,12 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    if (firstKeyComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement)) < 0)
+                    if (combineKeyComparer.FirstKeyComparer.Compare(combineKeyComparer.FirstKeySelector(employee), combineKeyComparer.FirstKeySelector(minElement)) < 0)
                     {
                         minElement = employee;
                         index = i;
                     }
-                    else if (firstKeyComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement)) == 0)
+                    else if (combineKeyComparer.FirstKeyComparer.Compare(combineKeyComparer.FirstKeySelector(employee), combineKeyComparer.FirstKeySelector(minElement)) == 0)
                     {
                         if (secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
                         {
