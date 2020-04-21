@@ -87,12 +87,13 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    if (combineKeyComparer.FirstKeyComparer.Compare(combineKeyComparer.FirstKeySelector(employee), combineKeyComparer.FirstKeySelector(minElement)) < 0)
+                    var firstCompareResult = combineKeyComparer.FirstKeyComparer.Compare(combineKeyComparer.FirstKeySelector(employee), combineKeyComparer.FirstKeySelector(minElement));
+                    if (firstCompareResult < 0)
                     {
                         minElement = employee;
                         index = i;
                     }
-                    else if (combineKeyComparer.FirstKeyComparer.Compare(combineKeyComparer.FirstKeySelector(employee), combineKeyComparer.FirstKeySelector(minElement)) == 0)
+                    else if (firstCompareResult == 0)
                     {
                         if (secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
                         {
