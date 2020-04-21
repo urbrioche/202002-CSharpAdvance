@@ -17,6 +17,13 @@ namespace CSharpAdvanceDesignTests
 
         public Func<Employee, string> FirstKeySelector { get; private set; }
         public IComparer<string> FirstKeyComparer { get; private set; }
+
+        public int FirstCompareResult(Employee employee, Employee minElement)
+        {
+            var firstCompareResult = FirstKeyComparer.Compare(FirstKeySelector(employee),
+                FirstKeySelector(minElement));
+            return firstCompareResult;
+        }
     }
 
     [TestFixture]
@@ -87,7 +94,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = FirstCompareResult(combineKeyComparer, employee, minElement);
+                    var firstCompareResult = combineKeyComparer.FirstCompareResult(employee, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = employee;
@@ -106,13 +113,6 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
-        }
-
-        private static int FirstCompareResult(CombineKeyComparer combineKeyComparer, Employee employee, Employee minElement)
-        {
-            var firstCompareResult = combineKeyComparer.FirstKeyComparer.Compare(combineKeyComparer.FirstKeySelector(employee),
-                combineKeyComparer.FirstKeySelector(minElement));
-            return firstCompareResult;
         }
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
