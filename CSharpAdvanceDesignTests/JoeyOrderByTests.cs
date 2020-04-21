@@ -45,7 +45,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, employee => employee.LastName, employee1 => employee1.FirstName, Comparer<string>.Default);
+            var actual = JoeyOrderByLastNameAndFirstName(employees, employee => employee.LastName, employee1 => employee1.FirstName, Comparer<string>.Default, Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -58,7 +58,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees, Func<Employee, string> firstKeySelector, Func<Employee, string> secondKeySelector, Comparer<string> firstKeyComparer)
+        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees, Func<Employee, string> firstKeySelector, Func<Employee, string> secondKeySelector, Comparer<string> firstKeyComparer, Comparer<string> secondKeyComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -76,7 +76,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstKeyComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement)) == 0)
                     {
-                        if (Comparer<string>.Default.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
+                        if (secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
                         {
                             minElement = employee;
                             index = i;
