@@ -58,7 +58,12 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees, Func<Employee, string> firstKeySelector, Func<Employee, string> secondKeySelector, Comparer<string> firstKeyComparer, Comparer<string> secondKeyComparer)
+        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+            IEnumerable<Employee> employees,
+            Func<Employee, string> firstKeySelector,
+            Func<Employee, string> secondKeySelector,
+            IComparer<string> firstKeyComparer,
+            IComparer<string> secondKeyComparer)
         {
             //selection sort
             var elements = employees.ToList();
