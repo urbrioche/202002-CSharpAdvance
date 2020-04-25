@@ -25,6 +25,18 @@ namespace CSharpAdvanceDesignTests
         }
     }
 
+    public class ComboKeyComparer
+    {
+        public ComboKeyComparer(CombineKeyComparer firstCombineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
+        {
+            FirstCombineKeyComparer = firstCombineKeyComparer;
+            SecondCombineKeyComparer = secondCombineKeyComparer;
+        }
+
+        public CombineKeyComparer FirstCombineKeyComparer { get; private set; }
+        public CombineKeyComparer SecondCombineKeyComparer { get; private set; }
+    }
+
     [TestFixture]
     public class JoeyOrderByTests
     {
@@ -65,8 +77,7 @@ namespace CSharpAdvanceDesignTests
 
             Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
             IComparer<string> secondKeyComparer = Comparer<string>.Default;
-            var actual = JoeyOrderByLastNameAndFirstName(employees, 
-                new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(secondKeySelector, secondKeyComparer));
+            var actual = JoeyOrderByLastNameAndFirstName(employees, new ComboKeyComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(secondKeySelector, secondKeyComparer)));
 
             var expected = new[]
             {
@@ -80,7 +91,7 @@ namespace CSharpAdvanceDesignTests
         }
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, CombineKeyComparer firstCombineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
+            IEnumerable<Employee> employees, ComboKeyComparer comboKeyComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -91,7 +102,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = firstCombineKeyComparer.Compare(employee, minElement);
+                    var firstCompareResult = comboKeyComparer.FirstCombineKeyComparer.Compare(employee, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = employee;
@@ -99,7 +110,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        if (secondCombineKeyComparer.Compare(employee, minElement) < 0)
+                        if (comboKeyComparer.SecondCombineKeyComparer.Compare(employee, minElement) < 0)
                         {
                             minElement = employee;
                             index = i;
