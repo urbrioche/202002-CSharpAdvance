@@ -35,6 +35,30 @@ namespace CSharpAdvanceDesignTests
 
         public CombineKeyComparer FirstCombineKeyComparer { get; private set; }
         public CombineKeyComparer SecondCombineKeyComparer { get; private set; }
+
+        public int FinalCompareResult(Employee employee, Employee minElement)
+        {
+            var finalCompareResult = 0;
+            var firstCompareResult = FirstCombineKeyComparer.Compare(employee, minElement);
+            if (firstCompareResult < 0)
+            {
+                finalCompareResult = firstCompareResult;
+                //minElement = employee;
+                //index = i;
+            }
+            else if (firstCompareResult == 0)
+            {
+                var secondCompareResult = SecondCombineKeyComparer.Compare(employee, minElement);
+                if (secondCompareResult < 0)
+                {
+                    finalCompareResult = secondCompareResult;
+                    //minElement = employee;
+                    //index = i;
+                }
+            }
+
+            return finalCompareResult;
+        }
     }
 
     [TestFixture]
@@ -102,7 +126,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var finalCompareResult = FinalCompareResult(comboKeyComparer, employee, minElement);
+                    var finalCompareResult = comboKeyComparer.FinalCompareResult(employee, minElement);
 
                     if (finalCompareResult < 0)
                     {
@@ -115,30 +139,6 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
-        }
-
-        private static int FinalCompareResult(ComboKeyComparer comboKeyComparer, Employee employee, Employee minElement)
-        {
-            var finalCompareResult = 0;
-            var firstCompareResult = comboKeyComparer.FirstCombineKeyComparer.Compare(employee, minElement);
-            if (firstCompareResult < 0)
-            {
-                finalCompareResult = firstCompareResult;
-                //minElement = employee;
-                //index = i;
-            }
-            else if (firstCompareResult == 0)
-            {
-                var secondCompareResult = comboKeyComparer.SecondCombineKeyComparer.Compare(employee, minElement);
-                if (secondCompareResult < 0)
-                {
-                    finalCompareResult = secondCompareResult;
-                    //minElement = employee;
-                    //index = i;
-                }
-            }
-
-            return finalCompareResult;
         }
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
