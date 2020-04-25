@@ -36,23 +36,23 @@ namespace CSharpAdvanceDesignTests
         public CombineKeyComparer FirstCombineKeyComparer { get; private set; }
         public CombineKeyComparer SecondCombineKeyComparer { get; private set; }
 
-        public int FinalCompareResult(Employee employee, Employee minElement)
+        public int Compare(Employee x, Employee y)
         {
             var finalCompareResult = 0;
-            var firstCompareResult = FirstCombineKeyComparer.Compare(employee, minElement);
+            var firstCompareResult = FirstCombineKeyComparer.Compare(x, y);
             if (firstCompareResult < 0)
             {
                 finalCompareResult = firstCompareResult;
-                //minElement = employee;
+                //y = x;
                 //index = i;
             }
             else if (firstCompareResult == 0)
             {
-                var secondCompareResult = SecondCombineKeyComparer.Compare(employee, minElement);
+                var secondCompareResult = SecondCombineKeyComparer.Compare(x, y);
                 if (secondCompareResult < 0)
                 {
                     finalCompareResult = secondCompareResult;
-                    //minElement = employee;
+                    //y = x;
                     //index = i;
                 }
             }
@@ -126,7 +126,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var finalCompareResult = comboKeyComparer.FinalCompareResult(employee, minElement);
+                    var finalCompareResult = comboKeyComparer.Compare(employee, minElement);
 
                     if (finalCompareResult < 0)
                     {
