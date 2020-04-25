@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Lab.Entities;
+using System;
 using System.Collections.Generic;
-using Lab.Entities;
 
 namespace Lab
 {
-    public class CombineKeyComparer
+    public class CombineKeyComparer : IComparer<Employee>
     {
         public CombineKeyComparer(Func<Employee, string> keySelector, IComparer<string> keyComparer)
         {
@@ -15,11 +15,9 @@ namespace Lab
         public Func<Employee, string> KeySelector { get; private set; }
         public IComparer<string> KeyComparer { get; private set; }
 
-        public int Compare(Employee employee, Employee minElement)
+        public int Compare(Employee x, Employee y)
         {
-            var firsCompareResult = KeyComparer.Compare(KeySelector(employee),
-                KeySelector(minElement));
-            return firsCompareResult;
+            return KeyComparer.Compare(KeySelector(x), KeySelector(y));
         }
     }
 }
