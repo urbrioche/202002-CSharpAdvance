@@ -80,7 +80,7 @@ namespace CSharpAdvanceDesignTests
         }
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, CombineKeyComparer combineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
+            IEnumerable<Employee> employees, CombineKeyComparer firstCombineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -91,7 +91,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = combineKeyComparer.Compare(employee, minElement);
+                    var firstCompareResult = firstCombineKeyComparer.Compare(employee, minElement);
                     if (firstCompareResult < 0)
                     {
                         minElement = employee;
