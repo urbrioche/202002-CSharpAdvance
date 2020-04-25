@@ -25,7 +25,7 @@ namespace CSharpAdvanceDesignTests
         }
     }
 
-    public class ComboKeyComparer
+    public class ComboKeyComparer : IComparer<Employee>
     {
         public ComboKeyComparer(CombineKeyComparer firstCombineKeyComparer, CombineKeyComparer secondCombineKeyComparer)
         {
