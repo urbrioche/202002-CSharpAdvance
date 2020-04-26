@@ -17,14 +17,12 @@ namespace Lab
 
         public int Compare(Employee employee, Employee minElement)
         {
-            var firsCompareResult = KeyComparer.Compare(KeySelector(employee),
-                KeySelector(minElement));
-            return firsCompareResult;
+            return KeyComparer.Compare(KeySelector(employee), KeySelector(minElement));
         }
 
         public int SecondCompareResult(Employee employee, Employee minElement)
         {
-            return KeyComparer.Compare(KeySelector(employee), KeySelector(minElement));
+            return Compare(employee, minElement);
         }
     }
 }
