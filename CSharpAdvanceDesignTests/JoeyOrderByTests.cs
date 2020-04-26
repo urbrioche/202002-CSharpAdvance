@@ -95,7 +95,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderBy(
+        private static IEnumerable<Employee> JoeyOrderBy(
             IEnumerable<Employee> employees, IComparer<Employee> compare)
         {
             //selection sort
