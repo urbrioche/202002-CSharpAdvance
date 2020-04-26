@@ -51,7 +51,7 @@ namespace Lab
 
         public IMyOrderedEnumerable Append(IComparer<Employee> currentComparer)
         {
-            _untilNowComparer = new ComboComparer(_untilNowComparer, currentComparer);
+            _untilNowComparer = new ComboComparer<Employee>(_untilNowComparer, currentComparer);
             return this;
         }
     }
