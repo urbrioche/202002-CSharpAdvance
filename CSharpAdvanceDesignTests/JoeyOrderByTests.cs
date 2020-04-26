@@ -64,9 +64,7 @@ namespace CSharpAdvanceDesignTests
             Func<Employee, string> secondKeySelector,
             IComparer<string> secondKeyComparer)
         {
-            var secondCombineKeyComparer = new CombineKeyComparer(secondKeySelector, secondKeyComparer);
-            var secondKeySelector = secondCombineKeyComparer.KeySelector;
-            var secondKeyComparer = secondCombineKeyComparer.KeyComparer;
+            // var secondCombineKeyComparer = new CombineKeyComparer(secondKeySelector, secondKeyComparer);
             //selection sort
             var elements = employees.ToList();
             while (elements.Any())
@@ -84,7 +82,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firsCompareResult == 0)
                     {
-                        if (secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
+                        if (secondCombineKeyComparer.KeyComparer.Compare(secondCombineKeyComparer.KeySelector(employee), secondCombineKeyComparer.KeySelector(minElement)) < 0)
                         {
                             minElement = employee;
                             index = i;
