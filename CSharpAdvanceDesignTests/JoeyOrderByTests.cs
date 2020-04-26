@@ -22,7 +22,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees,
+            var actual = JoeyOrderBy(employees,
                 new CombineKeyComparer(x => x.LastName, Comparer<string>.Default));
 
             var expected = new[]
@@ -49,7 +49,7 @@ namespace CSharpAdvanceDesignTests
 
             Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
             IComparer<string> secondKeyComparer = Comparer<string>.Default;
-            var actual = JoeyOrderByLastNameAndFirstName(employees,
+            var actual = JoeyOrderBy(employees,
                 new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default),
                     new CombineKeyComparer(secondKeySelector, secondKeyComparer)));
 
@@ -64,7 +64,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+        private IEnumerable<Employee> JoeyOrderBy(
             IEnumerable<Employee> employees, IComparer<Employee> compare)
         {
             //selection sort
