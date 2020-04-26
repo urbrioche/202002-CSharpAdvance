@@ -662,10 +662,12 @@ namespace Lab
             return new MyOrderedEnumerable(employees, combineKeyComparer);
         }        
         
-        public static MyOrderedEnumerable JoeyThenBy<TKey>(this MyOrderedEnumerable employees,
+        public static MyOrderedEnumerable JoeyThenBy<TKey>(this MyOrderedEnumerable myOrderedEnumerable,
             Func<Employee, TKey> keySelector)
         {
-            return employees;
+            var combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            return myOrderedEnumerable.Append(combineKeyComparer);
+            // return myOrderedEnumerable;
         }
     }
 }

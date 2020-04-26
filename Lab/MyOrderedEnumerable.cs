@@ -7,9 +7,11 @@ namespace Lab
 {
     public class MyOrderedEnumerable : IEnumerable<Employee>
     {
-        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> comparer)
+        private IComparer<Employee> _untilNowComparer;
+
+        public MyOrderedEnumerable(IEnumerable<Employee> employees, IComparer<Employee> untilNowComparer)
         {
-            throw new NotImplementedException();
+            _untilNowComparer = untilNowComparer;
         }
 
         public IEnumerator<Employee> GetEnumerator()
@@ -20,6 +22,12 @@ namespace Lab
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public MyOrderedEnumerable Append(IComparer<Employee> currentComparer)
+        {
+            _untilNowComparer = new ComboComparer(_untilNowComparer, currentComparer);
+            return this;
         }
     }
 }
