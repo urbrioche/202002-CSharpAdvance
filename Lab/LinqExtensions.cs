@@ -629,5 +629,31 @@ namespace Lab
             }
             return default(TSource);
         }
+
+        public static IEnumerable<Employee> JoeyOrderBy(
+            IEnumerable<Employee> employees, IComparer<Employee> compare)
+        {
+            //selection sort
+            var elements = employees.ToList();
+            while (elements.Any())
+            {
+                var minElement = elements[0];
+                var index = 0;
+                for (int i = 1; i < elements.Count; i++)
+                {
+                    var employee = elements[i];
+                    var finalCompareResult = compare.Compare(employee, minElement);
+
+                    if (finalCompareResult < 0)
+                    {
+                        minElement = employee;
+                        index = i;
+                    }
+                }
+
+                elements.RemoveAt(index);
+                yield return minElement;
+            }
+        }
     }
 }

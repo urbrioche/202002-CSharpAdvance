@@ -22,7 +22,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderBy(employees,
+            var actual = LinqExtensions.JoeyOrderBy(employees,
                 new CombineKeyComparer<string>(x => x.LastName, Comparer<string>.Default));
 
             var expected = new[]
@@ -49,7 +49,7 @@ namespace CSharpAdvanceDesignTests
 
             Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
             IComparer<string> secondKeyComparer = Comparer<string>.Default;
-            var actual = JoeyOrderBy(employees,
+            var actual = LinqExtensions.JoeyOrderBy(employees,
                 new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default),
                     new CombineKeyComparer<string>(secondKeySelector, secondKeyComparer)));
 
@@ -81,7 +81,7 @@ namespace CSharpAdvanceDesignTests
             var secondKeyComparer = new CombineKeyComparer<string>(x => x.FirstName, Comparer<string>.Default);
             var thirdKeyComparer = new CombineKeyComparer<int>(x => x.Age, Comparer<int>.Default);
             var comboComparer = new ComboComparer(new ComboComparer(firstKeyComparer, secondKeyComparer), thirdKeyComparer);
-            var actual = JoeyOrderBy(employees, comboComparer);
+            var actual = LinqExtensions.JoeyOrderBy(employees, comboComparer);
         
             var expected = new[]
             {
@@ -93,32 +93,6 @@ namespace CSharpAdvanceDesignTests
             };
         
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private static IEnumerable<Employee> JoeyOrderBy(
-            IEnumerable<Employee> employees, IComparer<Employee> compare)
-        {
-            //selection sort
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    var employee = elements[i];
-                    var finalCompareResult = compare.Compare(employee, minElement);
-
-                    if (finalCompareResult < 0)
-                    {
-                        minElement = employee;
-                        index = i;
-                    }
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
         }
     }
 }
