@@ -3,7 +3,7 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class ComboComparer
+    public class ComboComparer: IComparer<Employee>
     {
         public ComboComparer(IComparer<Employee> firstCombineKeyComparer, IComparer<Employee> secondCombineKeyComparer)
         {
