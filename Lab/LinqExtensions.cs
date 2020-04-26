@@ -630,7 +630,7 @@ namespace Lab
             return default(TSource);
         }
 
-        public static IEnumerable<Employee> JoeyOrderBy(this IEnumerable<Employee> employees, IComparer<Employee> compare)
+        public static IEnumerable<Employee> JoeySortBy(this IEnumerable<Employee> employees, IComparer<Employee> compare)
         {
             //selection sort
             var elements = employees.ToList();
