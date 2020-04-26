@@ -669,17 +669,17 @@ namespace Lab
             }
         }
 
-        public static IMyOrderedEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
-            Func<Employee, TKey> keySelector)
+        public static IMyOrderedEnumerable<TSource> JoeyOrderBy<TSource, TKey>(this IEnumerable<TSource> employees,
+            Func<TSource, TKey> keySelector)
         {
-            var combineKeyComparer = new CombineKeyComparer<Employee, TKey>(keySelector, Comparer<TKey>.Default);
-            return new MyOrderedEnumerable<Employee>(employees, combineKeyComparer);
+            var combineKeyComparer = new CombineKeyComparer<TSource, TKey>(keySelector, Comparer<TKey>.Default);
+            return new MyOrderedEnumerable<TSource>(employees, combineKeyComparer);
         }
 
-        public static IMyOrderedEnumerable<Employee> JoeyThenBy<TKey>(this IMyOrderedEnumerable<Employee> myOrderedEnumerable,
-            Func<Employee, TKey> keySelector)
+        public static IMyOrderedEnumerable<TSource> JoeyThenBy<TSource, TKey>(this IMyOrderedEnumerable<TSource> myOrderedEnumerable,
+            Func<TSource, TKey> keySelector)
         {
-            var combineKeyComparer = new CombineKeyComparer<Employee, TKey>(keySelector, Comparer<TKey>.Default);
+            var combineKeyComparer = new CombineKeyComparer<TSource, TKey>(keySelector, Comparer<TKey>.Default);
             return myOrderedEnumerable.Append(combineKeyComparer);
         }
     }
