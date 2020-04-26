@@ -48,7 +48,9 @@ namespace CSharpAdvanceDesignTests
 
             Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
             IComparer<string> secondKeyComparer = Comparer<string>.Default;
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(secondKeySelector, secondKeyComparer)));
+            var actual = JoeyOrderByLastNameAndFirstName(employees,
+                new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default),
+                    new CombineKeyComparer(secondKeySelector, secondKeyComparer)));
 
             var expected = new[]
             {
@@ -73,19 +75,29 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
+                    var finalCompareResult = 0;
                     var firsCompareResult = comboComparer.FirstCombineKeyComparer.Compare(employee, minElement);
                     if (firsCompareResult < 0)
                     {
-                        minElement = employee;
-                        index = i;
+                        finalCompareResult = firsCompareResult;
+                        // minElement = employee;
+                        // index = i;
                     }
                     else if (firsCompareResult == 0)
                     {
-                        if (comboComparer.SecondCombineKeyComparer.Compare(employee, minElement) < 0)
+                        var secondCompareResult = comboComparer.SecondCombineKeyComparer.Compare(employee, minElement);
+                        if (secondCompareResult < 0)
                         {
-                            minElement = employee;
-                            index = i;
+                            finalCompareResult = secondCompareResult;
+                            // minElement = employee;
+                            // index = i;
                         }
+                    }
+
+                    if (finalCompareResult < 0)
+                    {
+                        minElement = employee;
+                        index = i;
                     }
                 }
 
