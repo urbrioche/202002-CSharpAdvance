@@ -9,17 +9,20 @@ namespace Lab
 {
     public static class LinqExtensions
     {
-        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
         {
             return JoeyWhere(source, (item, index) => predicate(item));
         }
 
-        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
+            Func<TSource, TResult> selector)
         {
             return JoeySelect(source, (item, index) => selector(item));
         }
 
-        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> source,
+            Func<TSource, int, bool> predicate)
         {
             var index = 0;
             var enumerator = source.GetEnumerator();
@@ -35,7 +38,8 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, int, TResult> selector)
+        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> source,
+            Func<TSource, int, TResult> selector)
         {
             var index = 0;
             var enumerator = source.GetEnumerator();
@@ -78,11 +82,13 @@ namespace Lab
                 {
                     yield return current;
                 }
+
                 index++;
             }
         }
 
-        public static IEnumerable<TSource> JoeyTakeWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> JoeyTakeWhile<TSource>(this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
@@ -99,7 +105,8 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeySkipWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> JoeySkipWhile<TSource>(this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
         {
             var enumerator = source.GetEnumerator();
             var isStartTaking = false;
@@ -111,7 +118,6 @@ namespace Lab
                     isStartTaking = true;
                     yield return current;
                 }
-                
             }
         }
 
@@ -253,7 +259,6 @@ namespace Lab
             }
 
             return current;
-
         }
 
         public static IEnumerable<TSource> JoeyReverse<TSource>(this IEnumerable<TSource> source)
@@ -261,7 +266,8 @@ namespace Lab
             return new Stack<TSource>(source);
         }
 
-        public static IEnumerable<TSource> JoeyDistinct<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
+        public static IEnumerable<TSource> JoeyDistinct<TSource>(this IEnumerable<TSource> source,
+            IEqualityComparer<TSource> comparer)
         {
             return new HashSet<TSource>(source, comparer);
         }
@@ -271,7 +277,8 @@ namespace Lab
             return source.JoeyDistinct(EqualityComparer<TSource>.Default);
         }
 
-        public static IEnumerable<TSource> JoeyUnion<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+        public static IEnumerable<TSource> JoeyUnion<TSource>(this IEnumerable<TSource> first,
+            IEnumerable<TSource> second)
         {
             var hashSet = new HashSet<TSource>();
             var firstEnumerator = first.GetEnumerator();
@@ -282,7 +289,6 @@ namespace Lab
                 {
                     yield return current;
                 }
-                
             }
 
             var secondEnumerator = second.GetEnumerator();
@@ -297,7 +303,8 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TSource> JoeyIntersect<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+        public static IEnumerable<TSource> JoeyIntersect<TSource>(this IEnumerable<TSource> first,
+            IEnumerable<TSource> second)
         {
             var hashSet = new HashSet<TSource>(second);
             var enumerator = first.GetEnumerator();
@@ -307,11 +314,12 @@ namespace Lab
                 if (hashSet.Remove(current))
                 {
                     yield return current;
-                } 
+                }
             }
         }
 
-        public static IEnumerable<TSource> JoeyExcept<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+        public static IEnumerable<TSource> JoeyExcept<TSource>(this IEnumerable<TSource> first,
+            IEnumerable<TSource> second)
         {
             var hashSet = new HashSet<TSource>(second);
             var enumerator = first.GetEnumerator();
@@ -334,7 +342,9 @@ namespace Lab
             }
 
 
-            return _(); IEnumerable<TSource> _()
+            return _();
+
+            IEnumerable<TSource> _()
             {
                 var queue = new Queue<TSource>();
                 var enumerator = numbers.GetEnumerator();
@@ -348,7 +358,6 @@ namespace Lab
 
                     queue.Enqueue(current);
                 }
-
             }
             //var queue = new Queue<int>(numbers);
 
@@ -362,7 +371,8 @@ namespace Lab
             //}
         }
 
-        public static IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        public static IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TSource, TKey>(this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector)
         {
             var enumerator = source.GetEnumerator();
             var myLookup = new MyLookup<TKey, TSource>();
@@ -383,7 +393,7 @@ namespace Lab
             while (firstEnumerator.MoveNext())
             {
                 var firstCurrent = firstEnumerator.Current;
-                
+
                 if (sendEnumerator.MoveNext())
                 {
                     if (!EqualityComparer<TSource>.Default.Equals(firstCurrent, sendEnumerator.Current))
@@ -403,13 +413,12 @@ namespace Lab
             }
 
             return true;
-
         }
 
-        public static IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer, 
+        public static IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer,
             IEnumerable<TInner> inner,
-            Func<TOuter, TKey> outerKeySelector, 
-            Func<TInner, TKey> innerKeySelector, 
+            Func<TOuter, TKey> outerKeySelector,
+            Func<TInner, TKey> innerKeySelector,
             Func<TOuter, TInner, TResult> resultSelector)
         {
             var outerEnumerator = outer.GetEnumerator();
@@ -462,6 +471,7 @@ namespace Lab
             {
                 return null;
             }
+
             return result / count;
         }
 
@@ -471,7 +481,7 @@ namespace Lab
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                yield return (T)current;
+                yield return (T) current;
             }
         }
 
@@ -485,7 +495,6 @@ namespace Lab
                 {
                     yield return x;
                 }
-
             }
         }
 
@@ -501,7 +510,8 @@ namespace Lab
             yield return element;
         }
 
-        public static IEnumerable<TSource> JoeyConcat<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+        public static IEnumerable<TSource> JoeyConcat<TSource>(this IEnumerable<TSource> first,
+            IEnumerable<TSource> second)
         {
             var firstEnumerator = first.GetEnumerator();
             while (firstEnumerator.MoveNext())
@@ -516,8 +526,8 @@ namespace Lab
             }
         }
 
-        public static bool JoeyContains<TSource>(this IEnumerable<TSource> source, 
-            TSource value, 
+        public static bool JoeyContains<TSource>(this IEnumerable<TSource> source,
+            TSource value,
             IEqualityComparer<TSource> comparer)
         {
             var enumerator = source.GetEnumerator();
@@ -554,11 +564,11 @@ namespace Lab
                 {
                     return enumerator.Current;
                 }
+
                 index--;
             }
 
             throw new ArgumentOutOfRangeException();
-
         }
 
         public static IEnumerable<TSource> JoeyPrepend<TSource>(this IEnumerable<TSource> source, TSource element)
@@ -572,7 +582,7 @@ namespace Lab
         }
 
         public static IEnumerable<TResult> JoeyZip<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first,
-            IEnumerable<TSecond> second, 
+            IEnumerable<TSecond> second,
             Func<TFirst, TSecond, TResult> resultSelector)
         {
             var firstEnumerator = first.GetEnumerator();
@@ -583,7 +593,8 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(this IEnumerable<TSource> source,
+        public static IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(
+            this IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TCollection>> collectionSelector,
             Func<TSource, TCollection, TResult> resultSelector)
         {
@@ -606,6 +617,7 @@ namespace Lab
             {
                 throw new InvalidOperationException();
             }
+
             var num = enumerator.Current;
             while (enumerator.MoveNext())
             {
@@ -627,10 +639,12 @@ namespace Lab
             {
                 return enumerator.Current;
             }
+
             return default(TSource);
         }
 
-        public static IEnumerable<Employee> JoeySortBy(this IEnumerable<Employee> employees, IComparer<Employee> compare)
+        public static IEnumerable<Employee> JoeySortBy(this IEnumerable<Employee> employees,
+            IComparer<Employee> compare)
         {
             //selection sort
             var elements = employees.ToList();
@@ -658,14 +672,14 @@ namespace Lab
         public static IMyOrderedEnumerable JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
             Func<Employee, TKey> keySelector)
         {
-            var combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            var combineKeyComparer = new CombineKeyComparer<Employee, TKey>(keySelector, Comparer<TKey>.Default);
             return new MyOrderedEnumerable(employees, combineKeyComparer);
-        }        
-        
+        }
+
         public static IMyOrderedEnumerable JoeyThenBy<TKey>(this IMyOrderedEnumerable myOrderedEnumerable,
             Func<Employee, TKey> keySelector)
         {
-            var combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            var combineKeyComparer = new CombineKeyComparer<Employee, TKey>(keySelector, Comparer<TKey>.Default);
             return myOrderedEnumerable.Append(combineKeyComparer);
             // return myOrderedEnumerable;
         }

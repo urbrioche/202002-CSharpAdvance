@@ -4,18 +4,18 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class CombineKeyComparer<TKey>: IComparer<Employee>
+    public class CombineKeyComparer<TSource, TKey>: IComparer<TSource>
     {
-        public CombineKeyComparer(Func<Employee, TKey> keySelector, IComparer<TKey> keyComparer)
+        public CombineKeyComparer(Func<TSource, TKey> keySelector, IComparer<TKey> keyComparer)
         {
             KeySelector = keySelector;
             KeyComparer = keyComparer;
         }
 
-        public Func<Employee, TKey> KeySelector { get; private set; }
+        public Func<TSource, TKey> KeySelector { get; private set; }
         public IComparer<TKey> KeyComparer { get; private set; }
 
-        public int Compare(Employee x, Employee y)
+        public int Compare(TSource x, TSource y)
         {
             return KeyComparer.Compare(KeySelector(x), KeySelector(y));
         }
