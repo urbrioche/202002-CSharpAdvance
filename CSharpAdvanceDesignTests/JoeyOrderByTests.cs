@@ -75,7 +75,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var finalCompareResult = comboComparer.FinalCompareResult(employee, minElement);
+                    var finalCompareResult = comboComparer.Compare(employee, minElement);
 
                     if (finalCompareResult < 0)
                     {

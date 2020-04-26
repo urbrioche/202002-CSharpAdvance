@@ -14,7 +14,7 @@ namespace Lab
         public IComparer<Employee> FirstCombineKeyComparer { get; private set; }
         public IComparer<Employee> SecondCombineKeyComparer { get; private set; }
 
-        public int FinalCompareResult(Employee employee, Employee minElement)
+        public int Compare(Employee employee, Employee minElement)
         {
             var finalCompareResult = 0;
             var firsCompareResult = FirstCombineKeyComparer.Compare(employee, minElement);
