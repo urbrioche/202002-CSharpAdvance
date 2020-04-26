@@ -64,7 +64,7 @@ namespace CSharpAdvanceDesignTests
         }
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, ComboComparer comboComparer)
+            IEnumerable<Employee> employees, IComparer<Employee> comboComparer)
         {
             //selection sort
             var elements = employees.ToList();
