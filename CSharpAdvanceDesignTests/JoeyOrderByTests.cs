@@ -23,7 +23,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             var actual = JoeyOrderBy(employees,
-                new CombineKeyComparer(x => x.LastName, Comparer<string>.Default));
+                new CombineKeyComparer<string>(x => x.LastName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -50,8 +50,8 @@ namespace CSharpAdvanceDesignTests
             Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
             IComparer<string> secondKeyComparer = Comparer<string>.Default;
             var actual = JoeyOrderBy(employees,
-                new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default),
-                    new CombineKeyComparer(secondKeySelector, secondKeyComparer)));
+                new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default),
+                    new CombineKeyComparer<string>(secondKeySelector, secondKeyComparer)));
 
             var expected = new[]
             {
@@ -75,10 +75,14 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
             };
-
-
-            var actual = JoeyOrderBy(employees);
-
+        
+            
+            var firstKeyComparer = new CombineKeyComparer<string>(x => x.LastName, Comparer<string>.Default);
+            var secondKeyComparer = new CombineKeyComparer<string>(x => x.FirstName, Comparer<string>.Default);
+            var thirdKeyComparer = new CombineKeyComparer<int>(x => x.Age, Comparer<int>.Default);
+            var comboComparer = new ComboComparer(new ComboComparer(firstKeyComparer, secondKeyComparer), thirdKeyComparer);
+            var actual = JoeyOrderBy(employees, comboComparer);
+        
             var expected = new[]
             {
                 new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
@@ -87,7 +91,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
                 new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
             };
-
+        
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
