@@ -64,7 +64,7 @@ namespace CSharpAdvanceDesignTests
         }
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees, IComparer<Employee> comboComparer)
+            IEnumerable<Employee> employees, IComparer<Employee> compare)
         {
             //selection sort
             var elements = employees.ToList();
@@ -75,7 +75,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var finalCompareResult = comboComparer.Compare(employee, minElement);
+                    var finalCompareResult = compare.Compare(employee, minElement);
 
                     if (finalCompareResult < 0)
                     {
@@ -91,25 +91,8 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
         {
-            //selection sort
-            var stringComparer = Comparer<string>.Default;
-            var elements = employees.ToList();
-            while (elements.Any())
-            {
-                var minElement = elements[0];
-                var index = 0;
-                for (int i = 1; i < elements.Count; i++)
-                {
-                    if (stringComparer.Compare(elements[i].LastName, minElement.LastName) < 0)
-                    {
-                        minElement = elements[i];
-                        index = i;
-                    }
-                }
-
-                elements.RemoveAt(index);
-                yield return minElement;
-            }
+            return JoeyOrderByLastNameAndFirstName(employees,
+                new CombineKeyComparer(x => x.LastName, Comparer<string>.Default));
         }
     }
 }
