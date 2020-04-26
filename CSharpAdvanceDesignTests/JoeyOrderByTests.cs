@@ -48,7 +48,7 @@ namespace CSharpAdvanceDesignTests
 
             Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
             IComparer<string> secondKeyComparer = Comparer<string>.Default;
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(secondKeySelector, secondKeyComparer));
+            var actual = JoeyOrderByLastNameAndFirstName(employees, new ComboComparer(new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(secondKeySelector, secondKeyComparer)));
 
             var expected = new[]
             {
@@ -62,9 +62,7 @@ namespace CSharpAdvanceDesignTests
         }
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
-            IEnumerable<Employee> employees,
-            IComparer<Employee> firstCombineKeyComparer,
-            IComparer<Employee> secondCombineKeyComparer)
+            IEnumerable<Employee> employees, ComboComparer comboComparer)
         {
             //selection sort
             var elements = employees.ToList();
@@ -75,7 +73,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firsCompareResult = firstCombineKeyComparer.Compare(employee, minElement);
+                    var firsCompareResult = comboComparer.FirstCombineKeyComparer.Compare(employee, minElement);
                     if (firsCompareResult < 0)
                     {
                         minElement = employee;
@@ -83,7 +81,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firsCompareResult == 0)
                     {
-                        if (secondCombineKeyComparer.Compare(employee, minElement) < 0)
+                        if (comboComparer.SecondCombineKeyComparer.Compare(employee, minElement) < 0)
                         {
                             minElement = employee;
                             index = i;
