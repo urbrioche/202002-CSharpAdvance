@@ -14,24 +14,14 @@ namespace Lab
         public IComparer<Employee> FirstCombineKeyComparer { get; private set; }
         public IComparer<Employee> SecondCombineKeyComparer { get; private set; }
 
-        public int Compare(Employee employee, Employee minElement)
+        public int Compare(Employee x, Employee y)
         {
-            var finalCompareResult = 0;
-            var firsCompareResult = FirstCombineKeyComparer.Compare(employee, minElement);
-            if (firsCompareResult < 0)
+            var firsCompareResult = FirstCombineKeyComparer.Compare(x, y);
+            if (firsCompareResult != 0)
             {
-                finalCompareResult = firsCompareResult;
+                return firsCompareResult;
             }
-            else if (firsCompareResult == 0)
-            {
-                var secondCompareResult = SecondCombineKeyComparer.Compare(employee, minElement);
-                if (secondCompareResult < 0)
-                {
-                    finalCompareResult = secondCompareResult;
-                }
-            }
-
-            return finalCompareResult;
+            return SecondCombineKeyComparer.Compare(x, y);
         }
     }
 }
