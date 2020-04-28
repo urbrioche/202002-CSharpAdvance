@@ -29,6 +29,30 @@ namespace CSharpAdvanceDesignTests
 
             expected.ToExpectedObject().ShouldMatch(actual);
         }
+        
+        [Test]
+        public void when_match_should_not_return_default_employee()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee() {FirstName = "Tom", LastName = "Li", Role = Role.Manager},
+                new Employee() {FirstName = "David", LastName = "Wang", Role = Role.Designer},
+                new Employee() {FirstName = "May", LastName = "Wang", Role = Role.Manager},
+            };
+
+            var actual = WhereWithDefault(
+                employees,
+                e => e.Role == Role.Manager,
+                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
+
+            var expected = new List<Employee>
+            {
+                new Employee() {FirstName = "Tom", LastName = "Li", Role = Role.Manager},
+                new Employee() {FirstName = "May", LastName = "Wang", Role = Role.Manager},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
 
         private IEnumerable<Employee> WhereWithDefault(IEnumerable<Employee> employees, Func<Employee, bool> predicate,
             Employee defaultEmployee)
