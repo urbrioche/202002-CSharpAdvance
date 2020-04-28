@@ -8,7 +8,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyWhereWithDefaultTests
     {
         [Test]
@@ -23,7 +22,7 @@ namespace CSharpAdvanceDesignTests
             var actual = WhereWithDefault(
                 employees,
                 e => e.Role == Role.Manager,
-                new Employee { FirstName = "Joey", LastName = "Chen", Role = Role.Engineer });
+                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
 
             var expected = new List<Employee>
                 {new Employee() {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}};
@@ -34,7 +33,21 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<Employee> WhereWithDefault(IEnumerable<Employee> employees, Func<Employee, bool> predicate,
             Employee defaultEmployee)
         {
-            throw new NotImplementedException();
+            var enumerator = employees.GetEnumerator();
+            var hasEmployee = false;
+            while (enumerator.MoveNext())
+            {
+                if (predicate(enumerator.Current))
+                {
+                    hasEmployee = true;
+                    yield return enumerator.Current;
+                }
+            }
+            
+            if (!hasEmployee)
+            {
+                yield return defaultEmployee;
+            }
         }
     }
 }
