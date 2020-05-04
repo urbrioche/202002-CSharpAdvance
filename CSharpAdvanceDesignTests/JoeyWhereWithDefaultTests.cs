@@ -21,10 +21,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "David", LastName = "Wang", Role = Role.Designer},
             };
 
-            var actual = WhereWithDefault(
-                employees,
-                e => e.Role == Role.Manager,
-                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
+            Func<Employee, bool> predicate = e => e.Role == Role.Manager;
+            var actual = WhereWithDefault(new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}, employees.JoeyWhere(predicate));
 
             var expected = new List<Employee>
                 {new Employee() {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}};
@@ -42,10 +40,8 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "May", LastName = "Wang", Role = Role.Manager},
             };
 
-            var actual = WhereWithDefault(
-                employees,
-                e => e.Role == Role.Manager,
-                new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
+            Func<Employee, bool> predicate = e => e.Role == Role.Manager;
+            var actual = WhereWithDefault(new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}, employees.JoeyWhere(predicate));
 
             var expected = new List<Employee>
             {
@@ -56,18 +52,16 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> WhereWithDefault(IEnumerable<Employee> employees, Func<Employee, bool> predicate,
-            Employee defaultEmployee)
+        private IEnumerable<Employee> WhereWithDefault(Employee defaultEmployee, IEnumerable<Employee> employees)
         {
-            var matchedEmployees = employees.JoeyWhere(predicate);
-            var matchedEnumerator = matchedEmployees.GetEnumerator();
+            var matchedEnumerator = employees.GetEnumerator();
             if (!matchedEnumerator.MoveNext())
             {
                 return DefaultIfEmpty(defaultEmployee);
             }
             else
             {
-                return matchedEmployees;
+                return employees;
             }
         }
 
