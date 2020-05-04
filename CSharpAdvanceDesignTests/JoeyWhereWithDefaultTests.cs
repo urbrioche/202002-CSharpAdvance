@@ -22,7 +22,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             Func<Employee, bool> predicate = e => e.Role == Role.Manager;
-            var actual = WhereWithDefault(new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}, employees.JoeyWhere(predicate));
+            var actual = JoeyDefaultIfEmpty(employees.JoeyWhere(predicate), new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
 
             var expected = new List<Employee>
                 {new Employee() {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}};
@@ -41,7 +41,7 @@ namespace CSharpAdvanceDesignTests
             };
 
             Func<Employee, bool> predicate = e => e.Role == Role.Manager;
-            var actual = WhereWithDefault(new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}, employees.JoeyWhere(predicate));
+            var actual = JoeyDefaultIfEmpty(employees.JoeyWhere(predicate), new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
 
             var expected = new List<Employee>
             {
@@ -52,7 +52,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> WhereWithDefault(Employee defaultEmployee, IEnumerable<Employee> employees)
+        private IEnumerable<Employee> JoeyDefaultIfEmpty(IEnumerable<Employee> employees, Employee defaultEmployee)
         {
             var matchedEnumerator = employees.GetEnumerator();
             if (!matchedEnumerator.MoveNext())
