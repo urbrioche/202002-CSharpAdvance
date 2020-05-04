@@ -682,5 +682,23 @@ namespace Lab
             var combineKeyComparer = new CombineKeyComparer<TSource, TKey>(keySelector, Comparer<TKey>.Default);
             return myOrderedEnumerable.Append(combineKeyComparer);
         }
+
+        public static IEnumerable<Employee> JoeyDefaultIfEmpty(IEnumerable<Employee> employees, Employee defaultEmployee)
+        {
+            var matchedEnumerator = employees.GetEnumerator();
+            if (!matchedEnumerator.MoveNext())
+            {
+                return DefaultIfEmpty(defaultEmployee);
+            }
+            else
+            {
+                return employees;
+            }
+        }
+
+        private static IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
+        {
+            yield return defaultEmployee;
+        }
     }
 }
