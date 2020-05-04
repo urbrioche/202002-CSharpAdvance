@@ -4,6 +4,8 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -57,21 +59,21 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<Employee> WhereWithDefault(IEnumerable<Employee> employees, Func<Employee, bool> predicate,
             Employee defaultEmployee)
         {
-            var enumerator = employees.GetEnumerator();
-            var hasEmployee = false;
-            while (enumerator.MoveNext())
+            var matchedEmployees = employees.JoeyWhere(predicate);
+            var matchedEnumerator = matchedEmployees.GetEnumerator();
+            if (!matchedEnumerator.MoveNext())
             {
-                if (predicate(enumerator.Current))
-                {
-                    hasEmployee = true;
-                    yield return enumerator.Current;
-                }
+                return DefaultIfEmpty(defaultEmployee);
             }
-            
-            if (!hasEmployee)
+            else
             {
-                yield return defaultEmployee;
+                return matchedEmployees;
             }
+        }
+
+        private IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
+        {
+            yield return defaultEmployee;
         }
     }
 }
