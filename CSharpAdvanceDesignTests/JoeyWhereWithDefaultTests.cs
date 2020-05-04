@@ -52,7 +52,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyDefaultIfEmpty(IEnumerable<Employee> employees, Employee defaultEmployee)
+        private static IEnumerable<Employee> JoeyDefaultIfEmpty(IEnumerable<Employee> employees, Employee defaultEmployee)
         {
             var matchedEnumerator = employees.GetEnumerator();
             if (!matchedEnumerator.MoveNext())
@@ -65,7 +65,7 @@ namespace CSharpAdvanceDesignTests
             }
         }
 
-        private IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
+        private static IEnumerable<Employee> DefaultIfEmpty(Employee defaultEmployee)
         {
             yield return defaultEmployee;
         }
