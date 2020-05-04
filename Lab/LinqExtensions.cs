@@ -683,7 +683,7 @@ namespace Lab
             return myOrderedEnumerable.Append(combineKeyComparer);
         }
 
-        public static IEnumerable<Employee> JoeyDefaultIfEmpty(IEnumerable<Employee> employees, Employee defaultEmployee)
+        public static IEnumerable<Employee> JoeyDefaultIfEmpty(this IEnumerable<Employee> employees, Employee defaultEmployee)
         {
             var matchedEnumerator = employees.GetEnumerator();
             if (!matchedEnumerator.MoveNext())

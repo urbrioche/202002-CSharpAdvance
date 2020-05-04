@@ -21,7 +21,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "David", LastName = "Wang", Role = Role.Designer},
             };
 
-            var actual = LinqExtensions.JoeyDefaultIfEmpty(employees.JoeyWhere(e => e.Role == Role.Manager), new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
+            var actual = employees.JoeyWhere(e => e.Role == Role.Manager).JoeyDefaultIfEmpty(new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
 
             var expected = new List<Employee>
                 {new Employee() {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer}};
@@ -39,7 +39,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee() {FirstName = "May", LastName = "Wang", Role = Role.Manager},
             };
 
-            var actual = LinqExtensions.JoeyDefaultIfEmpty(employees.JoeyWhere(e => e.Role == Role.Manager), new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
+            var actual = employees.JoeyWhere(e => e.Role == Role.Manager).JoeyDefaultIfEmpty(new Employee {FirstName = "Joey", LastName = "Chen", Role = Role.Engineer});
 
             var expected = new List<Employee>
             {
