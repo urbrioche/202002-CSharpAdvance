@@ -42,16 +42,21 @@ namespace CSharpAdvanceDesignTests
             while (enumerator.MoveNext())
             {
                 var employee = enumerator.Current;
-
-                if (!lookup.TryGetValue(employee.LastName, out _))
-                {
-                    lookup[employee.LastName] = new List<Employee>();
-                }
-
-                lookup[employee.LastName].Add(employee);
+                
+                AddElement(lookup, employee);
             }
 
             return ConvertToMyGrouping(lookup);
+        }
+
+        private static void AddElement(Dictionary<string, List<Employee>> lookup, Employee employee)
+        {
+            if (!lookup.TryGetValue(employee.LastName, out _))
+            {
+                lookup[employee.LastName] = new List<Employee>();
+            }
+
+            lookup[employee.LastName].Add(employee);
         }
 
         private IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
