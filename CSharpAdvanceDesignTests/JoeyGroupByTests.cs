@@ -37,8 +37,6 @@ namespace CSharpAdvanceDesignTests
     [TestFixture]
     public class JoeyGroupByTests
     {
-        private readonly MyLookup _myLookup = new MyLookup();
-
         [Test]
         public void groupBy_lastName()
         {
@@ -66,14 +64,15 @@ namespace CSharpAdvanceDesignTests
         private IEnumerable<IGrouping<string, Employee>> JoeyGroupBy(IEnumerable<Employee> employees)
         {
             var enumerator = employees.GetEnumerator();
+            var myLookup = new MyLookup();
             while (enumerator.MoveNext())
             {
                 var employee = enumerator.Current;
 
-                _myLookup.AddElement(employee);
+                myLookup.AddElement(employee);
             }
 
-            return _myLookup.ConvertToMyGrouping();
+            return myLookup.ConvertToMyGrouping();
         }
     }
 
