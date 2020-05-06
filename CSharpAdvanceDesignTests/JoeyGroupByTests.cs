@@ -22,7 +22,8 @@ namespace CSharpAdvanceDesignTests
             _lookup[employee.LastName].Add(employee);
         }
 
-        public IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
+        
+        public IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping()
         {
             var enumerator = _lookup.GetEnumerator();
             while (enumerator.MoveNext())
@@ -72,7 +73,7 @@ namespace CSharpAdvanceDesignTests
                 _myLookup.AddElement(employee);
             }
 
-            return _myLookup.ConvertToMyGrouping(new Dictionary<string, List<Employee>>());
+            return _myLookup.ConvertToMyGrouping();
         }
     }
 
