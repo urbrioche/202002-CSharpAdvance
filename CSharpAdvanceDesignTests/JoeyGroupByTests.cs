@@ -8,9 +8,24 @@ using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
+    public class MyLookup
+    {
+        public void AddElement(Dictionary<string, List<Employee>> lookup, Employee employee)
+        {
+            if (!lookup.TryGetValue(employee.LastName, out _))
+            {
+                lookup[employee.LastName] = new List<Employee>();
+            }
+
+            lookup[employee.LastName].Add(employee);
+        }
+    }
+
     [TestFixture]
     public class JoeyGroupByTests
     {
+        private readonly MyLookup _myLookup = new MyLookup();
+
         [Test]
         public void groupBy_lastName()
         {
@@ -42,21 +57,11 @@ namespace CSharpAdvanceDesignTests
             while (enumerator.MoveNext())
             {
                 var employee = enumerator.Current;
-                
-                AddElement(lookup, employee);
+
+                _myLookup.AddElement(lookup, employee);
             }
 
             return ConvertToMyGrouping(lookup);
-        }
-
-        private static void AddElement(Dictionary<string, List<Employee>> lookup, Employee employee)
-        {
-            if (!lookup.TryGetValue(employee.LastName, out _))
-            {
-                lookup[employee.LastName] = new List<Employee>();
-            }
-
-            lookup[employee.LastName].Add(employee);
         }
 
         private IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
