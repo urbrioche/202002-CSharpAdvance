@@ -10,15 +10,16 @@ namespace CSharpAdvanceDesignTests
 {
     public class MyLookup
     {
+        private readonly Dictionary<string, List<Employee>> _lookup = new Dictionary<string, List<Employee>>();
+
         public void AddElement(Employee employee)
         {
-            Dictionary<string, List<Employee>> lookup = new Dictionary<string, List<Employee>>();
-            if (!lookup.TryGetValue(employee.LastName, out _))
+            if (!_lookup.TryGetValue(employee.LastName, out _))
             {
-                lookup[employee.LastName] = new List<Employee>();
+                _lookup[employee.LastName] = new List<Employee>();
             }
 
-            lookup[employee.LastName].Add(employee);
+            _lookup[employee.LastName].Add(employee);
         }
 
         public IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping(Dictionary<string, List<Employee>> lookup)
