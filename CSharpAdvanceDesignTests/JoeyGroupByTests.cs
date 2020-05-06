@@ -23,7 +23,7 @@ namespace CSharpAdvanceDesignTests
         }
 
 
-        public IEnumerable<IGrouping<string, Employee>> ConvertToMyGrouping()
+        public IEnumerator<IGrouping<string, Employee>> ConvertToMyGrouping()
         {
             var enumerator = _lookup.GetEnumerator();
             while (enumerator.MoveNext())
@@ -35,7 +35,7 @@ namespace CSharpAdvanceDesignTests
 
         public IEnumerator<IGrouping<string, Employee>> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return ConvertToMyGrouping();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -82,7 +82,7 @@ namespace CSharpAdvanceDesignTests
                 myLookup.AddElement(employee);
             }
 
-            return myLookup.ConvertToMyGrouping();
+            return myLookup;
         }
     }
 
