@@ -9,14 +9,14 @@ namespace Lab
     {
         private readonly Dictionary<TKey, List<TElement>> _lookup = new Dictionary<TKey, List<TElement>>();
 
-        public void AddElement(TElement employee, TKey lastName)
+        public void AddElement(TElement element, TKey key)
         {
-            if (!_lookup.TryGetValue(lastName, out _))
+            if (!_lookup.TryGetValue(key, out _))
             {
-                _lookup[lastName] = new List<TElement>();
+                _lookup[key] = new List<TElement>();
             }
 
-            _lookup[lastName].Add(employee);
+            _lookup[key].Add(element);
         }
 
 
