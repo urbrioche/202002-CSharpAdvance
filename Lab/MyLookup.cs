@@ -9,14 +9,14 @@ namespace Lab
     {
         private readonly Dictionary<string, List<Employee>> _lookup = new Dictionary<string, List<Employee>>();
 
-        public void AddElement(Employee employee)
+        public void AddElement(Employee employee, string lastName)
         {
-            if (!_lookup.TryGetValue(employee.LastName, out _))
+            if (!_lookup.TryGetValue(lastName, out _))
             {
-                _lookup[employee.LastName] = new List<Employee>();
+                _lookup[lastName] = new List<Employee>();
             }
 
-            _lookup[employee.LastName].Add(employee);
+            _lookup[lastName].Add(employee);
         }
 
 

@@ -43,7 +43,7 @@ namespace CSharpAdvanceDesignTests
             {
                 var employee = enumerator.Current;
 
-                myLookup.AddElement(employee);
+                myLookup.AddElement(employee, employee.LastName);
             }
 
             return myLookup;
