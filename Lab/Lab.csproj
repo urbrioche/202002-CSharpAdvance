@@ -51,6 +51,7 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="IValidator.cs" />
+    <Compile Include="LinqExtensions.cs" />
     <Compile Include="MyGrouping.cs" />
     <Compile Include="MyLookup.cs" />
     <Compile Include="ProductValidator.cs" />

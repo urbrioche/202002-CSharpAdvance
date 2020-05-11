@@ -22,7 +22,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Lee"},
             };
 
-            var actual = LinqExtensions.JoeyGroupBy(employees, employee => employee.LastName);
+            var actual = employees.JoeyGroupBy(employee => employee.LastName);
             Assert.AreEqual(2, actual.Count());
             var firstGroup = new List<Employee>
             {
