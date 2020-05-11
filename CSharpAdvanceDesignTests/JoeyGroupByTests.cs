@@ -39,7 +39,7 @@ namespace CSharpAdvanceDesignTests
             Func<TSource, string> keySelector)
         {
             var enumerator = employees.GetEnumerator();
-            var myLookup = new MyLookup<TSource>();
+            var myLookup = new MyLookup<string, TSource>();
             while (enumerator.MoveNext())
             {
                 var employee = enumerator.Current;

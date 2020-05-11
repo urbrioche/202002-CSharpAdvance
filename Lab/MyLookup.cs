@@ -5,11 +5,11 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyLookup<TElement> : IEnumerable<IGrouping<string, TElement>>
+    public class MyLookup<TKey, TElement> : IEnumerable<IGrouping<TKey, TElement>>
     {
-        private readonly Dictionary<string, List<TElement>> _lookup = new Dictionary<string, List<TElement>>();
+        private readonly Dictionary<TKey, List<TElement>> _lookup = new Dictionary<TKey, List<TElement>>();
 
-        public void AddElement(TElement employee, string lastName)
+        public void AddElement(TElement employee, TKey lastName)
         {
             if (!_lookup.TryGetValue(lastName, out _))
             {
@@ -20,17 +20,17 @@ namespace Lab
         }
 
 
-        public IEnumerator<IGrouping<string, TElement>> ConvertToMyGrouping()
+        public IEnumerator<IGrouping<TKey, TElement>> ConvertToMyGrouping()
         {
             var enumerator = _lookup.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var keyValuePair = enumerator.Current;
-                yield return new MyGrouping<TElement>(keyValuePair.Key, keyValuePair.Value);
+                yield return new MyGrouping<TKey, TElement>(keyValuePair.Key, keyValuePair.Value);
             }
         }
 
-        public IEnumerator<IGrouping<string, TElement>> GetEnumerator()
+        public IEnumerator<IGrouping<TKey, TElement>> GetEnumerator()
         {
             return ConvertToMyGrouping();
         }
