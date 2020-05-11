@@ -35,11 +35,11 @@ namespace CSharpAdvanceDesignTests
             firstGroup.ToExpectedObject().ShouldMatch(actual.First().ToList());
         }
 
-        private IEnumerable<IGrouping<string, Employee>> JoeyGroupBy(IEnumerable<Employee> employees,
-            Func<Employee, string> keySelector)
+        private IEnumerable<IGrouping<string, TSource>> JoeyGroupBy<TSource>(IEnumerable<TSource> employees,
+            Func<TSource, string> keySelector)
         {
             var enumerator = employees.GetEnumerator();
-            var myLookup = new MyLookup<Employee>();
+            var myLookup = new MyLookup<TSource>();
             while (enumerator.MoveNext())
             {
                 var employee = enumerator.Current;
