@@ -5,17 +5,17 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyGrouping : IGrouping<string, Employee>
+    public class MyGrouping<TElement> : IGrouping<string, TElement>
     {
-        private readonly List<Employee> _employees;
+        private readonly List<TElement> _employees;
 
-        public MyGrouping(string key, List<Employee> employees)
+        public MyGrouping(string key, List<TElement> employees)
         {
             Key = key;
             _employees = employees;
         }
 
-        public IEnumerator<Employee> GetEnumerator()
+        public IEnumerator<TElement> GetEnumerator()
         {
             return _employees.GetEnumerator();
         }

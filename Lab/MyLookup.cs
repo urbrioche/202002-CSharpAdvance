@@ -5,32 +5,32 @@ using Lab.Entities;
 
 namespace Lab
 {
-    public class MyLookup : IEnumerable<IGrouping<string, Employee>>
+    public class MyLookup<TElement> : IEnumerable<IGrouping<string, TElement>>
     {
-        private readonly Dictionary<string, List<Employee>> _lookup = new Dictionary<string, List<Employee>>();
+        private readonly Dictionary<string, List<TElement>> _lookup = new Dictionary<string, List<TElement>>();
 
-        public void AddElement(Employee employee, string lastName)
+        public void AddElement(TElement employee, string lastName)
         {
             if (!_lookup.TryGetValue(lastName, out _))
             {
-                _lookup[lastName] = new List<Employee>();
+                _lookup[lastName] = new List<TElement>();
             }
 
             _lookup[lastName].Add(employee);
         }
 
 
-        public IEnumerator<IGrouping<string, Employee>> ConvertToMyGrouping()
+        public IEnumerator<IGrouping<string, TElement>> ConvertToMyGrouping()
         {
             var enumerator = _lookup.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var keyValuePair = enumerator.Current;
-                yield return new MyGrouping(keyValuePair.Key, keyValuePair.Value);
+                yield return new MyGrouping<TElement>(keyValuePair.Key, keyValuePair.Value);
             }
         }
 
-        public IEnumerator<IGrouping<string, Employee>> GetEnumerator()
+        public IEnumerator<IGrouping<string, TElement>> GetEnumerator()
         {
             return ConvertToMyGrouping();
         }
