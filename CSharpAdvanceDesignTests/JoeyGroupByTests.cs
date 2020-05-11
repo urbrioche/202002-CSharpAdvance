@@ -1,7 +1,6 @@
 ﻿using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lab;
@@ -23,7 +22,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Lee"},
             };
 
-            var actual = JoeyGroupBy(employees, employee => employee.LastName);
+            var actual = LinqExtensions.JoeyGroupBy(employees, employee => employee.LastName);
             Assert.AreEqual(2, actual.Count());
             var firstGroup = new List<Employee>
             {
@@ -33,22 +32,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             firstGroup.ToExpectedObject().ShouldMatch(actual.First().ToList());
-        }
-
-        private IEnumerable<IGrouping<TKey, TSource>> JoeyGroupBy<TKey, TSource>(
-            IEnumerable<TSource> source,
-            Func<TSource, TKey> keySelector)
-        {
-            var enumerator = source.GetEnumerator();
-            var myLookup = new MyLookup<TKey, TSource>();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-
-                myLookup.AddElement(current, keySelector(current));
-            }
-
-            return myLookup;
         }
     }
 }
