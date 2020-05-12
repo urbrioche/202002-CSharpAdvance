@@ -30,10 +30,17 @@ namespace CSharpAdvanceDesignTests
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                if (current <= seed)
-                {
-                    seed = seed - current;
-                }
+                seed = CalculateBalance(seed, current);
+            }
+
+            return seed;
+        }
+
+        private static decimal CalculateBalance(decimal seed, int current)
+        {
+            if (current <= seed)
+            {
+                seed = seed - current;
             }
 
             return seed;
