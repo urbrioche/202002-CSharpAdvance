@@ -32,7 +32,7 @@ namespace CSharpAdvanceDesignTests
             Assert.AreEqual(expected, actual);
         }
 
-        private TAccumulate JoeyAggregate<TSource, TAccumulate>(
+        private static TAccumulate JoeyAggregate<TSource, TAccumulate>(
             IEnumerable<TSource> source,
             TAccumulate seed,
             Func<TAccumulate, TSource, TAccumulate> func)
