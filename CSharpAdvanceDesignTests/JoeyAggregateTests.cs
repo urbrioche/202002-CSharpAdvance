@@ -19,13 +19,12 @@ namespace CSharpAdvanceDesignTests
 
             var actual = JoeyAggregate(drawlingList, balance, (seed, current) =>
             {
-                decimal seed1 = seed;
-                if (current <= seed1)
+                if (current <= seed)
                 {
-                    seed1 = seed1 - current;
+                    seed = seed - current;
                 }
 
-                return seed1;
+                return seed;
             });
 
             var expected = 10.91m;
@@ -33,16 +32,19 @@ namespace CSharpAdvanceDesignTests
             Assert.AreEqual(expected, actual);
         }
 
-        private decimal JoeyAggregate(IEnumerable<int> drawlingList, decimal balance, Func<decimal, int, decimal> calculateBalance)
+        private TAccumulate JoeyAggregate<TSource, TAccumulate>(
+            IEnumerable<TSource> source,
+            TAccumulate seed,
+            Func<TAccumulate, TSource, TAccumulate> func)
         {
-            var enumerator = drawlingList.GetEnumerator();
+            var enumerator = source.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                balance = calculateBalance(balance, current);
+                seed = func(seed, current);
             }
 
-            return balance;
+            return seed;
         }
     }
 }
