@@ -20,5 +20,20 @@ namespace Lab
 
             return myLookup;
         }
+
+        public static TAccumulate JoeyAggregate<TSource, TAccumulate>(
+            IEnumerable<TSource> source,
+            TAccumulate seed,
+            Func<TAccumulate, TSource, TAccumulate> func)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                seed = func(seed, current);
+            }
+
+            return seed;
+        }
     }
 }

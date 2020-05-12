@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -17,7 +18,7 @@ namespace CSharpAdvanceDesignTests
                 30, 80, 20, 40, 25
             };
 
-            var actual = JoeyAggregate(drawlingList, balance, (seed, current) =>
+            var actual = LinqExtensions.JoeyAggregate(drawlingList, balance, (seed, current) =>
             {
                 if (current <= seed)
                 {
@@ -30,21 +31,6 @@ namespace CSharpAdvanceDesignTests
             var expected = 10.91m;
 
             Assert.AreEqual(expected, actual);
-        }
-
-        private static TAccumulate JoeyAggregate<TSource, TAccumulate>(
-            IEnumerable<TSource> source,
-            TAccumulate seed,
-            Func<TAccumulate, TSource, TAccumulate> func)
-        {
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                seed = func(seed, current);
-            }
-
-            return seed;
         }
     }
 }
