@@ -17,7 +17,16 @@ namespace CSharpAdvanceDesignTests
                 30, 80, 20, 40, 25
             };
 
-            var actual = JoeyAggregate(drawlingList, balance, (seed, current) => seed = CalculateBalance(seed, current));
+            var actual = JoeyAggregate(drawlingList, balance, (seed, current) =>
+            {
+                decimal seed1 = seed;
+                if (current <= seed1)
+                {
+                    seed1 = seed1 - current;
+                }
+
+                return seed1;
+            });
 
             var expected = 10.91m;
 
@@ -34,16 +43,6 @@ namespace CSharpAdvanceDesignTests
             }
 
             return balance;
-        }
-
-        private static decimal CalculateBalance(decimal seed, int current)
-        {
-            if (current <= seed)
-            {
-                seed = seed - current;
-            }
-
-            return seed;
         }
     }
 }
