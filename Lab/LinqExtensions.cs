@@ -34,5 +34,27 @@ namespace Lab
 
             return seed;
         }
+
+        public static IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(
+            IEnumerable<TOuter> outer,
+            IEnumerable<TInner> inner,
+            Func<TOuter, TKey> outerKeySelector,
+            Func<TInner, TKey> innerKeySelector,
+            Func<TOuter, TInner, TResult> resultSelector)
+        {
+            var outerEnumerator = outer.GetEnumerator();
+            var comparer = EqualityComparer<TKey>.Default;
+            while (outerEnumerator.MoveNext())
+            {
+                var innerEnumerator = inner.GetEnumerator();
+                while (innerEnumerator.MoveNext())
+                {
+                    if (comparer.Equals(outerKeySelector(outerEnumerator.Current), innerKeySelector(innerEnumerator.Current)))
+                    {
+                        yield return resultSelector(outerEnumerator.Current, innerEnumerator.Current);
+                    }
+                }
+            }
+        }
     }
 }
