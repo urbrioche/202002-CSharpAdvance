@@ -44,7 +44,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(
+        private static IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(
             IEnumerable<TOuter> outer,
             IEnumerable<TInner> inner,
             Func<TOuter, TKey> outerKeySelector,
