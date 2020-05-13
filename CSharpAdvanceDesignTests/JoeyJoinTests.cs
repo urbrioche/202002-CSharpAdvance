@@ -44,25 +44,23 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Tuple<string, string>> JoeyJoin(
-            IEnumerable<Employee> employees,
-            IEnumerable<Pet> pets,
-            Func<Employee, Employee> outerKeySelector,
-            Func<Pet, Employee> innerKeySelector, Func<Employee, Pet, Tuple<string, string>> resultSelector)
+        private IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(
+            IEnumerable<TOuter> outer,
+            IEnumerable<TInner> inner,
+            Func<TOuter, TKey> outerKeySelector,
+            Func<TInner, TKey> innerKeySelector,
+            Func<TOuter, TInner, TResult> resultSelector)
         {
-            var employeeEnumerator = employees.GetEnumerator();
-            // var comparer = EqualityComparer<Employee>.Default;
-            var comparer = EqualityComparer<Employee>.Default;
-            while (employeeEnumerator.MoveNext())
+            var outerEnumerator = outer.GetEnumerator();
+            var comparer = EqualityComparer<TKey>.Default;
+            while (outerEnumerator.MoveNext())
             {
-                var employee = employeeEnumerator.Current;
-                var petEnumerator = pets.GetEnumerator();
-                while (petEnumerator.MoveNext())
+                var innerEnumerator = inner.GetEnumerator();
+                while (innerEnumerator.MoveNext())
                 {
-                    var pet = petEnumerator.Current;
-                    if (comparer.Equals(outerKeySelector(employee), innerKeySelector(pet)))
+                    if (comparer.Equals(outerKeySelector(outerEnumerator.Current), innerKeySelector(innerEnumerator.Current)))
                     {
-                        yield return resultSelector(employee, pet);
+                        yield return resultSelector(outerEnumerator.Current, innerEnumerator.Current);
                     }
                 }
             }
