@@ -35,8 +35,7 @@ namespace Lab
             return seed;
         }
 
-        public static IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(
-            IEnumerable<TOuter> outer,
+        public static IEnumerable<TResult> JoeyJoin<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer,
             IEnumerable<TInner> inner,
             Func<TOuter, TKey> outerKeySelector,
             Func<TInner, TKey> innerKeySelector,

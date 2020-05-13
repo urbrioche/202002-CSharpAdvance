@@ -32,7 +32,7 @@ namespace CSharpAdvanceDesignTests
                 new Pet() {Name = "QQ", Owner = joey},
             };
 
-            var actual = LinqExtensions.JoeyJoin(employees, pets, employee => employee, pet => pet.Owner, (employee1, pet1) => Tuple.Create(employee1.FirstName, pet1.Name));
+            var actual = employees.JoeyJoin(pets, employee => employee, pet => pet.Owner, (employee1, pet1) => Tuple.Create<string, string>(employee1.FirstName, pet1.Name));
 
             var expected = new[]
             {
