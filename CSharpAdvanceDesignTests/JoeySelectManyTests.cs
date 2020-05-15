@@ -18,7 +18,7 @@ namespace CSharpAdvanceDesignTests
                 new City {Name = "新北市", Sections = new List<string> {"三重", "新莊"}},
             };
 
-            var actual = LinqExtensions.JoeySelectMany(cities, city1 => city1.Sections, (city, section) => $"{city.Name}-{section}");
+            var actual = cities.JoeySelectMany(city1 => city1.Sections, (city, section) => $"{city.Name}-{section}");
 
             var expected = new[]
             {

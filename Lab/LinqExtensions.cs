@@ -56,7 +56,7 @@ namespace Lab
             }
         }
 
-        public static IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(IEnumerable<TSource> source,
+        public static IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(this IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TCollection>> collectionSelector,
             Func<TSource, TCollection, TResult> resultSelector)
         {
