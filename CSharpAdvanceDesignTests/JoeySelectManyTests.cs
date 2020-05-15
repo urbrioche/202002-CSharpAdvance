@@ -31,19 +31,19 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<string> JoeySelectMany(IEnumerable<City> cities,
-            Func<City, List<string>> collectionSelector,
-            Func<City, string, string> resultSelector)
+        private IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(IEnumerable<TSource> source,
+            Func<TSource, IEnumerable<TCollection>> collectionSelector,
+            Func<TSource, TCollection, TResult> resultSelector)
         {
-            var cityEnumerator = cities.GetEnumerator();
-            while (cityEnumerator.MoveNext())
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                var city = cityEnumerator.Current;
-                var sectionEnumerator = collectionSelector(city).GetEnumerator();
-                while (sectionEnumerator.MoveNext())
+                var current = enumerator.Current;
+                var collection = collectionSelector(current).GetEnumerator();
+                while (collection.MoveNext())
                 {
-                    var section = sectionEnumerator.Current;
-                    yield return resultSelector(city, section);
+                    var collectionCurrent = collection.Current;
+                    yield return resultSelector(current, collectionCurrent);
                 }
             }
         }
