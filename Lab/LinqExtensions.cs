@@ -55,5 +55,22 @@ namespace Lab
                 }
             }
         }
+
+        public static IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(IEnumerable<TSource> source,
+            Func<TSource, IEnumerable<TCollection>> collectionSelector,
+            Func<TSource, TCollection, TResult> resultSelector)
+        {
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                var collection = collectionSelector(current).GetEnumerator();
+                while (collection.MoveNext())
+                {
+                    var collectionCurrent = collection.Current;
+                    yield return resultSelector(current, collectionCurrent);
+                }
+            }
+        }
     }
 }
