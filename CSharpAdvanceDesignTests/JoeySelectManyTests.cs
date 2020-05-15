@@ -5,7 +5,6 @@ using System.Collections.Generic;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeySelectManyTests
     {
         [Test]
@@ -33,7 +32,17 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeySelectMany(IEnumerable<City> cities)
         {
-            throw new System.NotImplementedException();
+            var cityEnumerator = cities.GetEnumerator();
+            while (cityEnumerator.MoveNext())
+            {
+                var city = cityEnumerator.Current;
+                var sectionEnumerator = city.Sections.GetEnumerator();
+                while (sectionEnumerator.MoveNext())
+                {
+                    var section = sectionEnumerator.Current;
+                    yield return $"{city.Name}-{section}";
+                }
+            }
         }
     }
 
