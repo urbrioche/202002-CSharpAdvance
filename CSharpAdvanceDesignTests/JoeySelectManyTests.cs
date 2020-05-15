@@ -31,7 +31,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(IEnumerable<TSource> source,
+        private static IEnumerable<TResult> JoeySelectMany<TSource, TCollection, TResult>(IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TCollection>> collectionSelector,
             Func<TSource, TCollection, TResult> resultSelector)
         {
